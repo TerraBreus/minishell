@@ -1,2 +1,3 @@
 # minishell
-It’s called a shell because it wraps around the core of the operating system.
+**About this project**
+As part of the 42 curriculum, this project recreates a miniature version of *bash*. 
