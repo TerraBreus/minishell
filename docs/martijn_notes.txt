@@ -8,3 +8,28 @@ not much documentation has been read as of yet.
 //group
 read zachaar notes and agree of idea of flaggins types of command with enums
 havent yet read links
+
+4/22/2025
+
+//personal
+talked with other parsers about what to start on for parse or exec
+exec start options
+	exit
+	echo
+	prompt
+	signal (ctrl c, ctrl d, ctrl /)
+
+parsing starting options
+	is syntax correct
+	are quotes closed
+	nodes for linked list structure
+	env paramaters read or restructure
+
+testing commands to learn how bash works
+	learn all 4 redirects
+	heredoc
+	concectonate or append
+
+//group
+make roadmap with clear subgoals
+read and borrow documentation
