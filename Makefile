@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iinc -Ilib/libft
 
-LDFLAGS = -lreadline -lncurses
+MINILIB_FLAGS = -lreadline -lncurses
 
 SRC_DIR = src
 LIBFT_DIR = lib/libft
@@ -25,7 +25,7 @@ $(LIBFT):
 	$(QUIET)make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(QUIET)$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
+	$(QUIET)$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MINILIB_FLAGS) -o $(NAME)
 
 %.o: %.c
 	$(QUIET)$(CC) $(CFLAGS) -c $< -o $@
