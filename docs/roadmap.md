@@ -1,4 +1,16 @@
-suggestion place for roadmap,
+# Roadmap
+## Section
+- Initial display of prompt
+- Tokenizer/input parser/extract input
+- Environment variables handling (copy and editing of char *env[])
+- Built in/absolute Commands
+- Pipes and redirection operators
+- Error handling (exit stati)
+- History (arrow up down to go through log/previous commands)
+- Signal handling (Ctrl-C, Ctrl-D, )
+
+
+ suggestion place for roadmap,
 divided in sets of 10 days for a total of 45
 
 first 10 days
