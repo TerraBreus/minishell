@@ -1,8 +1,3 @@
-# T O D O
-- [ ] Read Sources and make notes.
-- [ ] (For Martijn) install lazygit (brew install lazygit) or some other vscode plugin equivalent.
-- [ ] Split minishill journey into stages/challenges. Aka: built a roadmap
-	
 # Sources
 - [README from chr-ss repo on minishell](https://github.com/Chr-ss/minishell/blob/main/README.md)
 - [README from michmos repo on minishell](https://github.com/michmos/42_minishell/blob/main/README.md)
