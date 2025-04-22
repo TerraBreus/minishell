@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/04/22 15:49:36 by masmit           ###   ########.fr       */
+/*   Updated: 2025/04/22 15:52:31 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,5 @@ int	main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
+	(void)env;
 }

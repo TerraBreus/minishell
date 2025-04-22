@@ -1,5 +1,7 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iinc -Ilib/libft -lreadline -lncurses
+CFLAGS = -Wall -Wextra -Werror -Iinc -Ilib/libft
+
+LDFLAGS = -lreadline -lncurses
 
 SRC_DIR = src
 LIBFT_DIR = lib/libft
@@ -11,7 +13,7 @@ OBJS = $(SRCS:.c=.o)
 
 LIBFT = $(LIBFT_DIR)/libft.a
 
-NAME = a.out
+NAME = minishell
 
 ifneq ($(SHOW),1)
 QUIET = @
@@ -23,7 +25,7 @@ $(LIBFT):
 	$(QUIET)make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(QUIET)$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	$(QUIET)$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 %.o: %.c
 	$(QUIET)$(CC) $(CFLAGS) -c $< -o $@
