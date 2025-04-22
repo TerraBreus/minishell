@@ -33,3 +33,7 @@ testing commands to learn how bash works
 //group
 make roadmap with clear subgoals
 read and borrow documentation
+
+//goal day one
+	add libft and headers.									[x]
+	tokenize and build struct to save and pass tokens.		[ ]
