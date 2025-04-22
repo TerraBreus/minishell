@@ -9,7 +9,7 @@ if (is_builtin(cmd)) {
     launch_external_command(cmd);
 }
 ```
-Where `launch_external_command(cmd) would fork to execute.
+Where **ONLY** `launch_external_command(cmd)` would fork to execute.
 
 **Short explanation of commands**
 ```
