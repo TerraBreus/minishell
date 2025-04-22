@@ -1,0 +1,36 @@
+suggestion place for roadmap,
+divided in sets of 10 days for a total of 45
+
+first 10 days
+
+R: Read line
+E: Eval line syntax
+P: Print line
+L: loop to return prompt
+
+exit to exit
+
+signals to cancel/kill
+
+Documentation list:
+https://www.gnu.org/software/bash/manual/bash.html
+	GNU bash manual
+
+https://www.geeksforgeeks.org/signals-c-language/
+	signals for interuptions
+
+https://pubs.opengroup.org/onlinepubs/009696599/utilities/xcu_chap02.html
+	Tokenizing Guide
+
+https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218
+	42 student guide to building minishell
+
+Tokenizing basics, shaping node for linked list
+
+
+-----------------------------------
+second half of first week
+
+Simple commands, ls, pwd, fork, execve
+
+handle command not found, edge cases implementation or wait to end
