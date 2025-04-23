@@ -10,6 +10,8 @@ LIBFT_DIR = lib/libft
 SRCS = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/$(PARSE_DIR)/tokenize.c \
+	$(SRC_DIR)/$(PARSE_DIR)/utils_cleanup.c \
+	$(SRC_DIR)/$(PARSE_DIR)/utils_leftovers.c \
 
 OBJS = $(SRCS:.c=.o)
 
