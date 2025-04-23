@@ -12,9 +12,30 @@
 
 #include "minishell.h"
 
+void	display_prompt(void)
+{
+	write(1, "minishell$ ", 11);
+}
+
 int	main(int argc, char **argv, char **env)
 {
+	t_list	*token_list;
+
 	(void)argc;
 	(void)argv;
 	(void)env;
+	char	*input;
+	while (true)
+	{
+		display_prompt();
+		input = readline("");
+		token_list = tokenize_input(input);
+		free(input);
+		if (!token_list)
+		{
+			// well then we have a problem...
+			return (0);
+		}
+		// parse_tokens();
+	}
 }
