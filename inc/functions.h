@@ -28,5 +28,6 @@ void			token_del(void *content);
 void			print_tokens(t_list *head);
 bool			syntax_check(const char *input);
 bool			is_space(char c);
+bool			is_operator_char(char c);
 
 #endif
