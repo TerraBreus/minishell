@@ -13,11 +13,23 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+typedef enum e_token_type
+{
+	TOKEN_WORD,
+	TOKEN_PIPE,
+	TOKEN_REDIRECT_IN,
+	TOKEN_REDIRECT_OUT,
+	TOKEN_APPEND,
+	TOKEN_HEREDOC,
+	TOKEN_EOF
+}	t_token_type;
+
 typedef struct s_token_data
 {
-	char	*token;
-	bool	in_singles;
-	bool	in_doubles;
-}			t_token_data;
+	char			*token;
+	t_token_type	type;
+	bool			in_singles;
+	bool			in_doubles;
+}					t_token_data;
 
 #endif
