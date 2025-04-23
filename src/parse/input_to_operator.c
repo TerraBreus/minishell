@@ -14,15 +14,15 @@
 
 t_token_type	get_operator_type(char *token)
 {
-	if (strcmp(token, "|") == 0)
+	if (ft_strcmp(token, "|") == 0)
 		return (TOKEN_PIPE);
-	if (strcmp(token, "<") == 0)
+	if (ft_strcmp(token, "<") == 0)
 		return (TOKEN_REDIRECT_IN);
-	if (strcmp(token, ">") == 0)
+	if (ft_strcmp(token, ">") == 0)
 		return (TOKEN_REDIRECT_OUT);
-	if (strcmp(token, "<<") == 0)
+	if (ft_strcmp(token, "<<") == 0)
 		return (TOKEN_HEREDOC);
-	if (strcmp(token, ">>") == 0)
+	if (ft_strcmp(token, ">>") == 0)
 		return (TOKEN_APPEND);
 	return (TOKEN_WORD);
 }
