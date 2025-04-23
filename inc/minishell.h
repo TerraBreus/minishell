@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	MINISHELL_H
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "included_libs.h"
-#include "structs.h"
-#include "defines.h"
-#include "functions.h"
+# include "included_libs.h"
+# include "structs.h"
+# include "defines.h"
+# include "functions.h"
 
 #endif

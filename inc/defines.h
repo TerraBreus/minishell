@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-#ifndef	DEFINES_H
+#ifndef DEFINES_H
 # define DEFINES_H
+
+# include "minishell.h"
 
 #endif

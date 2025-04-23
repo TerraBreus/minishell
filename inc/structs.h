@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	STRUCTS_H
+#ifndef STRUCTS_H
 # define STRUCTS_H
 
-typedef struct			s_token_data
+typedef struct s_token_data
 {
-	char				*token;
-	bool				in_singles;
-	bool				in_doubles;
-}						t_token_data;
+	char	*token;
+	bool	in_singles;
+	bool	in_doubles;
+}			t_token_data;
 
 #endif

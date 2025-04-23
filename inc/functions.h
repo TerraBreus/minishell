@@ -10,11 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
 #ifndef FUNCTIONS_H
 # define FUNCTIONS_H
 
+# include "minishell.h"
+
 t_list	*tokenize_input(char *input);
+void	token_del(void *content);
+
+// leftover utilities for small functions and debugging.
+void	skip_spaces(char *input, int *index);
+void	print_tokens(t_list *head);
 
 #endif
