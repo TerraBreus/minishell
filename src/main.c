@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+void	cleanup_wip(void)
+{
+	exit(EXIT_FAILURE);
+}
+
 void	display_prompt(void)
 {
 	write(1, "minishell$ ", 11);
@@ -29,10 +34,10 @@ int	main(int argc, char **argv, char **env)
 	{
 		display_prompt();
 		input = readline("");
-		if (!input || ft_strncmp(input, "exit", 5) == 0)
+		if (syntax_check(input) == FAILURE)
 		{
-			free(input);
-			break ;
+			printf("syntax error\n");
+			cleanup_wip();
 		}
 		if (*input)
 		{
