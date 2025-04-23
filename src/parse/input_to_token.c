@@ -12,13 +12,6 @@
 
 #include "minishell.h"
 
-static bool	is_operator_char(char c)
-{
-	if (c == '|' || c == '>' || c == '<')
-		return (true);
-	return (false);
-}
-
 static int	get_operator_len(char *input, int i)
 {
 	if (input[i] == input[i + 1] && is_operator_char(input[i]))
@@ -38,31 +31,48 @@ static int	handle_quotes(char *input, int i,
 	return (1);
 }
 
-static int	get_token_len(char *input, int i,
-					bool *in_singles, bool *in_doubles)
+static int	handle_operator_case(char *input, int i, int len, bool in_quotes)
 {
-	int	len;
 	int	operator_len;
 
-	len = 0;
-	while (input[i + len] && (!is_space(input[i + len])
-			|| *in_singles || *in_doubles))
+	if (!in_quotes)
 	{
-		operator_len = 0;
-		if (!*in_singles && !*in_doubles)
+		operator_len = get_operator_len(input, i + len);
+		if (operator_len)
 		{
-			operator_len = get_operator_len(input, i + len);
-			if (operator_len && len == 0)
+			if (len == 0)
 				return (operator_len);
-			if (operator_len && len > 0)
-				break ;
+			else
+				return (-1);
 		}
-		len += handle_quotes(input, i + len, in_singles, in_doubles);
-		if ((!input[i + len] || is_space(input[i + len]))
-			&& !*in_singles && !*in_doubles)
+	}
+	return (0);
+}
+
+static int	get_token_len(char *input, int i,
+							bool *in_singles, bool *in_doubles)
+{
+	int		len;
+	int		operator_result;
+	bool	in_quotes;
+
+	len = 0;
+	while (input[i + len])
+	{
+		in_quotes = *in_singles || *in_doubles;
+		if (input[i + len] == '\'' || input[i + len] == '\"')
+		{
+			len += handle_quotes(input, i + len, in_singles, in_doubles);
+			continue ;
+		}
+		if (is_space(input[i + len]) && !in_quotes)
 			break ;
-		if (!operator_len)
-			len++;
+		operator_result = handle_operator_case(input, i, len, in_quotes);
+		if (operator_result == -1)
+			break ;
+		else if (operator_result > 0)
+			return (operator_result);
+		len++;
 	}
 	return (len);
 }
