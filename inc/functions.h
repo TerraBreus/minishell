@@ -10,7 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
 #ifndef FUNCTIONS_H
 # define FUNCTIONS_H
+
+t_list	*tokenize_input(char *input);
 
 #endif

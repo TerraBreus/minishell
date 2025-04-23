@@ -16,5 +16,6 @@
 #include "included_libs.h"
 #include "structs.h"
 #include "defines.h"
+#include "functions.h"
 
 #endif

@@ -10,8 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
 #ifndef	INCLUDED_LIBS_H
 # define INCLUDED_LIBS_H
+
+/* Personal libft */
+#include "libft.h"
 
 /* Standard I/O functions (printf, perror) */
 #include <stdio.h>
