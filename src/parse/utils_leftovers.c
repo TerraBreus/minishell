@@ -60,3 +60,10 @@ bool	is_space(char c)
 		return (true);
 	return (false);
 }
+
+bool	is_operator_char(char c)
+{
+	if (c == '|' || c == '>' || c == '<')
+		return (true);
+	return (false);
+}
