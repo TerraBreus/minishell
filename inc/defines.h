@@ -15,4 +15,7 @@
 
 # include "minishell.h"
 
+# define FAILURE false
+# define SUCCES true
+
 #endif
