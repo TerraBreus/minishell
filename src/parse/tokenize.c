@@ -12,50 +12,6 @@
 
 #include "minishell.h"
 
-static bool	handle_quotes(char c, bool *in_singles, bool *in_doubles)
-{
-	if (c == '\'' && !*in_doubles)
-	{
-		*in_singles = !*in_singles;
-		return (true);
-	}
-	else if (c == '\"' && !*in_singles)
-	{
-		*in_doubles = !*in_doubles;
-		return (true);
-	}
-	return (false);
-}
-
-static char	*get_token(char *input, int *index,
-					bool *in_singles, bool *in_doubles)
-{
-	int		start;
-	int		token_len;
-	char	*token;
-
-	skip_spaces(input, index);
-	start = *index;
-	while (input[*index] != '\0')
-	{
-		if (handle_quotes(input[*index], in_singles, in_doubles))
-		{
-			(*index) += 1;
-			continue ;
-		}
-		if (input[*index] == ' '
-			&& *in_singles == false
-			&& *in_doubles == false)
-			break ;
-		(*index) += 1;
-	}
-	token_len = *index - start;
-	token = ft_substr(input, start, token_len);
-	if (input[*index] && !*in_doubles)
-		skip_spaces(input, index);
-	return (token);
-}
-
 t_list	*create_node(char *token, bool in_singles, bool in_doubles)
 {
 	t_list			*new_node;
@@ -65,6 +21,7 @@ t_list	*create_node(char *token, bool in_singles, bool in_doubles)
 	if (!data)
 		return (NULL);
 	data->token = token;
+	data->type = get_operator_type(token);
 	data->in_singles = in_singles;
 	data->in_doubles = in_doubles;
 	new_node = ft_lstnew(data);
@@ -102,7 +59,7 @@ t_list	*tokenize_input(char *input)
 	index = 0;
 	in_singles = false;
 	in_doubles = false;
-	while (input[index])
+	while (input[index] != '\0')
 	{
 		token_node = token_to_node(input, &index, &in_singles, &in_doubles);
 		if (!token_node)
