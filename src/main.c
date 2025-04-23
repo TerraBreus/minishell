@@ -20,22 +20,26 @@ void	display_prompt(void)
 int	main(int argc, char **argv, char **env)
 {
 	t_list	*token_list;
+	char	*input;
 
 	(void)argc;
 	(void)argv;
 	(void)env;
-	char	*input;
 	while (true)
 	{
 		display_prompt();
 		input = readline("");
-		token_list = tokenize_input(input);
-		free(input);
-		if (!token_list)
+		if (!input || ft_strncmp(input, "exit", 5) == 0)
 		{
-			// well then we have a problem...
-			return (0);
+			free(input);
+			break ;
 		}
-		// parse_tokens();
+		if (*input)
+		{
+			token_list = tokenize_input(input);
+			free(input);
+			print_tokens(token_list);
+			ft_lstclear(&token_list, token_del);
+		}
 	}
 }
