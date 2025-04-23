@@ -1,31 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
+/*   Updated: 2025/04/22 15:52:31 by masmit           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void	skip_spaces(char *input, int *index)
+static bool	handle_quotes(char c, bool *in_singles, bool *in_doubles)
 {
-	while (input[*index] && input[*index] == ' ')
-		(*index) += 1;
+	if (c == '\'' && !*in_doubles)
+	{
+		*in_singles = !*in_singles;
+		return (true);
+	}
+	else if (c == '\"' && !*in_singles)
+	{
+		*in_doubles = !*in_doubles;
+		return (true);
+	}
+	return (false);
 }
 
-static char	*get_token(char *input, int *index, bool *in_singles, bool *in_doubles)
+static char	*get_token(char *input, int *index,
+					bool *in_singles, bool *in_doubles)
 {
 	int		start;
 	int		token_len;
 	char	*token;
 
+	skip_spaces(input, index);
 	start = *index;
 	while (input[*index] != '\0')
 	{
-		if (input[*index] == '\'' && in_singles == false)
-			*in_singles = true;
-		else if (input[*index] == '\'' && in_doubles == false)
-			*in_doubles = true;
-		else if (input[*index] != ' ' && in_singles == false && in_doubles == false)
+		if (handle_quotes(input[*index], in_singles, in_doubles))
+		{
+			(*index) += 1;
+			continue ;
+		}
+		if (input[*index] == ' '
+			&& *in_singles == false
+			&& *in_doubles == false)
 			break ;
 		(*index) += 1;
 	}
 	token_len = *index - start;
 	token = ft_substr(input, start, token_len);
-	if (in_singles == false && in_doubles == false)
+	if (input[*index] && !*in_doubles)
 		skip_spaces(input, index);
 	return (token);
 }
@@ -45,53 +71,46 @@ t_list	*create_node(char *token, bool in_singles, bool in_doubles)
 	return (new_node);
 }
 
-void	make_vars_zero(char **token, int *index, bool *in_singles, bool *in_doubles)
+static t_list	*token_to_node(char *input, int *index,
+	bool *in_singles, bool *in_doubles)
 {
-	*token = NULL;
-	*index = 0;
-	*in_singles = false;
-	*in_doubles = false;
-}
+	char	*char_token;
+	t_list	*token_node;
 
-void    token_del(void *content)
-{
-	t_list *data;
-	data = (t_list *)content;
-	if (data)
+	char_token = get_token(input, index, in_singles, in_doubles);
+	if (!char_token)
+		return (NULL);
+	token_node = create_node(char_token, *in_singles, *in_doubles);
+	if (!token_node)
 	{
-		free(data->content);
-		free(data);
+		free(char_token);
+		ft_lstclear(&token_node, token_del);
+		return (NULL);
 	}
+	return (token_node);
 }
 
 t_list	*tokenize_input(char *input)
 {
 	t_list	*token_list;
 	t_list	*token_node;
-	char	*token;
 	int		index;
 	bool	in_singles;
 	bool	in_doubles;
 
 	token_list = NULL;
-	make_vars_zero(&token, &index, &in_singles, &in_doubles);
+	index = 0;
+	in_singles = false;
+	in_doubles = false;
 	while (input[index])
 	{
-		token = get_token(input, &index, &in_singles, &in_doubles);
-		if (!token)
-		{
-			ft_lstclear(&token_list, token_del);
-			return (NULL);
-		}
-		free(input);
-		token_node = create_node(token, in_singles, in_doubles);
+		token_node = token_to_node(input, &index, &in_singles, &in_doubles);
 		if (!token_node)
 		{
-			free(token);
 			ft_lstclear(&token_list, token_del);
 			return (NULL);
 		}
-		ft_lstadd_back(&token_list, (t_list *)token_node);
+		ft_lstadd_back(&token_list, token_node);
 	}
 	return (token_list);
 }
