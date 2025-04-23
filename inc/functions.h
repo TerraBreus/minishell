@@ -15,11 +15,18 @@
 
 # include "minishell.h"
 
-t_list	*tokenize_input(char *input);
-void	token_del(void *content);
+// identifieng input into tokens.
+t_list			*tokenize_input(char *input);
+char			*get_token(char *input, int *index,
+					bool *in_singles, bool *in_doubles);
+
+// some tokens are operators, eg pipe, redirect or append
+t_token_type	get_operator_type(char *token);
+void			token_del(void *content);
 
 // leftover utilities for small functions and debugging.
-void	skip_spaces(char *input, int *index);
-void	print_tokens(t_list *head);
+void			print_tokens(t_list *head);
+bool			syntax_check(const char *input);
+bool			is_space(char c);
 
 #endif
