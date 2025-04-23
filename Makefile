@@ -4,10 +4,12 @@ CFLAGS = -Wall -Wextra -Werror -Iinc -Ilib/libft
 MINILIB_FLAGS = -lreadline -lncurses
 
 SRC_DIR = src
+PARSE_DIR = parse
 LIBFT_DIR = lib/libft
 
 SRCS = \
 	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/$(PARSE_DIR)/tokenize.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -22,7 +24,7 @@ endif
 all: $(LIBFT) $(NAME)
 
 $(LIBFT):
-	$(QUIET)make -C $(LIBFT_DIR)
+	$(QUIET)make -C $(LIBFT_DIR) bonus
 
 $(NAME): $(OBJS) $(LIBFT)
 	$(QUIET)$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MINILIB_FLAGS) -o $(NAME)
