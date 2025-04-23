@@ -36,4 +36,12 @@ read and borrow documentation
 
 //goal day one
 	add libft and headers.									[x]
-	tokenize and build struct to save and pass tokens.		[ ]
+	tokenize and build struct to save and pass tokens.		[x]
+
+4/23/2025
+added first tokenizing file, using libft bonus for making the list.
+isnt completed yet so ill make more time to check if the nodes are created in order as hoped.
+
+//goal day 2
+	place all seperate words from input in token_list		[ ]
+	print list to check if tokens and flags applyas intended[ ]
