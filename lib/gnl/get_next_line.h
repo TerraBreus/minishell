@@ -27,5 +27,4 @@ size_t	gnl_strlen(const char *s1);
 char	*gnl_strchr(const char *string, int c);
 char	*gnl_strjoin(char *s1, char *s2);
 
-
 #endif
