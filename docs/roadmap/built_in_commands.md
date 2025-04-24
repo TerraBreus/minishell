@@ -1,6 +1,10 @@
 # Built in Commands
 Built in means they must effect the shell process. 
 
+For most commands, we will probably need to have an environment variable that handles all the available environment parameters. 
+
+We should be able to add environment parameters so it has to be a dynamic array (possibly a linked list).
+
 They **MUST** be executed in the parent... aka
 ```c
 if (is_builtin(cmd)) {
@@ -23,6 +27,7 @@ unset | Remove environment variables
 ```
 
 **Possible Prototypes**
+FYI: If we want to edit our environment parameter, we must also pass it through the functions (or use our one single global variable, thought we might need that for signals?)
 
 ```c
 int ft_echo(char **args);
