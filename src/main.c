@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+void	exec_here(void)
+{
+	return ;
+}
+
 void	cleanup_wip(void)
 {
 	exit(EXIT_FAILURE);
@@ -38,6 +43,7 @@ int	main(int argc, char **argv, char **env)
 			token_list = tokenize_input(input);
 			free(input);
 			print_tokens(token_list);
+			exec_here();
 			ft_lstclear(&token_list, token_del);
 		}
 	}
