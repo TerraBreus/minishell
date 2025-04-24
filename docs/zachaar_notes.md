@@ -25,6 +25,6 @@ Could not get as much done cause of distractions. Wanted to further brainstorm a
 **Goals**
 
 - [ ] Finish roadmap.
-- [ ] Spark Session on Minishell
-- [ ] Mess around with Tokenizer.
+- [X] Spark Session on Minishell
+- [X] Mess around with Tokenizer.
 
