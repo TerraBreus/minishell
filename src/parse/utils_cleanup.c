@@ -14,12 +14,13 @@
 
 void	token_del(void *content)
 {
-	t_list	*data;
+	t_token_data	*token_data;
 
-	data = (t_list *)content;
-	if (data)
+	token_data = (t_token_data *)content;
+	if (token_data)
 	{
-		free(data->content);
-		free(data);
+		if (token_data->token)
+			free(token_data->token);
+		free(token_data);
 	}
 }
