@@ -69,3 +69,5 @@ In some situations the order of execution might not entirely be from left to rig
 Technically this only makes the last command needed but I believe bash still executes everything (we can check this by adding an unknown command before the last command). Therefore the order would still be from left to right but we would/could constantly have to overwrite the standard I/O, this would be a bit complicated with closing maybe but then again maybe not since we always need to close.
 
 Okay well, that is for next time!
+
+Also realized current stage does not tell difference of built in commands. Before forking we must check whether the command is built in to avoid unneccesary children...
