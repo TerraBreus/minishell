@@ -18,6 +18,6 @@
 # define FAILURE false
 # define SUCCES true
 
-#define SYNTAX_ERROR 2
+# define SYNTAX_ERROR 2
 
 #endif
