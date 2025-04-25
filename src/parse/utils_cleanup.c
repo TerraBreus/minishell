@@ -21,6 +21,8 @@ void	token_del(void *content)
 	{
 		if (token_data->token)
 			free(token_data->token);
+		if (token_data->error)
+			free(token_data->error);
 		free(token_data);
 	}
 }
