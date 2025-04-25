@@ -19,16 +19,22 @@ void	print_tokens(t_list *head)
 
 	i = 0;
 	printf("\nTokens:\n");
-	while (head)
+	while (head != NULL)
 	{
-		data = head->content;
+		if (head->content == NULL)
+		{
+			printf("%d: [(null content)]\n", i++);
+			head = head->next;
+			continue;
+		}
+		data = (t_token_data *)head->content;
 		printf("%d: [", i++);
-		if (data->token)
+		if (data->token != NULL)
 			printf("%s", data->token);
 		else
 			printf("(null)");
 		printf("]\n");
-		if (data->error)
+		if (data->error != NULL)
 			printf("[error = %s]\n", data->error);
 		head = head->next;
 	}
