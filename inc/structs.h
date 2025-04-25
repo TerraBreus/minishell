@@ -28,8 +28,6 @@ typedef struct s_token_data
 {
 	char			*token;
 	t_token_type	type;
-	bool			in_singles;
-	bool			in_doubles;
 }					t_token_data;
 
 #endif
