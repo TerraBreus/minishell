@@ -25,9 +25,7 @@ void	quotes_aint_closed(t_list **token_list)
 	if (!first_node->content)
 		return ;
 	error_data = (t_token_data *)first_node->content;
-	if (error_data->error)
-		free(error_data->error);
-	error_data->error = ft_strdup("QUOTES UNCLOSED");
+	what_error(error_data, SYNTAX_ERROR);
 	if (first_node->next != NULL)
 	{
 		ft_lstclear(&first_node->next, token_del);
@@ -67,6 +65,6 @@ void	unclosed_quotes_check(t_list *token_list)
 void	syntax_check(t_list *token_list)
 {
 	unclosed_quotes_check(token_list);
-	// outfile_missing_check(token_list);
-	// are_pipes_correct_check(token_list);
+	outfile_missing_check(token_list);
 }
+// are_pipes_correct_check(token_list);
