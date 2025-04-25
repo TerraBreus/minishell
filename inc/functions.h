@@ -17,8 +17,9 @@
 
 // identifieng input into tokens.
 t_list			*tokenize_input(char *input);
-char			*get_token(char *input, int *index,
-					bool *in_singles, bool *in_doubles);
+char			*get_token(char *input, int *index);
+int				handle_quoted_token(char *input, int i);
+int				handle_operator_case(char *input, int i, int len);
 
 // some tokens are operators, eg pipe, redirect or append
 t_token_type	get_operator_type(char *token);
