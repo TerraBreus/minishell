@@ -28,11 +28,6 @@ void	exec_here(void)
 	return ;
 }
 
-void	cleanup_wip(void)
-{
-	exit(EXIT_FAILURE);
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	t_list	*token_list;
