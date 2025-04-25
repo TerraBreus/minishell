@@ -21,13 +21,15 @@ char			*get_token(char *input, int *index);
 int				handle_quoted_token(char *input, int i);
 int				handle_operator_case(char *input, int i, int len);
 
+// checks if tokens are valid, and give error accordingly
+void	        syntax_check(t_list *token_list);
+
 // some tokens are operators, eg pipe, redirect or append
 t_token_type	get_operator_type(char *token);
 void			token_del(void *content);
 
 // leftover utilities for small functions and debugging.
 void			print_tokens(t_list *head);
-bool			syntax_check(const char *input);
 bool			is_space(char c);
 bool			is_operator_char(char c);
 
