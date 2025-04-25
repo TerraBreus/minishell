@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void	this_shoudlnt_happen(t_list *head, int *i)
+{
+	printf("%d: [(null content)]\n", *(i)++);
+	head = head->next;
+}
+
 void	print_tokens(t_list *head)
 {
 	t_token_data	*data;
@@ -22,11 +28,7 @@ void	print_tokens(t_list *head)
 	while (head != NULL)
 	{
 		if (head->content == NULL)
-		{
-			printf("%d: [(null content)]\n", i++);
-			head = head->next;
-			continue;
-		}
+			this_shoudlnt_happen(head, &i);
 		data = (t_token_data *)head->content;
 		printf("%d: [", i++);
 		if (data->token != NULL)
@@ -35,7 +37,10 @@ void	print_tokens(t_list *head)
 			printf("(null)");
 		printf("]\n");
 		if (data->error != NULL)
+		{
 			printf("[error = %s]\n", data->error);
+			return ;
+		}
 		head = head->next;
 	}
 }
