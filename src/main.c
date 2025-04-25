@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+void	if_error(t_list *token_list)
+{
+	t_token_data	*data;
+
+	if (!token_list || !token_list->content)
+		return ;
+	data = (t_token_data *)token_list->content;
+	if (data && data->error)
+		print_tokens(token_list);
+}
+
 void	exec_here(void)
 {
 	return ;
@@ -33,16 +44,23 @@ int	main(int argc, char **argv, char **env)
 	while (true)
 	{
 		input = readline("minishell$ ");
-		if (*input)
+		if (!input)
+			break;
+		if (*input == '\0')
 		{
-			token_list = tokenize_input(input);
 			free(input);
+			continue;
+		}
+		token_list = tokenize_input(input);
+		free(input);
+		if (token_list)
+		{
 			print_tokens(token_list);
 			syntax_check(token_list);
-			printf("after syntax check\n");
-			print_tokens(token_list);
+			if_error(token_list);
 			exec_here();
 			ft_lstclear(&token_list, token_del);
 		}
 	}
+	return (0);
 }
