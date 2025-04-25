@@ -22,9 +22,9 @@ int				handle_quoted_token(char *input, int i);
 int				handle_operator_case(char *input, int i, int len);
 
 // checks if tokens are valid, and give error accordingly
-void	        syntax_check(t_list *token_list);
-void        	outfile_missing_check(t_list *token_list);
-void        	what_error(t_token_data *error_node, int errorno);
+void			syntax_check(t_list *token_list);
+void			outfile_missing_check(t_list *token_list);
+void			what_error(t_token_data *error_node, int errorno);
 
 // some tokens are operators, eg pipe, redirect or append
 t_token_type	get_operator_type(char *token);
