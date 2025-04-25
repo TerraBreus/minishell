@@ -28,30 +28,10 @@ void	print_tokens(t_list *head)
 		else
 			printf("(null)");
 		printf("]\n");
+		if (data->error)
+			printf("[error = %s]\n", data->error);
 		head = head->next;
 	}
-}
-
-bool	syntax_check(const char *input)
-{
-	size_t	index;
-	size_t	singles_count;
-	size_t	doubles_count;
-
-	index = 0;
-	singles_count = 0;
-	doubles_count = 0;
-	while (input[index])
-	{
-		if (input[index] == '\'')
-			singles_count++;
-		if (input[index] == '"')
-			doubles_count++;
-		index++;
-	}
-	if (singles_count % 2 != 0 || doubles_count % 2 != 0)
-		return (FAILURE);
-	return (SUCCES);
 }
 
 bool	is_space(char c)
