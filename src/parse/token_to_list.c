@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+void	token_init(t_token_data *data)
+{
+	data->token = NULL;
+	data->error = NULL;
+	data->type = 0;
+}
+
 t_list	*create_node(char *token)
 {
 	t_list			*new_node;
@@ -20,6 +27,7 @@ t_list	*create_node(char *token)
 	data = malloc(sizeof(t_token_data));
 	if (!data)
 		return (NULL);
+	token_init(data);
 	data->token = token;
 	data->type = get_operator_type(token);
 	new_node = ft_lstnew(data);
