@@ -33,11 +33,6 @@ int	main(int argc, char **argv, char **env)
 	while (true)
 	{
 		input = readline("minishell$ ");
-		if (syntax_check(input) == FAILURE)
-		{
-			printf("syntax error\n");
-			cleanup_wip();
-		}
 		if (*input)
 		{
 			token_list = tokenize_input(input);
