@@ -38,6 +38,9 @@ int	main(int argc, char **argv, char **env)
 			token_list = tokenize_input(input);
 			free(input);
 			print_tokens(token_list);
+			syntax_check(token_list);
+			printf("after syntax check\n");
+			print_tokens(token_list);
 			exec_here();
 			ft_lstclear(&token_list, token_del);
 		}
