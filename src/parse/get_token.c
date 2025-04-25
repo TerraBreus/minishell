@@ -12,72 +12,45 @@
 
 #include "minishell.h"
 
-static int	get_operator_len(char *input, int i)
+static int	process_normal_char(char *input, int i, int *len)
 {
-	if (input[i] == input[i + 1] && is_operator_char(input[i]))
-		return (2);
-	if (is_operator_char(input[i]))
+	if (is_space(input[i + *len]))
 		return (1);
-	return (0);
-}
-
-static int	handle_quotes(char *input, int i,
-					bool *in_singles, bool *in_doubles)
-{
-	if (input[i] == '\'' && !(*in_doubles))
-		*in_singles = !(*in_singles);
-	else if (input[i] == '\"' && !(*in_singles))
-		*in_doubles = !(*in_doubles);
-	return (1);
-}
-
-static int	handle_operator_case(char *input, int i, int len, bool in_quotes)
-{
-	int	operator_len;
-
-	if (!in_quotes)
+	if (input[i + *len] == '\'' || input[i + *len] == '"')
 	{
-		operator_len = get_operator_len(input, i + len);
-		if (operator_len)
-		{
-			if (len == 0)
-				return (operator_len);
-			else
-				return (-1);
-		}
+		if (*len > 0)
+			return (1);
+		*len += handle_quoted_token(input, i + *len);
+		return (2);
 	}
 	return (0);
 }
 
-static int	get_token_len(char *input, int i,
-							bool *in_singles, bool *in_doubles)
+int	get_token_len(char *input, int i)
 {
-	int		len;
-	int		operator_result;
-	bool	in_quotes;
+	int	len;
+	int	result;
 
 	len = 0;
+	result = handle_quoted_token(input, i);
+	if (result > 0)
+		return (result);
 	while (input[i + len])
 	{
-		in_quotes = *in_singles || *in_doubles;
-		if (input[i + len] == '\'' || input[i + len] == '\"')
-		{
-			len += handle_quotes(input, i + len, in_singles, in_doubles);
-			continue ;
-		}
-		if (is_space(input[i + len]) && !in_quotes)
+		result = process_normal_char(input, i, &len);
+		if (result == 1)
 			break ;
-		operator_result = handle_operator_case(input, i, len, in_quotes);
-		if (operator_result == -1)
-			break ;
-		else if (operator_result > 0)
-			return (operator_result);
+		if (result == 2)
+			return (len);
+		result = handle_operator_case(input, i, len);
+		if (result > 0)
+			return (result);
 		len++;
 	}
 	return (len);
 }
 
-char	*get_token(char *input, int *index, bool *in_singles, bool *in_doubles)
+char	*get_token(char *input, int *index)
 {
 	int		i;
 	int		token_len;
@@ -91,7 +64,7 @@ char	*get_token(char *input, int *index, bool *in_singles, bool *in_doubles)
 		*index = i;
 		return (NULL);
 	}
-	token_len = get_token_len(input, i, in_singles, in_doubles);
+	token_len = get_token_len(input, i);
 	token = ft_substr(input, i, token_len);
 	if (!token)
 		return (NULL);

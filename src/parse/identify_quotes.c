@@ -12,58 +12,31 @@
 
 #include "minishell.h"
 
-void	print_tokens(t_list *head)
+int	identify_quotes(char *input, int i, int *len)
 {
-	t_token_data	*data;
-	int				i;
+	char	quote;
+	int		index;
 
-	i = 0;
-	printf("\nTokens:\n");
-	while (head)
-	{
-		data = head->content;
-		printf("%d: [", i++);
-		if (data->token)
-			printf("%s", data->token);
-		else
-			printf("(null)");
-		printf("]\n");
-		head = head->next;
-	}
-}
-
-bool	syntax_check(const char *input)
-{
-	size_t	index;
-	size_t	singles_count;
-	size_t	doubles_count;
-
-	index = 0;
-	singles_count = 0;
-	doubles_count = 0;
-	while (input[index])
-	{
-		if (input[index] == '\'')
-			singles_count++;
-		if (input[index] == '"')
-			doubles_count++;
+	index = i + 1;
+	quote = input[i];
+	while (input[index] && input[index] != quote)
 		index++;
+	if (input[index] == quote)
+		*len = index - i + 1;
+	else
+		*len = index - i;
+	return (*len);
+}
+
+int	handle_quoted_token(char *input, int i)
+{
+	int	quote_len;
+
+	quote_len = 0;
+	if (input[i] == '\'' || input[i] == '"')
+	{
+		identify_quotes(input, i, &quote_len);
+		return (quote_len);
 	}
-	if (singles_count % 2 != 0 || doubles_count % 2 != 0)
-		return (FAILURE);
-	return (SUCCES);
-}
-
-bool	is_space(char c)
-{
-	if (c == ' ')
-		return (true);
-	return (false);
-}
-
-bool	is_operator_char(char c)
-{
-	if (c == '|' || c == '>' || c == '<')
-		return (true);
-	return (false);
+	return (0);
 }
