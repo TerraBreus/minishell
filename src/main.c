@@ -51,9 +51,6 @@ int	main(int argc, char **argv, char **env)
 		if (token_list)
 		{
 			print_tokens(token_list);
-			syntax_check(token_list);
-			if_error(token_list);
-			exec_here();
 			ft_lstclear(&token_list, token_del);
 		}
 	}
