@@ -64,6 +64,12 @@ int	quote_token(char *input, int i)
 		i++;
 	if (input[i] == quote)
 	{
+		while (input[i]
+			&& input[i] != ' '
+			&& input[i] != '>'
+			&& input[i] != '<'
+			&& input[i] != '|')
+			i++;
 		start = i - start + 1;
 		return (start);
 	}
@@ -107,8 +113,6 @@ char	*get_token(char *input, int *index)
 	char	*token;
 
 	i = *index;
-	while (input[i] && is_space(input[i]))
-		i++;
 	if (!input[i])
 	{
 		*index = i;

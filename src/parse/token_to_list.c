@@ -61,6 +61,10 @@ t_list	*tokenize_input(char *input)
 	index = 0;
 	while (input[index] != '\0')
 	{
+		while (input[index] && is_space(input[index]))
+			index++;
+		if (input[index] == '\0')
+			break ;
 		token_node = token_to_node(input, &index);
 		if (!token_node)
 		{
