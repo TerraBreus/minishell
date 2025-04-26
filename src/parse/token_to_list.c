@@ -29,7 +29,6 @@ t_list	*create_node(char *token)
 		return (NULL);
 	token_init(data);
 	data->token = token;
-	data->type = get_operator_type(token);
 	new_node = ft_lstnew(data);
 	return (new_node);
 }
