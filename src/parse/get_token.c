@@ -68,7 +68,9 @@ int	quote_token(char *input, int i)
 			&& input[i] != ' '
 			&& input[i] != '>'
 			&& input[i] != '<'
-			&& input[i] != '|')
+			&& input[i] != '|'
+			&& input[i] != '\''
+			&& input[i] != '"')
 			i++;
 		start = i - start + 1;
 		return (start);
