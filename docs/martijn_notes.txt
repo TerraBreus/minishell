@@ -73,7 +73,7 @@ spotting issues is appriciated
 //goals day 4
 check syntax of tokens and return error when
 outfile is missing											[ ]
-quotes arent closed											[ ]
+quotes arent closed											[x]
 pipes not in between commands								[ ]
 
 //not doing heredocs just yet but its lurking on the horizon
@@ -86,3 +86,13 @@ just gonna rewrite the tokenizer and print function
 token for quotes											[x]
 token for variables											[x]
 token for operator											[x]
+
+//goals for later
+zero -- tokenization is still not correct, fix later		[ ]
+echo "hello"world
+[echo] ["hello"world]
+echo "hello" world
+[echo] ["hello"] [world]
+first -- properly make word and quote tokens into one		[ ]
+second -- check if syntax or sequence of tokens is correct	[ ]
+third -- check if outfile is pointing to valid place		[ ]
