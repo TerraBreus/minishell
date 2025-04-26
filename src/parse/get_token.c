@@ -21,13 +21,9 @@ int	word_token(char *input, int i)
 	{
 		if (input[i + len] == ' ')
 			return (len);
-		if (input[i + len] == '"' || input[i + len] == '\'')
-			return (len);
 		if (input[i + len] == '>'
 			|| input[i + len] == '<'
 			|| input[i + len] == '|')
-			return (len);
-		if (input[i + len] == '$')
 			return (len);
 		len++;
 	}
