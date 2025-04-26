@@ -77,3 +77,12 @@ quotes arent closed											[ ]
 pipes not in between commands								[ ]
 
 //not doing heredocs just yet but its lurking on the horizon
+
+4/26/2025
+//personal
+just gonna rewrite the tokenizer and print function
+
+//goals day 5
+token for quotes											[x]
+token for variables											[x]
+token for operator											[x]
