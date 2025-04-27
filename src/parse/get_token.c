@@ -35,6 +35,8 @@ int	variable_token(char *input, int i)
 	int	len;
 
 	len = 1;
+	if (input[i + len] == '\0' || isspace(input[i + len]))
+		return (1);
 	if (input[i + len] == '?')
 		return (2);
 	if (!ft_isalpha(input[i + len]) && input[i + len] != '_')
