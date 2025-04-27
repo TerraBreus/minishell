@@ -35,16 +35,24 @@ int	variable_token(char *input, int i)
 	int	len;
 
 	len = 1;
-	if (input[i + len] == '\0' || isspace(input[i + len]))
-		return (1);
 	if (input[i + len] == '?')
 		return (2);
+	if (input[i + len] == '\0' || isspace(input[i + len]))
+		return (1);
 	if (!ft_isalpha(input[i + len]) && input[i + len] != '_')
 	{
 		syntax_error("invalid character after $");
 		return (0);
 	}
 	len++;
+	while (input[i + len]
+		&& input[i + len] != '>'
+		&& input[i + len] != '<'
+		&& input[i + len] != '|'
+		&& input[i + len] != ' '
+		&& input[i + len] != '\''
+		&& input[i + len] != '"')
+		len++;
 	while (ft_isalnum(input[i + len]) || input[i + len] == '_')
 		len++;
 	return (len);
