@@ -88,11 +88,19 @@ token for variables											[x]
 token for operator											[x]
 
 //goals for later
-zero -- tokenization is still not correct, fix later		[ ]
-echo "hello"world
-[echo] ["hello"world]
-echo "hello" world
-[echo] ["hello"] [world]
-first -- properly make word and quote tokens into one		[ ]
+zero -- tokenization is still not correct, fix later		[x]
+
+first -- properly make word and quote tokens into one		[x]
 second -- check if syntax or sequence of tokens is correct	[ ]
 third -- check if outfile is pointing to valid place		[ ]
+
+// 4/30/2025
+rewrote tokenizer, deleted env expansion
+added	my_export
+		my_unset
+		my_getenv
+for more info check functions header
+
+TODO
+rewrite variable expansion
+test if exporting variables works
