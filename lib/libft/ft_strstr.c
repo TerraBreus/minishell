@@ -23,7 +23,7 @@
 ** NB: Yes, you must null terminate your strings to not send this function to the infinity dimension
 */
 
-char	*ft_strstr(const char *haystack, cons char *needle)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
 	size_t	i;
 	size_t	o;
