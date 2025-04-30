@@ -11,3 +11,5 @@ As part of the 42 curriculum, this project recreates a miniature version of *bas
 - [Pipes and redirection operators](./docs/roadmap/pipes_and_redirection.md)
 - [History (arrow up down to go through log/previous commands)](./docs/roadmap/history.md)
 - [Signal handling (Ctrl-C, Ctrl-D)](./docs/roadmap/signal_handling.md)
+- [Martijn Notes](./docs/martijn_notes.txt)
+- [Zachaar Notes](./docs/zachaar_notes.md)
