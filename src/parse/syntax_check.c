@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+// TODO, make error code
 void	syntax_error(char *message)
 {
 	printf("bash: ");
@@ -19,4 +20,20 @@ void	syntax_error(char *message)
 		printf("unknown error\n");
 	printf("%s\n", message);
 }
-// TODO, make error code
+
+// cleans up and exits program
+// message auto-satrt with "malloc fail "
+void	malloc_fail(char *message, t_custom_env	*my_env)
+{
+	t_list			*token_list;
+
+	if (my_env)
+		cleanup_env(my_env);
+	if (token_list)
+		ft_lstclear(&token_list, token_del);
+	printf("bash: malloc failed ");
+	if (!message)
+		printf("unknown error\n");
+	printf("%s\n", message);
+	exit(EXIT_FAILURE);
+}
