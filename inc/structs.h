@@ -13,6 +13,11 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+typedef struct s_custom_env
+{
+	char			**env_copy;
+}					t_custom_env;
+
 typedef enum e_token_type
 {
 	TOKEN_WORD,
