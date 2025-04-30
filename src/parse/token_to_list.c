@@ -55,7 +55,7 @@ t_list	*tokenize_input(char *input)
 {
 	t_list	*token_list;
 	t_list	*token_node;
-	size_t		index;
+	size_t	index;
 
 	token_list = NULL;
 	index = 0;
