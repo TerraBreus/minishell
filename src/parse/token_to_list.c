@@ -38,7 +38,7 @@ static t_list	*token_to_node(char *input, size_t *index)
 	char	*char_token;
 	t_list	*token_node;
 
-	char_token = get_token(input, index);
+	char_token = token_get(input, index);
 	if (!char_token)
 		return (NULL);
 	token_node = create_node(char_token);

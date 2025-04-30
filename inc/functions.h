@@ -17,8 +17,9 @@
 
 // identifieng input into tokens.
 t_list			*tokenize_input(char *input);
-char			*get_token(char *input, size_t *i);
-char			*quote_token(char *input, size_t *i);
+char			*token_get(char *input, size_t *i);
+char			*token_quote(char *input, size_t *i);
+char			*token_heredoc(char *input, size_t *i);
 
 // checks if tokens are valid, and give error accordingly
 void			syntax_error(char *message);
