@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-char *operator_token(char *input, size_t *i)
+char	*operator_token(char *input, size_t *i)
 {
-	char current_operator;
+	char	current_operator;
 
 	current_operator = input[*i];
 	(*i)++;
@@ -25,57 +25,43 @@ char *operator_token(char *input, size_t *i)
 	return (ft_substr(input, *i -1, 1));
 }
 
-char *expand_var(char *input, size_t *i)
+// char *expand_var(char *input, size_t *i)
+// {
+// 	char	*path;
+// 	char	*var_name;
+// 	size_t	start;
+
+// 	(*i)++;
+// 	start = *i;
+// 	if (input[*i] == '?')
+// 		return (ft_itoa(0));
+// 	while (ft_isalnum(input[*i]) || input[*i] == '_')
+// 		(*i)++;
+// 	if (start != *i)
+// 	{
+// 		var_name = ft_substr(input, start, *i - start);
+// 		printf("%s", var_name);
+// 		path = my_getenv(my_env, var_name);
+// 		if (path)
+// 			return (free(var_name), ft_strdup(path));
+// 		else
+// 			return (ft_strdup(""));
+// 	}
+// 	return (ft_strdup("$"));
+// }
+
+char	*word_token(char *input, size_t *i)
 {
-	char	*path;
-	char	*var_name;
 	size_t	start;
 
-	(*i)++;
 	start = *i;
-	if (input[*i] == '?')
-		return (ft_itoa(0));
-	while (ft_isalnum(input[*i]) || input[*i] == '_')
-		(*i)++;
-	if (start != *i)
-	{
-		var_name = ft_substr(input, start, *i - start);
-		printf("%s", var_name);
-		path = getenv(var_name);
-		if (path)
-			return (free(var_name), ft_strdup(path));
-		else
-			return (ft_strdup(""));
-	}
-	return (ft_strdup("$"));
-}
-
-char *word_token(char *input, size_t *i)
-{
-	size_t	start;
-	bool	found_path;
-	char	*input_with_path;
-
-	start = *i;
-	found_path = false;
 	while (input[*i]
 		&& !is_space(input[*i])
 		&& !is_operator(input[*i])
 		&& input[*i] != '\''
 		&& input[*i] != '"'
 		&& input[*i] != '#')
-	{
-		if (input[*i] == '$')
-		{
-			found_path = true;
-			input_with_path = strjoin_and_free(
-			ft_substr(&input[start], start, *i - start),
-			expand_var(input, i));
-		}
 		(*i)++;
-	}
-	if (found_path)
-		return (input_with_path);
 	return (ft_substr(input, start, *i - start));
 }
 
@@ -86,11 +72,9 @@ char	*get_token(char *input, size_t *i)
 	else if (input[*i] == '\'' || input[*i] == '"')
 		return (quote_token(input, i));
 	else if (input[*i] == '#')
-		return(NULL);
+		return (NULL);
 	else if (is_operator(input[*i]))
 		return (operator_token(input, i));
-	else if (input[*i] == '$')
-		return (expand_var(input, i));
 	else
 		return (word_token(input, i));
 	return (NULL);

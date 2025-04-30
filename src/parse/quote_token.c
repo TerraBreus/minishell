@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-static size_t	expand_var_len(char	*path)
-{
-	size_t	len;
+// static size_t	expand_var_len(char	*path)
+// {
+// 	size_t	len;
 
-	len = ft_strlen(path);
-	free(path);
-	return (len);
-}
+// 	len = ft_strlen(path);
+// 	free(path);
+// 	return (len);
+// }
 
 static void	post_quote_string(char *input, size_t *i)
 {
@@ -28,14 +28,7 @@ static void	post_quote_string(char *input, size_t *i)
 		&& input[*i] != '"'
 		&& !is_space(input[*i])
 		&& !is_operator(input[*i]))
-		{
-			if (input[*i] == '$'
-				&& (ft_isalnum(input[*i + 1])
-				|| input[*i + 1] == '_'))
-				expand_var_len(
-					expand_var(input, i));
-			(*i)++;
-		}
+		(*i)++;
 }
 
 static void	string_litteral(char *input, size_t *i)
@@ -55,14 +48,7 @@ static void	string_interpolated(char *input, size_t *i)
 {
 	(*i)++;
 	while (input[*i] && input[*i] != '"')
-	{
-		if (input[*i] == '$'
-			&& (ft_isalnum(input[*i + 1])
-			|| input[*i + 1] == '_'))
-			i += expand_var_len(
-				expand_var(input, i));
 		(*i)++;
-	}
 	if (input[*i] == '"')
 		(*i)++;
 	else
