@@ -183,3 +183,5 @@ int	heredoc(char *delimiter)
 	return (fd);
 }
 ```
+
+If this works, I prefer my own written structure [(this one)](./zachaar_notes.md#L81)
