@@ -7,15 +7,26 @@ SRC_DIR = src
 PARSE_DIR = parse
 LIBFT_DIR = lib/libft
 
+PARSE_SRCS = \
+    token_to_list.c \
+    get_token.c \
+    quote_token.c \
+    label_token.c \
+    syntax_check.c \
+    env_init.c \
+	env_cmd.c \
+    utils_cleanup.c \
+    utils_leftovers.c
+
+EXEC_SRCS = \
+
+PARSE_SOURCES = $(addprefix $(SRC_DIR)/$(PARSE_DIR)/,$(PARSE_SRCS))
+EXEC_SOURCES = $(addprefix $(SRC_DIR)/$(EXEC_DIR)/,$(EXEC_SRCS))
+
 SRCS = \
-	$(SRC_DIR)/main.c \
-	$(SRC_DIR)/$(PARSE_DIR)/token_to_list.c \
-	$(SRC_DIR)/$(PARSE_DIR)/get_token.c \
-	$(SRC_DIR)/$(PARSE_DIR)/quote_token.c \
-	$(SRC_DIR)/$(PARSE_DIR)/label_token.c \
-	$(SRC_DIR)/$(PARSE_DIR)/syntax_check.c \
-	$(SRC_DIR)/$(PARSE_DIR)/utils_cleanup.c \
-	$(SRC_DIR)/$(PARSE_DIR)/utils_leftovers.c \
+    $(SRC_DIR)/main.c \
+    $(PARSE_SOURCES) \
+    $(EXEC_SOURCES)
 
 OBJS = $(SRCS:.c=.o)
 
