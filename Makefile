@@ -9,9 +9,10 @@ LIBFT_DIR = lib/libft
 
 PARSE_SRCS = \
     token_to_list.c \
-    get_token.c \
-    quote_token.c \
-    label_token.c \
+    token_get.c \
+    token_quote.c \
+    token_label.c \
+    token_heredoc.c \
     syntax_check.c \
     env_init.c \
 	env_cmd.c \
