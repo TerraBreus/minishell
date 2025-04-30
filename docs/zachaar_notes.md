@@ -153,15 +153,14 @@ Here is what I expect the function to look like:
 ** so something along the lines of...
 */
 
-int	heredoc(char *EOF)
+int	heredoc(char *delimiter)
 {
 	int		fd;
 	int		len;
 	char	*input;
-	char	*needle;
 
 	//I think this should be done before entering the heredoc program but just in case I write it down.
-	if (*EOF == '\0')
+	if (*delimiter== '\0')
 		return (-1);
 
 	fd = open(".temp_heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0666);
@@ -172,17 +171,15 @@ int	heredoc(char *EOF)
 	{
 		input = readline(">");
 		if	(input == NULL)
-			exit_error_malloc();
+			break ; //In case of malloc failure, we do not necessarily need to have the whole minishell exit...
 		len = ft_strlen(input);
-		needle = ft_strstr(input, EOF);
-		if (needle != NULL) //Needle is only NULL if none have been found.
+		if (ft_strcmp(input, delimiter) == 0) 
 			break ;
 		write(fd, input, len);
+		write(fd, "\n", 1);
 		free(input);
 	}
-	write(fd, input, needle - input);
 	free(input);
 	return (fd);
 }
-```
 ```
