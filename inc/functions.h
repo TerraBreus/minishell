@@ -17,12 +17,12 @@
 
 // identifieng input into tokens.
 t_list			*tokenize_input(char *input);
-char			*get_token(char *input, int *index);
-void			token_expansion(t_list *token_list);
+char			*get_token(char *input, size_t *i);
+char			*quote_token(char *input, size_t *i);
+char 			*expand_var(char *input, size_t *i);
 
 // checks if tokens are valid, and give error accordingly
 void			syntax_error(char *message);
-char			*expand_token_var(char *token);
 
 // some tokens are operators, eg pipe, redirect or append
 t_token_type	get_operator_type(char *token);
@@ -30,5 +30,6 @@ void			token_del(void *content);
 
 // leftover utilities for small functions and debugging.
 void			print_tokens(t_list *head);
+bool			is_operator(char c);
 
 #endif

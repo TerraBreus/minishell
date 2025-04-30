@@ -11,7 +11,7 @@ SRCS = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/$(PARSE_DIR)/token_to_list.c \
 	$(SRC_DIR)/$(PARSE_DIR)/get_token.c \
-	$(SRC_DIR)/$(PARSE_DIR)/expansion.c \
+	$(SRC_DIR)/$(PARSE_DIR)/quote_token.c \
 	$(SRC_DIR)/$(PARSE_DIR)/label_token.c \
 	$(SRC_DIR)/$(PARSE_DIR)/syntax_check.c \
 	$(SRC_DIR)/$(PARSE_DIR)/utils_cleanup.c \

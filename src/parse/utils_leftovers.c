@@ -44,3 +44,12 @@ void	print_tokens(t_list *head)
 		head = head->next;
 	}
 }
+
+bool	is_operator(char c)
+{
+	if (!c)
+		return (false);
+	if (c == '|' || c == '<' || c == '>')
+		return (true);
+	return (false);
+}

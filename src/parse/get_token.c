@@ -12,128 +12,86 @@
 
 #include "minishell.h"
 
-int	word_token(char *input, int i)
+char *operator_token(char *input, size_t *i)
 {
-	int	len;
+	char current_operator;
 
-	len = 0;
-	while (input[i + len])
-	{
-		if (input[i + len] == ' ')
-			return (len);
-		if (input[i + len] == '>'
-			|| input[i + len] == '<'
-			|| input[i + len] == '|')
-			return (len);
-		len++;
-	}
-	return (len);
+	current_operator = input[*i];
+	(*i)++;
+	if (input[*i] == current_operator)
+		return ((*i)++, ft_substr(input, *i - 2, 2));
+	if (is_operator(input[*i]))
+		syntax_error("unknown operator combination found");
+	return (ft_substr(input, *i -1, 1));
 }
 
-int	variable_token(char *input, int i)
+char *expand_var(char *input, size_t *i)
 {
-	int	len;
+	char	*path;
+	char	*var_name;
+	size_t	start;
 
-	len = 1;
-	if (input[i + len] == '?')
-		return (2);
-	if (input[i + len] == '\0' || isspace(input[i + len]))
-		return (1);
-	if (!ft_isalpha(input[i + len]) && input[i + len] != '_')
+	(*i)++;
+	start = *i;
+	if (input[*i] == '?')
+		return (ft_itoa(0));
+	while (ft_isalnum(input[*i]) || input[*i] == '_')
+		(*i)++;
+	if (start != *i)
 	{
-		syntax_error("invalid character after $");
-		return (0);
+		var_name = ft_substr(input, start, *i - start);
+		printf("%s", var_name);
+		path = getenv(var_name);
+		if (path)
+			return (free(var_name), ft_strdup(path));
+		else
+			return (ft_strdup(""));
 	}
-	len++;
-	while (input[i + len]
-		&& input[i + len] != '>'
-		&& input[i + len] != '<'
-		&& input[i + len] != '|'
-		&& input[i + len] != ' '
-		&& input[i + len] != '\''
-		&& input[i + len] != '"')
-		len++;
-	while (ft_isalnum(input[i + len]) || input[i + len] == '_')
-		len++;
-	return (len);
+	return (ft_strdup("$"));
 }
 
-int	quote_token(char *input, int i)
+char *word_token(char *input, size_t *i)
 {
-	char	quote;
-	int		start;
+	size_t	start;
+	bool	found_path;
+	char	*input_with_path;
 
-	start = i;
-	quote = input[i];
-	i++;
-	while (input[i] && input[i] != quote)
-		i++;
-	if (input[i] == quote)
+	start = *i;
+	found_path = false;
+	while (input[*i]
+		&& !is_space(input[*i])
+		&& !is_operator(input[*i])
+		&& input[*i] != '\''
+		&& input[*i] != '"'
+		&& input[*i] != '#')
 	{
-		while (input[i]
-			&& input[i] != ' '
-			&& input[i] != '>'
-			&& input[i] != '<'
-			&& input[i] != '|'
-			&& input[i] != '\''
-			&& input[i] != '"')
-			i++;
-		start = i - start + 1;
-		return (start);
+		if (input[*i] == '$')
+		{
+			found_path = true;
+			input_with_path = strjoin_and_free(
+			ft_substr(&input[start], start, *i - start),
+			expand_var(input, i));
+		}
+		(*i)++;
 	}
-	syntax_error("unclosed quote");
-	return (0);
+	if (found_path)
+		return (input_with_path);
+	return (ft_substr(input, start, *i - start));
 }
 
-/* we tokenize with priority, ' or " is always highest priority
- * then would be # but not required by subject
- * then is $ which is fucking hard in bash but we only need to
- * take care of env expension which makes it easy-peasy-lemon-squeasy
- * then redirects
- * then pipes
- * then come words
- */
-int	get_token_len(char *input, int i)
+char	*get_token(char *input, size_t *i)
 {
-	if (!input || !input[i])
-		return (0);
-	if (input[i] == '\'' || input[i] == '"')
+	if (!input[*i])
+		return (NULL);
+	else if (input[*i] == '\'' || input[*i] == '"')
 		return (quote_token(input, i));
-	else if (input[i] == '$')
-		return (variable_token(input, i));
-	else if (input[i] == '>' || input[i] == '<')
-	{
-		if (input[i + 1] == input[i])
-			return (2);
-		return (1);
-	}
-	else if (input[i] == '|')
-		return (1);
+	else if (input[*i] == '#')
+		return(NULL);
+	else if (is_operator(input[*i]))
+		return (operator_token(input, i));
+	else if (input[*i] == '$')
+		return (expand_var(input, i));
 	else
 		return (word_token(input, i));
-	return (1);
-}
-
-char	*get_token(char *input, int *index)
-{
-	int		i;
-	int		token_len;
-	char	*token;
-
-	i = *index;
-	if (!input[i])
-	{
-		*index = i;
-		return (NULL);
-	}
-	token_len = get_token_len(input, i);
-	if (token_len == 0)
-		return (NULL);
-	token = ft_substr(input, i, token_len);
-	if (!token)
-		return (NULL);
-	*index = i + token_len;
-	if (input[*index] && is_space(input[*index]))
-		(*index)++;
-	return (token);
+	return (NULL);
 }

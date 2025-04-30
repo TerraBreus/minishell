@@ -37,29 +37,9 @@ void	label_the_tokens(void *content)
 		data->type = TOKEN_WORD;
 }
 
-void	expand_the_var(void *content)
-{
-	t_token_data	*data;
-	char			*expanded;
-
-	if (!content)
-		return ;
-	data = (t_token_data *)content;
-	if (!data->token || data->type != TOKEN_WORD)
-		return ;
-	if (ft_strchr(data->token, '$') == NULL)
-		return ;
-	expanded = expand_token_var(data->token);
-	if (!expanded)
-		return ;
-	free(data->token);
-	data->token = expanded;
-}
-
 void	token_expansion(t_list *token_list)
 {
 	if (!token_list)
 		return ;
 	ft_lstiter(token_list, label_the_tokens);
-	ft_lstiter(token_list, expand_the_var);
 }

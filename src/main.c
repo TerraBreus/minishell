@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **env)
 	while (true)
 	{
 		input = readline("minishell$ ");
-			ctrl_d(input);
+		ctrl_d(input);
 		if (*input == '\0')
 		{
 			free(input);
@@ -44,8 +44,6 @@ int	main(int argc, char **argv, char **env)
 		free(input);
 		if (token_list)
 		{
-			print_tokens(token_list);
-			token_expansion(token_list);
 			print_tokens(token_list);
 			ft_lstclear(&token_list, token_del);
 		}

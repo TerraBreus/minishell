@@ -33,7 +33,7 @@ t_list	*create_node(char *token)
 	return (new_node);
 }
 
-static t_list	*token_to_node(char *input, int *index)
+static t_list	*token_to_node(char *input, size_t *index)
 {
 	char	*char_token;
 	t_list	*token_node;
@@ -55,7 +55,7 @@ t_list	*tokenize_input(char *input)
 {
 	t_list	*token_list;
 	t_list	*token_node;
-	int		index;
+	size_t		index;
 
 	token_list = NULL;
 	index = 0;
