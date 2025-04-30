@@ -74,6 +74,7 @@ Also realized current stage does not tell difference of built in commands. Befor
 
 ---
 29-04
+
 **Weekly meetup recap**
 The input for execution has more or less been established. 
 On the parsing part it is important the initial command line gets parsed/tokenized into the following two structures:
@@ -135,5 +136,6 @@ Thus the following goals have been set:
 - [ ] Write the execution.						**ETA 10-05**
 ---
 30-04
+
 For today I want to make my notes about the HEREDOC, how to implement it and how to build the necessary structures around it. I do not expect this to take all day so if there is time and energy left at the end of todays session, I would like to take a look at the MAKEFILE and see if we can update it to make future experiences more optimized and streamlined. (adding object directories, having multiple make commands that do (for example) create a minishell that only does the piping part or tests specific parts. AKA creates different programs if needed/specified)
 
