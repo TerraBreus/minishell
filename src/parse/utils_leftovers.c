@@ -53,3 +53,16 @@ bool	is_operator(char c)
 		return (true);
 	return (false);
 }
+
+void	skip_litteral(char *token, size_t *i)
+{
+	if (!token || !token[*i])
+		return ;
+	if (token[0] == '\'')
+	{
+		(*i)++;
+		while (token[*i] != '\'')
+			(*i)++;
+		(*i)++;
+	}
+}
