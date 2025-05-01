@@ -16,14 +16,25 @@ jobs:
 
       - name: Generate links and update README
         run: |
-          # Create the list of links
-          echo "## 🗓️ Daily Logs" > dailylogs_section.md
-          for file in $(ls docs/zachaar/daily_logs | sort -r); do
-            echo "- [${file}](docs/zachaar/daily_logs/${file})" >> dailylogs_section.md
+          echo "## 🧑‍💻 Logs" > dailylogs_section.md
+
+          echo -e "\n### Zachaar" >> dailylogs_section.md
+          for file in $(ls docs/zachaar/daily_logs | sort -M); do
+            filename=$(basename "$file")
+            name="${filename%.md}"
+            echo "- [${name}](docs/zachaar/daily_logs/${filename})" >> dailylogs_section.md
           done
 
-          # Replace or insert the section in README.md
+          echo -e "\n### Martijn" >> dailylogs_section.md
+          for file in $(ls docs/martijn/daily_logs | sort -M); do
+            filename=$(basename "$file")
+            name="${filename%.md}"
+            echo "- [${name}](docs/martijn/daily_logs/${filename})" >> dailylogs_section.md
+          done
+
+          # Replace section in README
           awk '/<!-- START LOGS -->/{print; system("cat dailylogs_section.md"); next} /<!-- END LOGS -->/{found=1} !found' README.md > tmp && mv tmp README.md
+
 
       - name: Commit and push changes
         run: |
