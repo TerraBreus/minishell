@@ -23,4 +23,10 @@ As part of the 42 curriculum, this project recreates a miniature version of *bas
 
 
 <!-- START LOGS -->
-<!-- END LOGS -->
+## 🗓️ Daily Logs
+- [30_04.md](docs/zachaar/daily_logs/30_04.md)
+- [29_04.md](docs/zachaar/daily_logs/29_04.md)
+- [25_04.md](docs/zachaar/daily_logs/25_04.md)
+- [24_04.md](docs/zachaar/daily_logs/24_04.md)
+- [22_04.md](docs/zachaar/daily_logs/22_04.md)
+- [01_05.md](docs/zachaar/daily_logs/01_05.md)
