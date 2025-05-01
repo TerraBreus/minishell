@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_custom_env	*my_env;
 	t_list			*token_list;
-	char	*input;
+	char			*input;
 
 	(void)argc;
 	(void)argv;
@@ -43,6 +43,9 @@ int	main(int argc, char **argv, char **env)
 		free(input);
 		if (token_list)
 		{
+			print_tokens(token_list);
+			token_expansion(token_list, my_env);
+			printf("---token list after expansion---\n");
 			print_tokens(token_list);
 			ft_lstclear(&token_list, token_del);
 		}
