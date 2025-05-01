@@ -49,8 +49,8 @@ int		ft_toupper(int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*strjoin_and_free(char *s1, char *s2);
-char	*strjoin_char_and_free(char *s, char c);
+char	*ft_strjoin_and_free(char *s1, char *s2);
+char	*ft_strjoin_char_and_free(char *s, char c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *str, char c);
 char	*ft_itoa(int n);
@@ -76,6 +76,7 @@ void	ft_lstadd_back(t_list **lst, t_list *node);
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
+void	ft_lstiter_param(t_list *lst, void (*f)(void *, void *), void *param);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

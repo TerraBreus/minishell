@@ -14,7 +14,7 @@
 
 // concatenated 1 char to a string, and frees the input
 // return result should still be freed
-char	*strjoin_char_and_free(char *s, char c)
+char	*ft_strjoin_char_and_free(char *s, char c)
 {
 	char	buffer[2];
 	char	*temp;
@@ -24,5 +24,5 @@ char	*strjoin_char_and_free(char *s, char c)
 	temp = ft_strdup(buffer);
 	if (!temp)
 		return (free(s), NULL);
-	return (strjoin_and_free(s, temp));
+	return (ft_strjoin_and_free(s, temp));
 }

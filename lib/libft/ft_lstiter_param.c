@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 18:34:38 by masmit            #+#    #+#             */
-/*   Updated: 2024/10/29 14:57:43 by masmit           ###   ########.fr       */
+/*   Created: 2024/10/29 17:34:57 by masmit            #+#    #+#             */
+/*   Updated: 2024/10/29 17:50:19 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// cals strjoin but frees s1 and s2
-// return result should still be freed
-char	*ft_strjoin_and_free(char *s1, char *s2)
+// now you can iterate a list and send extra variables to have them exist in
+// the function you apply when iterating
+void	ft_lstiter_param(t_list *lst, void (*f)(void *, void *), void *param)
 {
-	char	*joined;
-
-	if (!s1 || !s2)
-		return (NULL);
-	joined = ft_strjoin(s1, s2);
-	free(s1);
-	free(s2);
-	return (joined);
+	while (lst)
+	{
+		f(lst->content, param);
+		lst = lst->next;
+	}
 }
