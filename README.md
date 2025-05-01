@@ -1,4 +1,5 @@
 # minishell
+*In collaboration with [smallsigh](www.github.com/smallsigh)*
 **About this project**
 
 As part of the 42 curriculum, this project recreates a miniature version of *bash*. 
