@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                          :+:      :+:    :+:   */
+/*   structs.h                                           :+:    :+:           */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:18 by masmit            #+#    #+#             */
-/*   Updated: 2025/04/22 15:48:19 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/01 16:01:02 by zivanov        ########   odam.nl        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,13 @@ typedef struct s_token_data {
 // --Structs for executing commands, piping,--
 // --heredoc and other redirection operators--
 
-typedef enum e_redir_type { IN, APPEND, OUT, HEREDOC } t_redir_type;
+typedef enum e_redir_type
+{
+	IN,
+	APPEND,
+	OUT,
+	HEREDOC 
+} t_redir_type;
 
 typedef struct s_redir {
   int heredoc_fd;
