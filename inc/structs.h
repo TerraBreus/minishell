@@ -21,6 +21,7 @@ typedef struct s_custom_env
 typedef enum e_token_type
 {
 	TOKEN_WORD,
+	TOKEN_WORD_WITH_PATH,
 	TOKEN_PIPE,
 	TOKEN_REDIRECT_IN,
 	TOKEN_REDIRECT_OUT,

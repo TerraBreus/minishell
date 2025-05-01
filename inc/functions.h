@@ -25,13 +25,17 @@ char			*token_heredoc(char *input, size_t *i);
 void			syntax_error(char *message);
 void			malloc_fail(char *message, t_custom_env	*my_env);
 
-// some tokens are operators, eg pipe, redirect or append
-t_token_type	get_operator_type(char *token);
+// once tokenized, iterate through token, label and expand them
+void			token_expansion(t_list *token_list, t_custom_env *env);
+char			*insert_path(char *token, t_custom_env *env);
+
+// iteration helper functions
 void			token_del(void *content);
 
 // leftover utilities for small functions and debugging.
 void			print_tokens(t_list *head);
 bool			is_operator(char c);
+void			skip_litteral(char *token, size_t *i);
 
 // custom env init
 t_custom_env	*shell_env_init(char **env);
