@@ -1,0 +1,34 @@
+name: Update README with Daily Logs
+
+on:
+  push:
+    paths:
+      - 'docs/zachaar/daily_logs/**'
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate links and update README
+        run: |
+          # Create the list of links
+          echo "## 🗓️ Daily Logs" > dailylogs_section.md
+          for file in $(ls docs/zachaar/daily_logs | sort -r); do
+            echo "- [${file}](docs/zachaar/daily_logs/${file})" >> dailylogs_section.md
+          done
+
+          # Replace or insert the section in README.md
+          awk '/<!-- START LOGS -->/{print; system("cat dailylogs_section.md"); next} /<!-- END LOGS -->/{found=1} !found' README.md > tmp && mv tmp README.md
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Update README with latest daily logs" || echo "No changes to commit"
+          git push
