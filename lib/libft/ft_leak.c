@@ -15,7 +15,7 @@
 // leaks for given size in bytes
 void	ft_leak(size_t size)
 {
-	void *p;
+	void	*p;
 
 	p = malloc(size);
 	(void)p;

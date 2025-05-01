@@ -20,7 +20,8 @@
 ** And I will presume a string is correctly null terminated.
 ** So I will add this function almost exactly the same as ft_strnstr.c
 **
-** NB: Yes, you must null terminate your strings to not send this function to the infinity dimension
+** NB: Yes, you must null terminate your
+** strings to not send this function to the infinity dimension
 */
 
 char	*ft_strstr(const char *haystack, const char *needle)
