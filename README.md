@@ -12,9 +12,6 @@ As part of the 42 curriculum, this project recreates a miniature version of *bas
  - [History (arrow up down to go through log/previous commands)](./docs/general/roadmap/history.md)
  - [Signal handling (Ctrl-C, Ctrl-D)](./docs/general/roadmap/signal_handling.md)
 
-## xXx--L O G S--xXx
-
-[Martijn](./docs/martijn_notes.txt)
 <!-- START LOGS -->
 ## 🧑‍💻 Logs
 
