@@ -24,7 +24,9 @@ char	*token_word(char *input, size_t *i)
 		&& input[*i] != '"'
 		&& input[*i] != '#')
 		(*i)++;
-	return (ft_substr(input, start, *i - start));
+	if (start != *i)
+		return (ft_substr(input, start, *i - start));
+	return (NULL);
 }
 
 bool	is_heredoc(char *input, size_t *i)
@@ -56,31 +58,6 @@ char	*token_operator(char *input, size_t *i)
 		syntax_error("unknown operator combination found");
 	return (ft_substr(input, *i -1, 1));
 }
-
-// char *expand_var(char *input, size_t *i)
-// {
-// 	char	*path;
-// 	char	*var_name;
-// 	size_t	start;
-
-// 	(*i)++;
-// 	start = *i;
-// 	if (input[*i] == '?')
-// 		return (ft_itoa(0));
-// 	while (ft_isalnum(input[*i]) || input[*i] == '_')
-// 		(*i)++;
-// 	if (start != *i)
-// 	{
-// 		var_name = ft_substr(input, start, *i - start);
-// 		printf("%s", var_name);
-// 		path = my_getenv(my_env, var_name);
-// 		if (path)
-// 			return (free(var_name), ft_strdup(path));
-// 		else
-// 			return (ft_strdup(""));
-// 	}
-// 	return (ft_strdup("$"));
-// }
 
 char	*token_get(char *input, size_t *i)
 {

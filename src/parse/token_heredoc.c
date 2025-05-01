@@ -66,15 +66,15 @@ char	*token_heredoc(char *input, size_t *i)
 	while (is_space(input[*i]))
 		(*i)++;
 	delimiter = heredoc_delimiter(input, i);
-	if (!delimiter)
-		return (malloc_fail("delimiter in heredoc", NULL), NULL);
+	if (!delimiter || !*delimiter)
+		return (syntax_error("missing delimiter after <<"), NULL);
 	heredoc_content = ft_strdup("");
 	while (true)
 	{
 		line = heredoc_readline(line, delimiter);
 		if (!line)
 			break ;
-		temp = strjoin_and_free(heredoc_content, line);
+		temp = ft_strjoin_and_free(heredoc_content, line);
 		heredoc_content = ft_strjoin(temp, "\n");
 		free(temp);
 		if (!heredoc_content)
