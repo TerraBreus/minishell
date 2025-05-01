@@ -57,4 +57,6 @@ To see the actual structures check [../../../inc/structs.h](../../../inc/structs
 ---
 As a small task, I tried to update the Makefile to have object directory. However, I could not understand Martijns implementation and was too tired to do more research. So I simply asked chatGPT to do it for me. When I tried to make everything, I got compilation errors so no idea if it is working. 
 
-If I fucked up the Makefile, just restore the old version (on the github page you have a history button).
+If I fucked up the Makefile, just restore the old version (on the github page you have a history button):
+---
+![temp](https://github.com/user-attachments/assets/655ac62f-f3db-41e3-a4c5-71132f06d3a7)
