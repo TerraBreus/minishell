@@ -53,3 +53,8 @@ Hope this makes any sense.
 With this (temporal) solution, we should be able to finalize the structures needed in order to start writing.
 
 To see the actual structures check [../../../inc/structs.h](../../../inc/structs.h)
+
+---
+As a small task, I tried to update the Makefile to have object directory. However, I could not understand Martijns implementation and was too tired to do more research. So I simply asked chatGPT to do it for me. When I tried to make everything, I got compilation errors so no idea if it is working. 
+
+If I fucked up the Makefile, just restore the old version (on the github page you have a history button).
