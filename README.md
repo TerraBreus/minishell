@@ -20,3 +20,7 @@ As part of the 42 curriculum, this project recreates a miniature version of *bas
 
 | [22 - 04](./docs/zachaar/daily_logs/22_04.md) | [24 - 04](./docs/zachaar/daily_logs/24_04.md) | [25 - 04](./docs/zachaar/daily_logs/25_04.md) | [29 - 04](./docs/zachaar/daily_logs/29_04.md) | [30 - 04](./docs/zachaar/daily_logs/30_04.md)
 |--|--|--|--|--|
+
+
+<!-- START LOGS -->
+<!-- END LOGS -->
