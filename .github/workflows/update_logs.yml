@@ -33,7 +33,22 @@ jobs:
           done
 
           # Replace section in README
-          awk '/<!-- START LOGS -->/{print; system("cat dailylogs_section.md"); next} /<!-- END LOGS -->/{found=1} !found' README.md > tmp && mv tmp README.md
+          awk '
+            BEGIN { in_section = 0 }
+            /<!-- START LOGS -->/ {
+              print;                       # Print START marker
+              while ((getline line < "dailylogs_section.md") > 0) print line  # Insert generated content
+              in_section = 1
+              next
+            }
+            /<!-- END LOGS -->/ {
+              in_section = 0
+              print                             # Print END marker
+              next
+            }
+            !in_section                        # Only print lines outside the section
+          ' README.md > tmp && mv tmp README.md
+
 
 
       - name: Commit and push changes
