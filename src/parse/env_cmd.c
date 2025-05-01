@@ -30,7 +30,7 @@ char	*my_getenv(t_custom_env *my_env, char *variable)
 		{
 			while (my_env->env_copy[env_items][i] != '=')
 				i++;
-			return (ft_substr(my_env->env_copy[env_items], i,
+			return (ft_substr(my_env->env_copy[env_items], i + 1,
 					ft_strlen(my_env->env_copy[env_items]) - i));
 		}
 		env_items++;
