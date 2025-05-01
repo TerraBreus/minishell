@@ -30,3 +30,20 @@ As part of the 42 curriculum, this project recreates a miniature version of *bas
 - [april25](docs/martijn/daily_logs/april25.md)
 - [april26](docs/martijn/daily_logs/april26.md)
 - [april30](docs/martijn/daily_logs/april30.md)
+## 🧑‍💻 Logs
+
+### Zachaar
+- [april22](docs/zachaar/daily_logs/april22.md)
+- [april24](docs/zachaar/daily_logs/april24.md)
+- [april25](docs/zachaar/daily_logs/april25.md)
+- [april29](docs/zachaar/daily_logs/april29.md)
+- [april30](docs/zachaar/daily_logs/april30.md)
+- [may01](docs/zachaar/daily_logs/may01.md)
+
+### Martijn
+- [april21](docs/martijn/daily_logs/april21.md)
+- [april22](docs/martijn/daily_logs/april22.md)
+- [april23](docs/martijn/daily_logs/april23.md)
+- [april25](docs/martijn/daily_logs/april25.md)
+- [april26](docs/martijn/daily_logs/april26.md)
+- [april30](docs/martijn/daily_logs/april30.md)
