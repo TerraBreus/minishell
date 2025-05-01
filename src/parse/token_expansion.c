@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char *expand_var(t_custom_env *my_env, char *input, size_t *i)
+static char	*expand_var(t_custom_env *my_env, char *input, size_t *i)
 {
 	char	*path;
 	char	*var_name;
@@ -43,55 +43,32 @@ static bool	is_path(char *token, size_t *i)
 	{
 		if (token[*i] == '$'
 			&& (token[*i + 1] == '_'
-			|| token[*i + 1] == '?'
-			|| ft_isalnum(token[*i + 1])))
+				|| token[*i + 1] == '?'
+				|| ft_isalnum(token[*i + 1])))
 			return (true);
 	}
 	return (false);
 }
 
-static void	skip_litteral(char *token, size_t *i)
+static char	*handle_non_var_part(char *token, size_t *i)
 {
-	if (!token || !token[*i])
-		return ;
-	if (token[0] == '\'')
-	{
-		(*i)++;
-		while(token[*i] != '\'')
-			(*i)++;
-		(*i)++;
-	}
-}
+	size_t	start;
+	char	*part;
 
-static bool	has_path(char *token)
-{
-	size_t	i;
-
-	i = 0;
-	skip_litteral(token, &i);
-	if (!token || !token[i])
-		return (false);
-	while (token[i])
-	{
-		if (token[i] == '$'
-			&& (token[i + 1] == '_'
-			|| token[i + 1] == '?'
-			|| ft_isalnum(token[i + 1])))
-			return (true);
-		i++;
-	}
-	return (false);
+	start = *i;
+	while (token[*i] && token[*i] != '$' && token[*i] != '\'')
+		(*i)++;
+	part = ft_substr(token, start, *i - start);
+	return (part);
 }
 
 char	*insert_path(char *token, t_custom_env *env)
 {
 	size_t	i;
-	size_t	start;
 	char	*expanded;
-	char	*tmp;
+	char	*part;
 
 	i = 0;
-	start = 0;
 	expanded = ft_strdup("");
 	if (!expanded)
 		return (NULL);
@@ -99,14 +76,14 @@ char	*insert_path(char *token, t_custom_env *env)
 	{
 		skip_litteral(token, &i);
 		if (is_path(token, &i))
-			expanded = ft_strjoin_and_free(expanded, expand_var(env, token, &i));
+		{
+			part = expand_var(env, token, &i);
+			expanded = ft_strjoin_and_free(expanded, part);
+		}
 		else
 		{
-			start = i;
-			while (token[i] && token[i] != '$' && token[i] != '\'')
-				i++;
-			tmp = ft_substr(token, start, i - start);
-			expanded = ft_strjoin_and_free(expanded, tmp);
+			part = handle_non_var_part(token, &i);
+			expanded = ft_strjoin_and_free(expanded, part);
 		}
 	}
 	return (expanded);
