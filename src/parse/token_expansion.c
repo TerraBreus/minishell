@@ -29,8 +29,9 @@ static char	*expand_var(t_custom_env *my_env, char *input, size_t *i)
 		var_name = ft_substr(input, start, *i - start);
 		printf("%s", var_name);
 		path = my_getenv(my_env, var_name);
+		free(var_name);
 		if (path)
-			return (free(var_name), ft_strdup(path));
+			return (path);
 		else
 			return (ft_strdup(""));
 	}
