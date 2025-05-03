@@ -95,3 +95,6 @@ int	main_pipex(t_cmd *cmd_line)
 	}
 }
 ```
+---
+
+Ok well.... my stupid ass thought it was a smart idea to do some evals and now I have to eval inception and cpp so I kind of lost my ability to focus. Might have to continue another day...
