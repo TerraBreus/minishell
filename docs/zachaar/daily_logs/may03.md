@@ -84,8 +84,8 @@ int	main_pipex(t_cmd *cmd_line)
 			create_pipe();
 		if (cmd_line->cmd != NULL)
 		{
-			if (check_if_cmd_is_built_in(cmd_line->cmd))
-				built_in_cmd(cmd_line);
+			if (cmd_is_built_in(cmd_line->cmd))
+				cmd_in_parent(cmd_line);
 			else
 				cmd_in_child(cmd_line);
 		}
