@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/04/22 15:52:31 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/05 14:09:28 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	add_new_var(t_custom_env *my_env, char *new_var_and_value)
 			sizeof(char *) * env_items,
 			sizeof(char *) * env_items + 2);
 	if (!my_env)
-		return (malloc_fail("malloc failed for adding env parameter", my_env));
+		return (malloc_fail(
+				"malloc failed for adding env parameter", my_env, NULL));
 	my_env->env_copy[env_items] = new_var_and_value;
 	my_env->env_copy[env_items + 1] = NULL;
 }
@@ -91,7 +92,7 @@ void	my_export(t_custom_env *my_env, char *new_var, char *value)
 	new_var_and_value = ft_strjoin(new_var, "=");
 	new_var_and_value = ft_strjoin(new_var_and_value, value);
 	if (!new_var_and_value)
-		return (malloc_fail("when joining strings", my_env));
+		return (malloc_fail("when joining strings", my_env, NULL));
 	while (my_env->env_copy[++env_items])
 	{
 		if (ft_strncmp(my_env->env_copy[env_items], new_var, new_var_len) == 0
@@ -101,7 +102,7 @@ void	my_export(t_custom_env *my_env, char *new_var, char *value)
 			my_env->env_copy[env_items] = malloc(
 					new_var_len + ft_strlen(value) + 2);
 			if (!my_env->env_copy[env_items])
-				return (malloc_fail("for replacing env parameter", my_env));
+				return (malloc_fail("replacing env parameter", my_env, NULL));
 			my_env->env_copy[env_items] = new_var_and_value;
 			return ;
 		}
