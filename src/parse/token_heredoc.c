@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   token_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/04/22 15:52:31 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/05 14:15:25 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ char	*token_heredoc(char *input, size_t *i)
 	char	*line;
 	char	*temp;
 
+	line = NULL;
 	while (is_space(input[*i]))
 		(*i)++;
 	delimiter = heredoc_delimiter(input, i);
-	if (!delimiter || !*delimiter)
+	if (!delimiter && !*delimiter)
 		return (syntax_error("missing delimiter after <<"), NULL);
 	heredoc_content = ft_strdup("");
 	while (true)
@@ -78,7 +79,7 @@ char	*token_heredoc(char *input, size_t *i)
 		heredoc_content = ft_strjoin(temp, "\n");
 		free(temp);
 		if (!heredoc_content)
-			return (malloc_fail("strjoin in heredoc", NULL), NULL);
+			return (malloc_fail("strjoin in heredoc", NULL, NULL), NULL);
 	}
 	free(delimiter);
 	return (heredoc_content);

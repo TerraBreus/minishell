@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/04/22 15:48:06 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/05 16:53:19 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char			*token_heredoc(char *input, size_t *i);
 
 // checks if tokens are valid, and give error accordingly
 void			syntax_error(char *message);
-void			malloc_fail(char *message, t_custom_env	*my_env);
+void			malloc_fail(
+					char *message, t_custom_env	*my_env, t_list *token_list);
 
 // once tokenized, iterate through token, label and expand them
 void			token_expansion(t_list *token_list, t_custom_env *env);

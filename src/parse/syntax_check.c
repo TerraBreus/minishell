@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/04/22 15:52:31 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/05 14:06:58 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ void	syntax_error(char *message)
 
 // cleans up and exits program
 // message auto-satrt with "malloc fail "
-void	malloc_fail(char *message, t_custom_env	*my_env)
+void	malloc_fail(char *message, t_custom_env	*my_env, t_list *token_list)
 {
-	t_list			*token_list;
-
 	if (my_env)
 		cleanup_env(my_env);
 	if (token_list)
