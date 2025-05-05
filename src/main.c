@@ -47,7 +47,8 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	if ((my_env = shell_env_init(env)) == NULL)
+	my_env = shell_env_init(env);
+	if (my_env == NULL)
 		return (EXIT_FAILURE);
 	while (true)
 		loop(my_env);
