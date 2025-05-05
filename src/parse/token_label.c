@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   token_label.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/04/22 15:52:31 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/05 14:05:09 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ void	token_var_to_path(void *content, void *my_env)
 	char			*new_token;
 
 	(void)my_env;
+	new_token = NULL;
 	if (!content)
 		return ;
 	data = (t_token_data *)content;
-	if (!data || !data->token || data->type != TOKEN_WORD_WITH_PATH)
+	if (!data
+		|| !data->token
+		|| data->type != TOKEN_WORD_WITH_PATH)
 		return ;
 	if (has_path(data->token) == true)
 		new_token = insert_path(data->token, my_env);
