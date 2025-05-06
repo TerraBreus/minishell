@@ -17,6 +17,10 @@ PARSE_SRCS = \
 	token_label.c \
 	token_expansion.c \
 	token_heredoc.c \
+	cmd_list_create.c \
+	cmd_list_utils.c \
+	cmd_list_print.c \
+	cmd_list_cleanup.c \
 	syntax_check.c \
 	env_init.c \
 	env_cmd.c \
