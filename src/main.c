@@ -22,21 +22,22 @@ void	loop(t_custom_env *my_env)
 {
 	char	*input;
 	t_list	*token_list;
+	t_cmd	*cmd_list;
 
 	token_list = NULL;
+	cmd_list = NULL;
 	input = readline("minishell$ ");
 	ctrl_d(input);
-	if (*input == '\0')
-		free(input);
-	else
-	{
+	if (*input != '\0')
 		token_list = tokenize_input(input);
-		free(input);
-	}
+	free(input);
 	if (token_list)
 	{
-		print_tokens(token_list);
 		token_expansion(token_list, my_env);
+		cmd_list = cmd_struct(token_list);
+		if (!cmd_list)
+			malloc_fail("cmd_list in loop", my_env, token_list);
+		cleanup_cmd_list(cmd_list);
 		ft_lstclear(&token_list, token_del);
 	}
 }
