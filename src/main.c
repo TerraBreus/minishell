@@ -37,6 +37,7 @@ void	loop(t_custom_env *my_env)
 		cmd_list = cmd_struct(token_list);
 		if (!cmd_list)
 			malloc_fail("cmd_list in loop", my_env, token_list);
+		print_cmd_list(cmd_list);
 		cleanup_cmd_list(cmd_list);
 		ft_lstclear(&token_list, token_del);
 	}
