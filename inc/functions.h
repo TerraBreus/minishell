@@ -33,6 +33,16 @@ char			*insert_path(char *token, t_custom_env *env);
 // iteration helper functions
 void			token_del(void *content);
 
+// put tokens in new cmd struct for exec
+t_cmd			*cmd_struct(t_list *token_list);
+void			print_cmd_list(t_cmd *cmd_list);
+void			cleanup_cmd_list(t_cmd *cmd_head);
+
+// utils for building the struct
+void			copy_argv(char **new_argv, char **old_argv, int argc);
+void			append_redir(t_cmd *cmd, t_redir *redir);
+t_redir_type	get_redir_type(t_token_type type);
+
 // leftover utilities for small functions and debugging.
 void			print_tokens(t_list *head);
 bool			is_operator(char c);
