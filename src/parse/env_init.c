@@ -16,40 +16,39 @@
 t_custom_env	*shell_env_init(char **env)
 {
 	t_custom_env	*my_env;
-	size_t			env_items;
+	size_t			i;
 
-	env_items = 0;
+	i = 0;
 	my_env = malloc(sizeof(t_custom_env));
 	if (!my_env)
 		return (NULL);
-	while (env[env_items])
-		env_items++;
-	my_env->env_copy = malloc(sizeof(char *) * (env_items + 1));
+	while (env[i])
+		i++;
+	my_env->env_copy = malloc(sizeof(char *) * (i + 1));
 	if (!my_env->env_copy)
 		return (free(my_env), NULL);
-	env_items = 0;
-	while (env[env_items])
+	i = 0;
+	while (env[i])
 	{
-		my_env->env_copy[env_items] = ft_strdup(env[env_items]);
-		if (!my_env->env_copy[env_items])
+		my_env->env_copy[i] = ft_strdup(env[i]);
+		if (!my_env->env_copy[i])
 			return (cleanup_env(my_env), NULL);
-		env_items++;
+		i++;
 	}
-	my_env->env_copy[env_items] = NULL;
+	my_env->env_copy[i] = NULL;
 	return (my_env);
 }
 
 void	cleanup_env(t_custom_env *my_env)
 {
-	size_t	env_items;
+	size_t	i;
 
-	env_items = 0;
-	while (my_env->env_copy[env_items])
+	i = 0;
+	while (my_env->env_copy[i])
 	{
-		free(my_env->env_copy[env_items]);
-		env_items++;
+		free(my_env->env_copy[i]);
+		i++;
 	}
 	free(my_env->env_copy);
 	free(my_env);
-	return ;
 }
