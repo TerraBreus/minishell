@@ -104,6 +104,5 @@ t_cmd	*cmd_struct(t_list *token_list)
 			&& !handle_token(&token_list, cmd))
 			token_list = token_list->next;
 	}
-	print_cmd_list(cmd_head);
 	return (cmd_head);
 }
