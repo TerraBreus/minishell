@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/08 16:00:57 by terramint        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	loop(t_custom_env *my_env)
 		if (!cmd_list)
 			malloc_fail("cmd_list in loop", my_env, token_list);
 		print_cmd_list(cmd_list);
+		//exec_cmd_list(cmd_list); //TODO
 		cleanup_cmd_list(cmd_list);
 		ft_lstclear(&token_list, token_del);
 	}
