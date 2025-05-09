@@ -26,6 +26,7 @@ As part of the 42 curriculum, this project recreates a miniature version of *bas
 - [may01](docs/zachaar/daily_logs/may01.md)
 - [may03](docs/zachaar/daily_logs/may03.md)
 - [may05](docs/zachaar/daily_logs/may05.md)
+- [may09](docs/zachaar/daily_logs/may09.md)
 
 ### Martijn
 - [april21](docs/martijn/daily_logs/april21.md)
