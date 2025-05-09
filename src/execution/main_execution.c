@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 typedef int (*t_redir_handler)(t_redir *r);
 
 char	*find_full_path(char *paths[], char *cmd)
@@ -60,32 +59,43 @@ void	free_paths(char **possible_paths)
 	}
 }
 
-int	exec_cmd(char *cmdline, char *envp[])		//TODO we know use a different structure
+// bool	is_only_space(char *str)
+// {
+// 	while (*str != '\0')
+// 	{
+// 		if (*str != ' ')
+// 			return (false);
+// 		str++;
+// 	}
+// 	return (true);
+// }
+
+int	exec_cmd(char **cmd_and_flags, char **envp)
 {
-	char	**cmd_and_flags;
 	char	**possible_paths;
 	char	*path;
+	pid_t	pid;
 
-	possible_paths = create_possible_paths(envp);
-	if (possible_paths == NULL)
-		return (-1);
-	if (possible_paths == envp)
-		possible_paths = NULL;
-	if (is_only_space(cmdline) == true)		//TODO
-		cmd_and_flags = ft_split(cmdline, ':');
-	else
-		cmd_and_flags = ft_split(cmdline, ' ');
-	if (cmd_and_flags == NULL)
-		return (free_paths(possible_paths), -1);
-	path = find_full_path(possible_paths, cmd_and_flags[0]);
-	free_paths(possible_paths);
-	if (path == NULL)
-		return (free_paths(cmd_and_flags), -1);
-	execve(path, cmd_and_flags, envp);
-	perror(path);
-	free(path);
-	free_paths(cmd_and_flags);
-	return (127);
+	pid = fork();
+	if (pid == 0)
+	{
+		possible_paths = create_possible_paths(envp);
+		if (possible_paths == NULL)
+			return (-1);
+		if (possible_paths == envp)
+			possible_paths = NULL;
+		if (cmd_and_flags == NULL)
+			return (free_paths(possible_paths), -1);
+		path = find_full_path(possible_paths, cmd_and_flags[0]);
+		free_paths(possible_paths);
+		if (path == NULL)
+			return (-1);
+		execve(path, cmd_and_flags, envp);
+		perror(path);
+		free(path);
+		exit(EXIT_FAILURE);
+	}
+	return (0);
 }
 
 //void	child_operation(int i, char **argv, char **envp)
@@ -104,7 +114,7 @@ int	handle_in(t_redir *r)
 {
 	int		fd_in;
 
-	fd_in = open(r->filename_path, RD_ONLY);
+	fd_in = open(r->filename_path, O_RDONLY);
 	if (fd_in == -1)
 		return (-1);	//Would be useful to print error message of strerrno;
 	if (dup2(fd_in, STDIN_FILENO) == -1)
@@ -143,7 +153,7 @@ int handle_heredoc(t_redir *r)
 {
 	if (dup2(r->heredoc_fd, STDIN_FILENO) == -1)
 		return (-1);
-	close(heredoc_fd);
+	close(r->heredoc_fd);
 	return (0);
 }
 
@@ -167,7 +177,7 @@ int	setup_io(t_redir *redir_data)
 	return (0);
 }
 
-int	exec_cmd_list(t_cmd	*cmd_list)		//TODO: Must also add environment for exec_cmd()
+int	exec_cmd_list(t_cmd	*cmd_list, t_custom_env *t_envp)
 {
 	while (cmd_list != NULL)
 	{
@@ -182,8 +192,10 @@ int	exec_cmd_list(t_cmd	*cmd_list)		//TODO: Must also add environment for exec_c
 //			exec_built_in(cmd_list);	//TODO
 //		else
 //			exec_cmd(cmd_list);
-		exec_cmd(cmd_list);
+		exec_cmd(cmd_list->argv, t_envp->env_copy);
 		cmd_list = cmd_list->next;
 	}
+	while (wait(NULL) != -1)
+		;	//TODO Check erro for no_child
 	return (0);
 }
