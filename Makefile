@@ -1,13 +1,13 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iinc -Ilib/libft
+CFLAGS = -Wall -Wextra -Werror -g -Iinc -Ilib/libft
 
 MINILIB_FLAGS = -lreadline -lncurses
 
 SRC_DIR = src
 PARSE_DIR = parse
-EXEC_DIR = exec
+EXEC_DIR = execution
 LIBFT_DIR = lib/libft
 
 PARSE_SRCS = \
@@ -27,7 +27,8 @@ PARSE_SRCS = \
 	utils_cleanup.c \
 	utils_leftovers.c
 
-EXEC_SRCS =
+EXEC_SRCS = \
+	main_execution.c
 
 PARSE_SOURCES = $(addprefix $(PARSE_DIR)/,$(PARSE_SRCS))
 EXEC_SOURCES = $(addprefix $(EXEC_DIR)/,$(EXEC_SRCS))

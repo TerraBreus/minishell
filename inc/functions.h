@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*   By: terrabuntu <terrabuntu@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 16:53:19 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/09 16:00:51 by terrabuntu       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,8 @@ void			cleanup_env(t_custom_env *my_env);
 void			my_export(t_custom_env *my_env, char *new_var, char *value);
 void			my_unset(t_custom_env *my_env, char *variable);
 char			*my_getenv(t_custom_env *my_env, char *variable);
+
+//execution
+int	exec_cmd_list(t_cmd	*cmd_list, t_custom_env *t_envp);
 
 #endif
