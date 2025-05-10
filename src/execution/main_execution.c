@@ -70,7 +70,7 @@ void	free_paths(char **possible_paths)
 // 	return (true);
 // }
 
-int	exec_cmd(char **cmd_and_flags, char **envp)
+int	exec_cmd_in_child(char **cmd_and_flags, char **envp, int last_read_end)
 {
 	char	**possible_paths;
 	char	*path;
@@ -79,6 +79,7 @@ int	exec_cmd(char **cmd_and_flags, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
+		close(last_read_end);
 		possible_paths = create_possible_paths(envp);
 		if (possible_paths == NULL)
 			return (-1);
@@ -177,22 +178,53 @@ int	setup_io(t_redir *redir_data)
 	return (0);
 }
 
+int	setup_last_read_end(int *last_read_end)
+{
+	if (dup2(*last_read_end, STDIN_FILENO) == -1)
+	{
+		close(*last_read_end);
+		return (-1);
+	}
+	close(*last_read_end);
+	*last_read_end = -1;
+	return (0);
+}
+
+int	create_new_pipe(int *last_read_end)
+{
+	int	pipe_fd[2];
+
+	if (*last_read_end != -1)
+		setup_last_read_end(last_read_end);
+	if (pipe(pipe_fd) == -1)
+		return (-1);	//TODO Must I close last_read_end here or in exec_cmd_list?
+	if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
+		return (-1);	//TODO Close the pipe?
+	close(pipe_fd[1]);
+	*last_read_end = pipe_fd[0];
+	return (0);
+}
+
 int	exec_cmd_list(t_cmd	*cmd_list, t_custom_env *t_envp)
 {
+	static int	last_read_end = -1;
+
 	while (cmd_list != NULL)
 	{
-//		if (cmd_list->next != NULL)
-//			create_new_pipe();		//TODO
-//		else
-//			setup_last_read_pipe();		//TODO
-		
+		if (cmd_list->next != NULL)
+		{
+			if (create_new_pipe(&last_read_end) == -1)
+					exit(EXIT_FAILURE); //TODO Should really do closing of all the fd, freeing whatever we have (if applicable).
+		}
+		else
+			setup_last_read_end(&last_read_end);
 		setup_io(cmd_list->redirection);
 		
 //		if (built_in(*(cmd_list->argv)))	//TODO
 //			exec_built_in(cmd_list);	//TODO
 //		else
 //			exec_cmd(cmd_list);
-		exec_cmd(cmd_list->argv, t_envp->env_copy);
+		exec_cmd_in_child(cmd_list->argv, t_envp->env_copy, last_read_end);
 		cmd_list = cmd_list->next;
 	}
 	while (wait(NULL) != -1)
