@@ -15,6 +15,7 @@
 
 # include "minishell.h"
 
+// global signal declared in included_libs, otherwise makefile error
 void	env_init(t_shell *shell);
 
 void	loop(t_shell *shell);
@@ -41,6 +42,14 @@ void	print_exec(t_cmd *exec);
 bool	has_path(char *str);
 bool	is_path(char *str, size_t *i);
 bool	is_operator(char c);
+bool	is_input_empty(t_shell *shell, char *input);
+void	update_bools(
+			char c, bool *in_singles, bool *in_doubles);
+
+// signals
+void	setup_signals(void);
+void	signal_is_int(t_shell *shell);
+void	ctrl_d(char *input);
 
 // utils else
 void	skip_litteral(char *str, size_t *i);

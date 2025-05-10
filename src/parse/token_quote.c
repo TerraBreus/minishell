@@ -31,7 +31,7 @@ static void	string_interpolated(t_shell *shell, char *input, size_t *i)
 	if (input[*i] == '"')
 		(*i)++;
 	else
-		shell->found_error = TRUE;
+		syntax_error(shell, "UNCLOSED QUOTE");
 }
 
 static void	string_litteral(t_shell *shell, char *input, size_t *i)
@@ -43,12 +43,12 @@ static void	string_litteral(t_shell *shell, char *input, size_t *i)
 	if (input[*i] == '\'')
 		(*i)++;
 	else
-		shell->found_error = TRUE;
+		syntax_error(shell, "UNCLOSED QUOTE");
 }
 
 void	token_quote(t_shell *shell, char *input, size_t *i)
 {
-	if (input[*i] && input[*i + 1])
+	if (input[*i])
 	{
 		if (input[*i] == '\'')
 			string_litteral(shell, input, i);
@@ -56,6 +56,6 @@ void	token_quote(t_shell *shell, char *input, size_t *i)
 			string_interpolated(shell, input, i);
 	}
 	if (shell->found_error == TRUE)
-		syntax_error(shell, "UNCLOSED QUOTE");
+		return ;
 	token_extension(input, i);
 }

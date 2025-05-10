@@ -32,6 +32,21 @@ static bool	is_meta_char(t_shell *shell, char c)
 		return (FALSE);
 }
 
+void	make_key(t_shell *shell, char *input, size_t *i)
+{
+	(*i)++;
+	while (input[*i]
+		&& !is_space(input[*i])
+		&& !is_operator(input[*i])
+		&& !is_meta_char(shell, input[*i]))
+	{
+		if (input[*i] == '"' || input[*i] == '\'')
+			token_quote(shell, input, i);
+		else
+			(*i)++;
+	}
+}
+
 static void	token_word(t_shell *shell, char *input, size_t *i)
 {
 	while (input[*i]
@@ -40,7 +55,11 @@ static void	token_word(t_shell *shell, char *input, size_t *i)
 		&& !is_meta_char(shell, input[*i])
 		&& input[*i] != '\''
 		&& input[*i] != '"')
+	{
 		(*i)++;
+		if (input[*i] == '=')
+			make_key(shell, input, i);
+	}
 }
 
 void	tokenize_input_len(t_shell *shell, char *input, size_t *i)

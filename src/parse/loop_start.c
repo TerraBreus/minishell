@@ -12,8 +12,11 @@
 
 #include "minishell.h"
 
+int	g_signal;
+
 static void	shell_reset(t_shell *shell)
 {
+	g_signal = 0;
 	shell->tc = 0;
 	shell->found_error = FALSE;
 	shell->tokens = NULL;
@@ -44,6 +47,8 @@ static void	tokenize_input(t_shell *shell, char *input)
 	size_t	start;
 
 	i = 0;
+	if (is_input_empty(shell, input) == TRUE)
+		return ;
 	add_history(input);
 	skip_space(input, &i);
 	token_count_malloc(shell, input);
@@ -65,7 +70,8 @@ void	is_it_ready(t_shell *shell)
 	size_t	i;
 
 	i = 0;
-	while (i < shell->tc)
+	while (i < shell->tc
+		&& shell->found_error == FALSE)
 	{
 		if (is_operator(shell->tokens[i][0]) == TRUE
 		&& (i == shell->tc - 1
@@ -87,18 +93,19 @@ void	loop(t_shell *shell)
 	t_cmd	*exec;
 
 	exec = NULL;
+	setup_signals();
 	shell_reset(shell);
 	input = readline("my_shell: ");
-	if (!input)
-		return ;
-	if (*input != '\0')
-		tokenize_input(shell, input);
+	ctrl_d(input);
+	signal_is_int(shell);
+	tokenize_input(shell, input);
 	free(input);
 	is_it_ready(shell);
 	if (shell->found_error == FALSE)
 	{
 		expand_tokens(shell);
 		cleanup_quotes(shell);
+		print_tokens(shell);
 		token_to_struct(shell, &exec);
 		print_exec(exec);
 	}

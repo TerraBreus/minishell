@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char	*remove_quotes(t_shell *shell, char *str)
+static char	*remove_quotes_simple(t_shell *shell, char *str)
 {
 	char	*result;
 	char	*substr_end;
@@ -34,7 +34,7 @@ static char	*remove_quotes(t_shell *shell, char *str)
 		result = ft_strjoin_and_free(result, substr_end);
 	}
 	if (!result)
-		malloc_fail(shell, "remove_quotes");
+		malloc_fail(shell, "remove_quotes_simple");
 	return (result);
 }
 
@@ -48,7 +48,7 @@ void	cleanup_quotes(t_shell *shell)
 	{
 		if (shell->tokens[i][0] == '\'' || shell->tokens[i][0] == '"')
 		{
-			new_token = remove_quotes(shell, shell->tokens[i]);
+			new_token = remove_quotes_simple(shell, shell->tokens[i]);
 			free(shell->tokens[i]);
 			shell->tokens[i] = new_token;
 		}

@@ -12,64 +12,46 @@
 
 #include "minishell.h"
 
-void	skip_space(char *input, size_t *i)
+void	signal_is_int(t_shell *shell)
 {
-	while (input[*i] == ' ' || input[*i] == '\t')
-		(*i)++;
-}
-
-void	skip_litteral(char *str, size_t *i)
-{
-	if (str[*i] == '\'')
+	if (g_signal == SIGINT)
 	{
-		(*i)++;
-		while (str[*i] != '\'')
-			(*i)++;
-		(*i)++;
+		shell->last_errno = 130;
+		g_signal = 0;
+		shell->found_error = TRUE;
 	}
 }
 
-void	cleanup_shell(t_shell *shell)
+void	ctrl_d(char *input)
 {
-	size_t	i;
-
-	i = 0;
-	if (!shell->tokens)
-		return ;
-	while (i < shell->tc)
+	if (!input)
 	{
-		free(shell->tokens[i]);
-		i++;
-	}
-	free(shell->tokens);
-	shell->tokens = NULL;
-}
-
-void	cleanup_env(t_shell *shell)
-{
-	size_t	i;
-
-	i = 0;
-	if (shell->env_copy)
-	{
-		while (shell->env_copy[i])
-		{
-			free(shell->env_copy[i]);
-			i++;
-		}
-		free(shell->env_copy);
-		shell->env_copy = NULL;
+		ft_putendl_fd("exit", STDOUT_FILENO);
+		exit(EXIT_SUCCESS);
 	}
 }
 
-void	print_tokens(t_shell *shell)
+static void	sig_int_handler(int sig)
 {
-	size_t	i;
+	g_signal = sig;
+	rl_replace_line("", 0);
+	rl_redisplay();
+	write(STDOUT_FILENO, "^C\n", 3);
+	rl_on_new_line();
+	rl_redisplay();
+}
 
-	i = 0;
-	while (i < shell->tc)
-	{
-		printf("%s\n", shell->tokens[i]);
-		i++;
-	}
+void	setup_signals(void)
+{
+	struct sigaction	sa_int;
+	struct sigaction	sa_quit;
+
+	ft_memset(&sa_int, 0, sizeof(sa_int));
+	sa_int.sa_handler = sig_int_handler;
+	sigemptyset(&sa_int.sa_mask);
+	sigaction(SIGINT, &sa_int, NULL);
+	sa_int.sa_flags = SA_RESTART;
+	ft_memset(&sa_quit, 0, sizeof(sa_quit));
+	sa_quit.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sa_quit, NULL);
 }

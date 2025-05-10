@@ -23,6 +23,7 @@ PARSE_SRCS = \
 	cmd_struct.c \
 	cmd_redir.c \
 	cmd_print.c \
+	signal.c \
 	utils.c \
 	utils_bool.c
 

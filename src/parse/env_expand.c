@@ -57,24 +57,23 @@ static char	*check_expansion(t_shell *shell, char *str)
 	size_t	i;
 	char	*expanded;
 	char	*part;
+	bool	in_singles;
+	bool	in_doubles;
 
+	i = 0;
+	in_singles = false;
+	in_doubles = false;
 	expanded = ft_strdup("");
 	if (!expanded)
 		malloc_fail(shell, "check_expansion");
-	i = 0;
 	while (str[i])
 	{
-		skip_litteral(str, &i);
-		if (is_path(str, &i))
-		{
+		update_bools(str[i], &in_singles, &in_doubles);
+		if (!in_singles && is_path(str, &i))
 			part = expand_var(shell, str, &i);
-			expanded = ft_strjoin_and_free(expanded, part);
-		}
 		else
-		{
 			part = handle_non_var_part(str, &i);
-			expanded = ft_strjoin_and_free(expanded, part);
-		}
+		expanded = ft_strjoin_and_free(expanded, part);
 	}
 	return (expanded);
 }

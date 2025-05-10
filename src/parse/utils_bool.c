@@ -25,6 +25,8 @@ bool	is_path(char *str, size_t *i)
 {
 	if (str[*i])
 	{
+		if (str[*i] != '$')
+			return (false);
 		if (str[*i] == '$'
 			&& (str[*i + 1] == '_'
 				|| str[*i + 1] == '?'
@@ -34,17 +36,48 @@ bool	is_path(char *str, size_t *i)
 	return (false);
 }
 
+void	update_bools(
+char c, bool *in_singles, bool *in_doubles)
+{
+	if (c == '\'' && !(*in_doubles))
+		*in_singles = !(*in_singles);
+	else if (c == '"' && !(*in_singles))
+		*in_doubles = !(*in_doubles);
+}
+
 bool	has_path(char *str)
 {
 	size_t	i;
+	bool	in_singles;
+	bool	in_doubles;
 
+	in_singles = FALSE;
+	in_doubles = FALSE;
 	i = 0;
-	skip_litteral(str, &i);
 	while (str[i])
 	{
-		if (is_path(str, &i))
+		update_bools(str[i],
+			&in_singles, &in_doubles);
+		if (str[i] == '\''
+			|| str[i] == '"')
+		{
+			i++;
+			continue ;
+		}
+		if (is_path(str, &i)
+			&& in_singles == FALSE)
 			return (TRUE);
 		i++;
+	}
+	return (FALSE);
+}
+
+bool	is_input_empty(t_shell *shell, char *input)
+{
+	if (*input == '\0')
+	{
+		shell->found_error = TRUE;
+		return (TRUE);
 	}
 	return (FALSE);
 }
