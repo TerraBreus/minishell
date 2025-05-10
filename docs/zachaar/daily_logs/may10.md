@@ -8,3 +8,8 @@
   - last command (read from last pipe).
 - Understand what int values a child must return in edge cases/problems
 - Find a way to save the return value of last executed child.
+- Almost all functions can have errors/failure. Therefore we must call them as such:
+```c
+if (create_new_pipe() == -1)
+  fatal_error(EXIT_FAILURE);
+```
