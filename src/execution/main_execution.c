@@ -208,7 +208,9 @@ int	create_new_pipe(int *last_read_end)
 int	exec_cmd_list(t_cmd	*cmd_list, t_custom_env *t_envp)
 {
 	static int	last_read_end = -1;
+	t_cmd		*temp;
 
+	temp = cmd_list;
 	while (cmd_list != NULL)
 	{
 		if (cmd_list->next != NULL)
@@ -227,6 +229,8 @@ int	exec_cmd_list(t_cmd	*cmd_list, t_custom_env *t_envp)
 		exec_cmd_in_child(cmd_list->argv, t_envp->env_copy, last_read_end);
 		cmd_list = cmd_list->next;
 	}
+//	close(STDIN_FILENO);
+//	close(STDOUT_FILENO);
 	while (wait(NULL) != -1)
 		;	//TODO Check erro for no_child
 	return (0);

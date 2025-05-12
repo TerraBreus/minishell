@@ -18,6 +18,38 @@ void	ctrl_d(char *input)
 		exit(EXIT_SUCCESS);
 }
 
+int	close_and_return(int in, int out)
+{
+	close(in);
+	close(out);
+	return (-1);
+}
+
+int	save_or_restore_io(int restore_or_save)
+{
+	static int	copy_in;
+	static int	copy_out;
+
+	if (restore_or_save == SAVE)
+	{
+		copy_in = dup(STDIN_FILENO);
+		copy_out = dup(STDOUT_FILENO);
+		return (0);
+	}
+	else if (restore_or_save == RESTORE)
+	{
+		if (dup2(copy_in, STDIN_FILENO) == -1)
+			return (close_and_return(copy_in, copy_out));
+		if (dup2(copy_out, STDOUT_FILENO) == -1)
+			return (close_and_return(copy_in, copy_out));
+		close(copy_in);
+		close(copy_out);
+		return (0);
+	}
+	else 
+		return (-1);
+}
+
 void	loop(t_custom_env *my_env)
 {
 	char	*input;
@@ -38,7 +70,9 @@ void	loop(t_custom_env *my_env)
 		if (!cmd_list)
 			malloc_fail("cmd_list in loop", my_env, token_list);
 		print_cmd_list(cmd_list);
+		save_or_restore_io(SAVE);
 		exec_cmd_list(cmd_list, my_env);
+		save_or_restore_io(RESTORE);
 		cleanup_cmd_list(cmd_list);
 		ft_lstclear(&token_list, token_del);
 	}

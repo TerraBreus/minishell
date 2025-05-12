@@ -20,4 +20,7 @@
 
 # define SYNTAX_ERROR 2
 
+// -- READABILITY VARIABLES -- 
+# define RESTORE 0
+# define SAVE 1
 #endif
