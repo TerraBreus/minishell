@@ -1,3 +1,5 @@
+#include "minishell.h"
+
 int	close_and_return(int in, int out)
 {
 	close(in);
@@ -5,7 +7,7 @@ int	close_and_return(int in, int out)
 	return (-1);
 }
 
-void	save_or_restore_io(int restore_or_save)
+int	save_or_restore_io(int restore_or_save)
 {
 	static int	copy_in;
 	static int	copy_out;
@@ -16,7 +18,7 @@ void	save_or_restore_io(int restore_or_save)
 		copy_out = dup(STDOUT_FILENO);
 		return (0);
 	}
-	else if (restore_or_save == RETRIEVE)
+	else if (restore_or_save == RESTORE)
 	{
 		if (dup2(copy_in, STDIN_FILENO) == -1)
 			return (close_and_return(copy_in, copy_out));

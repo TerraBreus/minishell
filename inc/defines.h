@@ -23,4 +23,8 @@
 // -- READABILITY VARIABLES -- 
 # define RESTORE 0
 # define SAVE 1
+
+// typdef of point to function.
+typedef int (*t_redir_handler)(t_redir *r);
+
 #endif
