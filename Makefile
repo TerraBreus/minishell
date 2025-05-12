@@ -28,7 +28,13 @@ PARSE_SRCS = \
 	utils_leftovers.c
 
 EXEC_SRCS = \
-	main_execution.c
+	execute_command.c		\
+	find_executables.c		\
+	main_execution.c		\
+	pipex.c				\
+	redirection_handlers.c		\
+	restore_io.c			\
+	setup_io.c
 
 PARSE_SOURCES = $(addprefix $(PARSE_DIR)/,$(PARSE_SRCS))
 EXEC_SOURCES = $(addprefix $(EXEC_DIR)/,$(EXEC_SRCS))
