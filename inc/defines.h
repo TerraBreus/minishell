@@ -20,4 +20,7 @@
 
 # define SYNTAX_ERROR 2
 
+# define EXPORT_ERROR "\
+minishell: export: invalid identifier found in filename\n"
+
 #endif

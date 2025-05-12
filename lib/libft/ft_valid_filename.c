@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Created: 2024/10/12 15:39:32 by masmit            #+#    #+#             */
+/*   Updated: 2024/10/15 15:28:55 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-// keeping notes here cuz im bourne lazy like jason bourne
-// parsing, done
-// signals, done on interactive mode, missing in exec
-// builtin, done export
-// 			done env
-// 			
-
-// TODO: heredoc, echo, cd, pwd, unset, exit
-
-int	main(void)
+bool	valid_filename(char c)
 {
-	t_shell	shell;
-
-	env_init(&shell);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+	if (!c)
+		return (false);
+	if (ft_isalnum(c) || c == '_')
+		return (true);
+	else
+		return (false);
 }

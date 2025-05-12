@@ -18,6 +18,7 @@ PARSE_SRCS = \
 	token_quote.c \
 	token_rest.c \
 	env_cmd.c \
+	env_export.c \
 	env_expand.c \
 	cleanup_quotes.c \
 	cmd_struct.c \

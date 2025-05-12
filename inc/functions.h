@@ -31,6 +31,7 @@ void	cleanup_quotes(t_shell *shell);
 
 // env cmd_list
 char	*my_getenv(t_shell *shell, char *var_name);
+void	my_export(t_shell *shell, char *arg);
 
 // pass tokens to parser
 void	token_to_struct(t_shell *shell, t_cmd **exec);
