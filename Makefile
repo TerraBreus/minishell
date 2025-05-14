@@ -18,8 +18,9 @@ PARSE_SRCS = \
 	token_quote.c \
 	token_rest.c \
 	env_cmd.c \
-	bubble_sort.c \
 	builtin_export.c \
+	export_print.c \
+	builtin_local.c \
 	builtin_echo.c \
 	builtin_cd.c \
 	builtin_unset.c \

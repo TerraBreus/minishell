@@ -20,3 +20,17 @@ bool	is_quote(char c)
 		return (true);
 	return (false);
 }
+
+void	just_print(char **temp_arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (temp_arr[i])
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putendl_fd(temp_arr[i], STDOUT_FILENO);
+		free(temp_arr[i]);
+		i++;
+	}
+}

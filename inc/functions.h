@@ -16,7 +16,8 @@
 # include "minishell.h"
 
 // global signal declared in included_libs, otherwise makefile error
-void	env_init(t_shell *shell);
+void	env_init(t_shell *shell, char **env);
+void	local_init(t_shell *shell);
 
 void	loop(t_shell *shell);
 
@@ -32,6 +33,8 @@ void	cleanup_quotes(t_shell *shell);
 // env cmd_list
 char	*my_getenv(t_shell *shell, char *var_name);
 void	my_export(t_shell *shell, char *arg);
+void	export_local(t_shell *shell, char *variable);
+bool	print_export_list(t_shell *shell, char **env_copy);
 
 // pass tokens to parser
 void	token_to_struct(t_shell *shell, t_cmd **exec);
@@ -57,7 +60,7 @@ void	ctrl_d(char *input);
 void	skip_litteral(char *str, size_t *i);
 void	skip_space(char *input, size_t *i);
 void	print_tokens(t_shell *shell);
-char	**bubble_sort(char **arr, size_t size);
+void	just_print(char **temp_arr);
 
 // no leaks
 void	cleanup_shell(t_shell *shell);

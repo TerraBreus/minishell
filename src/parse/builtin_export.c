@@ -12,33 +12,7 @@
 
 #include "minishell.h"
 
-// check if memcpy works like this
-void	print_export_list(t_shell *shell, char **env_copy)
-{
-	size_t	i;
-	char	**temp_arr;
-
-	i = 0;
-	while (env_copy[i])
-		i++;
-	ft_memcpy(temp_arr, env_copy, sizeof(char *) * i);
-	if (!temp_arr)
-	{
-		malloc_fail(shell, "print export list\n");
-		return ;
-	}
-	temp_arr = bubble_sort(temp_arr, i);
-	i = 0;
-	while (temp_arr[i])
-	{
-		write(STDOUT_FILENO, "declare -x ", 12);
-		write(STDOUT_FILENO, temp_arr[i], ft_strlen(temp_arr[i]));
-		write(STDOUT_FILENO, "\n", 1);
-		i++;
-	}
-}
-
-void	add_to_env(t_shell *shell, char *arg)
+static void	add_var(t_shell *shell, char *arg)
 {
 	size_t	i;
 
@@ -50,11 +24,56 @@ void	add_to_env(t_shell *shell, char *arg)
 			sizeof(char *) * (i + 2));
 	if (!shell->env_copy)
 	{
-		malloc_fail(shell, "export var and value");
+		malloc_fail(shell, "add var");
 		return ;
 	}
-	shell->env_copy[i] = arg;
+	shell->env_copy[i] = ft_strdup(arg);
+	if (!shell->env_copy[i])
+	{
+		malloc_fail(shell, "add var");
+		return ;
+	}
 	shell->env_copy[i + 1] = NULL;
+}
+
+static void	update_var(
+	t_shell *shell, int index, char *arg)
+{
+	free(shell->env_copy[index]);
+	shell->env_copy[index] = ft_strdup(arg);
+	if (!shell->env_copy[index])
+		malloc_fail(shell, "add_to_env");
+}
+
+static int	find_index(t_shell *shell, const char *arg, size_t key_len)
+{
+	int	i;
+
+	i = 0;
+	while (shell->env_copy[i])
+	{
+		if (ft_strncmp(shell->env_copy[i], arg, key_len) == 0
+			&& shell->env_copy[i][key_len] == '=')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+static void	add_to_env(t_shell *shell, char *arg)
+{
+	size_t	key_len;
+	int		index;
+
+	if (ft_strchr(arg, '=') != 0)
+		key_len = ft_strchr(arg, '=') - arg;
+	else
+		key_len = ft_strlen(arg);
+	index = find_index(shell, arg, key_len);
+	if (index != -1)
+		update_var(shell, index, arg);
+	else
+		add_var(shell, arg);
 }
 
 // just pass arg with '=' inside, ill do the rest
@@ -75,10 +94,11 @@ void	my_export(t_shell *shell, char *arg)
 			i++;
 		else
 		{
-			write(STDOUT_FILENO, EXPORT_ERROR, 57);
+			write(STDOUT_FILENO, EXPORT_ERROR, ft_strlen(EXPORT_ERROR));
 			shell->last_errno = 1;
 			return ;
 		}
 	}
 	add_to_env(shell, arg);
 }
+// TODO update add_to_env for exporting local vars

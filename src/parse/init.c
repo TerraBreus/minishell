@@ -12,14 +12,12 @@
 
 #include "minishell.h"
 
-extern char	**environ;
-
-void	env_init(t_shell *shell)
+void	env_init(t_shell *shell, char **env)
 {
 	size_t	i;
 
 	i = 0;
-	while (environ[i])
+	while (env[i])
 		i++;
 	shell->env_copy = malloc(sizeof(char *) * (i + 1));
 	if (!shell->env_copy)
@@ -28,9 +26,9 @@ void	env_init(t_shell *shell)
 		return ;
 	}
 	i = 0;
-	while (environ[i])
+	while (env[i])
 	{
-		shell->env_copy[i] = ft_strdup(environ[i]);
+		shell->env_copy[i] = ft_strdup(env[i]);
 		if (!shell->env_copy[i])
 		{
 			malloc_fail(shell, "env_copy[i]");
@@ -39,4 +37,12 @@ void	env_init(t_shell *shell)
 		i++;
 	}
 	shell->env_copy[i] = NULL;
+}
+
+void	local_init(t_shell *shell)
+{
+	shell->local_vars = malloc(sizeof(char *));
+	if (!shell->local_vars)
+		malloc_fail(shell, "vars_init");
+	shell->local_vars[0] = NULL;
 }
