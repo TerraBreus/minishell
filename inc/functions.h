@@ -44,6 +44,7 @@ bool	has_path(char *str);
 bool	is_path(char *str, size_t *i);
 bool	is_operator(char c);
 bool	is_input_empty(t_shell *shell, char *input);
+bool	is_quote(char c);
 void	update_bools(
 			char c, bool *in_singles, bool *in_doubles);
 

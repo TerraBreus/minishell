@@ -64,7 +64,7 @@ static void	token_word(t_shell *shell, char *input, size_t *i)
 
 void	tokenize_input_len(t_shell *shell, char *input, size_t *i)
 {
-	if (input[*i] == '\'' || input[*i] == '"')
+	if (is_quote(input[*i]))
 		token_quote(shell, input, i);
 	else if (is_meta_char(shell, input[*i]))
 		return ;

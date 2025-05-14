@@ -12,31 +12,11 @@
 
 #include "minishell.h"
 
-extern char	**environ;
-
-void	env_init(t_shell *shell)
+bool	is_quote(char c)
 {
-	size_t	i;
-
-	i = 0;
-	while (environ[i])
-		i++;
-	shell->env_copy = malloc(sizeof(char *) * (i + 1));
-	if (!shell->env_copy)
-	{
-		malloc_fail(shell, "env_copy");
-		return ;
-	}
-	i = 0;
-	while (environ[i])
-	{
-		shell->env_copy[i] = ft_strdup(environ[i]);
-		if (!shell->env_copy[i])
-		{
-			malloc_fail(shell, "env_copy[i]");
-			return ;
-		}
-		i++;
-	}
-	shell->env_copy[i] = NULL;
+	if (!c)
+		return (false);
+	if (c == '\'' || c == '"')
+		return (true);
+	return (false);
 }

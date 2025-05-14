@@ -66,7 +66,10 @@ void	add_redir(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i)
 				break ;
 			redir = create_redir(shell, tokens[*i], tokens[*i + 1]);
 			if (!redir)
+			{
 				malloc_fail(shell, "add redir");
+				return ;
+			}
 			add_redir_to_cmd(cmd, redir);
 			*i += 2;
 		}

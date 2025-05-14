@@ -18,7 +18,10 @@ static t_cmd	*new_node(t_shell *shell)
 
 	new_cmd = malloc(sizeof(t_cmd));
 	if (!new_cmd)
+	{
 		malloc_fail(shell, "new command");
+		return (NULL);
+	}
 	new_cmd->argv = NULL;
 	new_cmd->pid = -1;
 	new_cmd->redirection = NULL;
@@ -53,7 +56,10 @@ void	token_to_struct(t_shell *shell, t_cmd **exec)
 	{
 		cmd = new_node(shell);
 		if (!cmd)
+		{
 			malloc_fail(shell, "token to struct");
+			return ;
+		}
 		add_args(shell, cmd, shell->tokens, &i);
 		add_redir(shell, cmd, shell->tokens, &i);
 		add_cmd_back(exec, cmd);

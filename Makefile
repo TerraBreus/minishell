@@ -29,7 +29,8 @@ PARSE_SRCS = \
 	cmd_print.c \
 	signal.c \
 	utils.c \
-	utils_bool.c
+	utils_bool1.c \
+	utils_bool2.c
 
 EXEC_SRCS =
 
