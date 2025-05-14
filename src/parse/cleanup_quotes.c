@@ -22,9 +22,11 @@ static char	*remove_quotes_simple(t_shell *shell, char *str)
 
 	quote = str[0];
 	i = 1;
-	while (str[i] != quote)
+	while (str[i] && str[i] != quote)
 		i++;
 	result = ft_substr(str, 1, i - 1);
+	if (!str[i + 1])
+		return (result);
 	j = i++;
 	while (str[j])
 		j++;

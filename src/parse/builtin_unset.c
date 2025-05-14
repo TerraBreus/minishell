@@ -12,22 +12,41 @@
 
 #include "minishell.h"
 
-// keeping notes here cuz im bourne lazy like jason bourne
-// parsing, done
-// signals, done on interactive mode, missing in exec
-// builtin, done export
-// 			done env
-// 			done echo
-
-// TODO: heredoc, cd, pwd, unset, exit
-
-int	main(void)
+void	remove_arg(char **env_copy, size_t *delete_pos)
 {
-	t_shell	shell;
+	size_t	i;
 
-	env_init(&shell);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+	i = *delete_pos;
+	free(env_copy[*delete_pos]);
+	while (env_copy[i + 1])
+	{
+		env_copy[i] = env_copy[i + 1];
+		i++;
+	}
+	env_copy[i] = NULL;
+}
+
+void	my_unset(t_shell *shell, char **arg_list)
+{
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	if (!arg_list)
+		return ;
+	while (arg_list[j] != NULL)
+	{
+		i = 0;
+		while (shell->env_copy[i] != NULL)
+		{
+			if (ft_strncmp(
+					shell->env_copy[i], arg_list[j],
+					ft_strlen(arg_list[j]) == 0)
+				&& shell->env_copy[i][ft_strlen(arg_list[j])] == '=')
+				remove_arg(shell->env_copy, &i);
+			else
+				i++;
+		}
+		j++;
+	}
 }

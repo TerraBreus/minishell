@@ -90,9 +90,7 @@ void	is_it_ready(t_shell *shell)
 void	loop(t_shell *shell)
 {
 	char	*input;
-	t_cmd	*exec;
 
-	exec = NULL;
 	setup_signals();
 	shell_reset(shell);
 	input = readline("my_shell: ");
@@ -104,10 +102,7 @@ void	loop(t_shell *shell)
 	if (shell->found_error == FALSE)
 	{
 		expand_tokens(shell);
-		cleanup_quotes(shell);
 		print_tokens(shell);
-		token_to_struct(shell, &exec);
-		print_exec(exec);
 	}
 	cleanup_shell(shell);
 }

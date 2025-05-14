@@ -14,18 +14,18 @@
 
 void	swap(char **a, char **b)
 {
-	char	*tmp;
+	char	*temp;
 
-	tmp = *a;
+	temp = *a;
 	*a = *b;
-	*b = tmp;
+	*b = temp;
 }
 
-char	**bubble_sort(char **arr, int size)
+char	**bubble_sort(char **arr, size_t size)
 {
-	int	i;
-	int	j;
-	int	swapped;
+	size_t	i;
+	size_t	j;
+	size_t	swapped;
 
 	i = 0;
 	while (i < size - 1)
@@ -61,23 +61,43 @@ void	print_export_list(char **env_copy)
 	while (temp_arr[i])
 	{
 		write(STDOUT_FILENO, "declare -x ", 12);
-		write(STDOUT_FILENO, env_copy, sizeof(env_copy));
+		write(STDOUT_FILENO, temp_arr[i], ft_strlen(temp_arr[i]));
 		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
 }
 
+void	add_to_env(t_shell *shell, char *arg)
+{
+	size_t	i;
+
+	i = 0;
+	while (shell->env_copy[i])
+		i++;
+	shell->env_copy = ft_realloc(shell->env_copy,
+			sizeof(char *) * i,
+			sizeof(char *) * (i + 2));
+	if (!shell->env_copy)
+	{
+		malloc_fail(shell, "export var and value");
+		return ;
+	}
+	shell->env_copy[i] = arg;
+	shell->env_copy[i + 1] = NULL;
+}
+
 // just pass arg with '=' inside, ill do the rest
-// on no next arg export behaves differently, also handled
+// on no arg export prints same list as env but sorted
 void	my_export(t_shell *shell, char *arg)
 {
 	size_t	i;
-	size_t	env;
 
-	env = 0;
 	i = 0;
 	if (!arg)
+	{
 		print_export_list(shell->env_copy);
+		return ;
+	}
 	while (arg[i] && arg[i] != '=')
 	{
 		if (valid_filename(arg[i]) == TRUE)
@@ -85,15 +105,9 @@ void	my_export(t_shell *shell, char *arg)
 		else
 		{
 			write(STDOUT_FILENO, EXPORT_ERROR, 57);
+			shell->last_errno = 1;
 			return ;
 		}
 	}
-	while (shell->env_copy[env])
-		env++;
-	shell->env_copy = ft_realloc(shell->env_copy,
-			sizeof(char *) * env,
-			sizeof(char *) * (env + 2));
-	if (!shell->env_copy)
-		malloc_fail(shell, "export var and value");
-	shell->env_copy[env] = arg;
+	add_to_env(shell, arg);
 }

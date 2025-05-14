@@ -12,70 +12,65 @@
 
 #include "minishell.h"
 
-static char	*handle_non_var_part(char *str, size_t *i)
-{
-	size_t	start;
-	char	*part;
-
-	start = *i;
-	while (str[*i] && str[*i] != '$')
-		(*i)++;
-	part = ft_substr(str, start, *i - start);
-	return (part);
-}
-
 static char	*expand_var(t_shell *shell, char *str, size_t *i)
 {
-	char	*path;
-	char	*var_name;
 	size_t	start;
+	char	*var_name;
+	char	*value;
 
-	(*i)++;
-	start = *i;
-	if (str[*i] == '?')
+	start = *i + 1;
+	if (str[start] == '?')
 	{
-		(*i)++;
+		(*i) = start + 1;
 		return (ft_itoa(shell->last_errno));
 	}
-	while (ft_isalnum(str[*i]) || str[*i] == '_')
-		(*i)++;
-	if (start != *i)
-	{
-		var_name = ft_substr(str, start, *i - start);
-		path = my_getenv(shell, var_name);
-		free(var_name);
-		if (path)
-			return (path);
-		else
-			return (ft_strdup(""));
-	}
-	return (ft_strdup("$"));
+	while (ft_isalnum(str[start]) || str[start] == '_')
+		start++;
+	var_name = ft_substr(str, *i + 1, start - (*i + 1));
+	value = my_getenv(shell, var_name);
+	free(var_name);
+	*i = start;
+	if (value)
+		return (value);
+	return (ft_strdup(""));
+}
+
+static char	*handle_expansion(
+	t_shell *shell, char *str, size_t *i, char *result)
+{
+	char	*expanded_var;
+	char	*temp;
+
+	expanded_var = expand_var(shell, str, i);
+	temp = ft_strjoin(result, expanded_var);
+	free(result);
+	free(expanded_var);
+	return (temp);
 }
 
 static char	*check_expansion(t_shell *shell, char *str)
 {
 	size_t	i;
-	char	*expanded;
-	char	*part;
 	bool	in_singles;
 	bool	in_doubles;
+	char	*result;
 
 	i = 0;
 	in_singles = false;
 	in_doubles = false;
-	expanded = ft_strdup("");
-	if (!expanded)
-		malloc_fail(shell, "check_expansion");
+	result = ft_strdup("");
 	while (str[i])
 	{
 		update_bools(str[i], &in_singles, &in_doubles);
-		if (!in_singles && is_path(str, &i))
-			part = expand_var(shell, str, &i);
+		if (str[i] == '$' && !in_singles)
+			result = handle_expansion(shell, str, &i, result);
 		else
-			part = handle_non_var_part(str, &i);
-		expanded = ft_strjoin_and_free(expanded, part);
+		{
+			result = ft_strjoin_char_and_free(result, str[i]);
+			i++;
+		}
 	}
-	return (expanded);
+	return (result);
 }
 
 void	expand_tokens(t_shell *shell)

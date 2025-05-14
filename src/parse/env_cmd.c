@@ -12,11 +12,6 @@
 
 #include "minishell.h"
 
-// my_unset()
-// {
-
-// }
-
 void	my_env(t_shell *shell)
 {
 	size_t	i;

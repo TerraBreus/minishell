@@ -48,28 +48,23 @@ char c, bool *in_singles, bool *in_doubles)
 bool	has_path(char *str)
 {
 	size_t	i;
-	bool	in_singles;
-	bool	in_doubles;
+	bool	in_single;
+	bool	in_double;
 
-	in_singles = FALSE;
-	in_doubles = FALSE;
+	in_single = false;
+	in_double = false;
 	i = 0;
 	while (str[i])
 	{
-		update_bools(str[i],
-			&in_singles, &in_doubles);
-		if (str[i] == '\''
-			|| str[i] == '"')
+		update_bools(str[i], &in_single, &in_double);
+		if (str[i] == '$' && !in_single)
 		{
-			i++;
-			continue ;
+			if (str[i + 1] == '?' || valid_filename(str[i + 1]))
+				return (true);
 		}
-		if (is_path(str, &i)
-			&& in_singles == FALSE)
-			return (TRUE);
 		i++;
 	}
-	return (FALSE);
+	return (false);
 }
 
 bool	is_input_empty(t_shell *shell, char *input)
