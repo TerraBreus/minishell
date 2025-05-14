@@ -12,34 +12,6 @@
 
 #include "minishell.h"
 
-static char	*remove_quotes_simple(t_shell *shell, char *str)
-{
-	char	*result;
-	char	*substr_end;
-	size_t	i;
-	size_t	j;
-	char	quote;
-
-	quote = str[0];
-	i = 1;
-	while (str[i] && str[i] != quote)
-		i++;
-	result = ft_substr(str, 1, i - 1);
-	if (!str[i + 1])
-		return (result);
-	j = i++;
-	while (str[j])
-		j++;
-	if (j > i)
-	{
-		substr_end = ft_substr(str, i, j - i);
-		result = ft_strjoin_and_free(result, substr_end);
-	}
-	if (!result)
-		return (malloc_fail(shell, "remove_quotes_simple"), NULL);
-	return (result);
-}
-
 static char	*clean_str(
 	t_shell *shell, char *str, size_t *i, char *result)
 {
@@ -69,7 +41,7 @@ static char	*join_char(
 	return (result);
 }
 
-static char	*clean_key(t_shell *shell, char *str)
+static char	*clean_token(t_shell *shell, char *str)
 {
 	char	*result;
 	size_t	i;
@@ -97,13 +69,10 @@ void	cleanup_quotes(t_shell *shell)
 	new_token = NULL;
 	while (shell->tokens[i])
 	{
-		if (is_quote(shell->tokens[i][0]) == TRUE)
-			new_token = remove_quotes_simple(shell, shell->tokens[i]);
-		else if (strchr(shell->tokens[i], '"')
+		if (strchr(shell->tokens[i], '"')
 			|| strchr(shell->tokens[i], '\''))
-			new_token = clean_key(shell, shell->tokens[i]);
-		if (new_token)
 		{
+			new_token = clean_token(shell, shell->tokens[i]);
 			free(shell->tokens[i]);
 			shell->tokens[i] = new_token;
 		}

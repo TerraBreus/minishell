@@ -12,43 +12,8 @@
 
 #include "minishell.h"
 
-void	swap(char **a, char **b)
-{
-	char	*temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-char	**bubble_sort(char **arr, size_t size)
-{
-	size_t	i;
-	size_t	j;
-	size_t	swapped;
-
-	i = 0;
-	while (i < size - 1)
-	{
-		j = 0;
-		swapped = 0;
-		while (j < size - i - 1)
-		{
-			if (ft_strcmp(arr[j], arr[j + 1]) > 0)
-			{
-				swap(&arr[j], &arr[j + 1]);
-				swapped = 1;
-			}
-			j++;
-		}
-		if (!swapped)
-			break ;
-		i++;
-	}
-	return (arr);
-}
-
-void	print_export_list(char **env_copy)
+// check if memcpy works like this
+void	print_export_list(t_shell *shell, char **env_copy)
 {
 	size_t	i;
 	char	**temp_arr;
@@ -56,7 +21,13 @@ void	print_export_list(char **env_copy)
 	i = 0;
 	while (env_copy[i])
 		i++;
-	temp_arr = bubble_sort(env_copy, i);
+	ft_memcpy(temp_arr, env_copy, sizeof(char *) * i);
+	if (!temp_arr)
+	{
+		malloc_fail(shell, "print export list\n");
+		return ;
+	}
+	temp_arr = bubble_sort(temp_arr, i);
 	i = 0;
 	while (temp_arr[i])
 	{
@@ -95,7 +66,7 @@ void	my_export(t_shell *shell, char *arg)
 	i = 0;
 	if (!arg)
 	{
-		print_export_list(shell->env_copy);
+		print_export_list(shell, shell->env_copy);
 		return ;
 	}
 	while (arg[i] && arg[i] != '=')

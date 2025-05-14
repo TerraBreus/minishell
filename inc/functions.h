@@ -57,10 +57,12 @@ void	ctrl_d(char *input);
 void	skip_litteral(char *str, size_t *i);
 void	skip_space(char *input, size_t *i);
 void	print_tokens(t_shell *shell);
+char	**bubble_sort(char **arr, size_t size);
 
 // no leaks
 void	cleanup_shell(t_shell *shell);
 
+// in case of errors
 void	malloc_fail(t_shell *shell, char *location);
 void	syntax_error(t_shell *shell, char *invalid_token);
 
