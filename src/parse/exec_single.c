@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:54:29 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/16 18:34:44 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:49:46 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	exec_single(t_shell *shell, char **arg_list)
 		my_echo(arg_list);
 	else if (ft_strncmp(arg_list[0], "cd", 3) == 0)
 		my_cd(shell, arg_list);
+	else if (ft_strncmp(arg_list[0], "cd", 3) == 0)
+		my_pwd(shell, arg_list);
 	else if (ft_strncmp(arg_list[0], "export", 7) == 0)
 		my_export(shell, arg_list[1]);
 	else if (ft_strncmp(arg_list[0], "env", 4) == 0)

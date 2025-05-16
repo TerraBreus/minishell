@@ -1,14 +1,12 @@
-NAME = minishell
+NAME        := minishell
+CC          := cc
+CFLAGS      := -Wall -Wextra -Werror -Iinc -Ilib/libft
+LDFLAGS     := -lreadline -lncurses
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iinc -Ilib/libft
-
-MINILIB_FLAGS = -lreadline -lncurses
-
-SRC_DIR = src
-PARSE_DIR = parse
-EXEC_DIR = exec
-LIBFT_DIR = lib/libft
+SRC_DIR     := src
+OBJ_DIR     := obj
+LIBFT_DIR   := lib/libft
+LIBFT       := $(LIBFT_DIR)/libft.a
 
 PARSE_SRCS = \
 	init.c \
@@ -35,47 +33,38 @@ PARSE_SRCS = \
 	utils_bool2.c \
 	exec_single.c
 
-EXEC_SRCS =
+EXEC_SRCS   := 
 
-PARSE_SOURCES = $(addprefix $(PARSE_DIR)/,$(PARSE_SRCS))
-EXEC_SOURCES = $(addprefix $(EXEC_DIR)/,$(EXEC_SRCS))
-
-SRCS = \
-	main.c \
-	$(PARSE_SOURCES) \
-	$(EXEC_SOURCES)
-
-SRC_PATHS = $(addprefix $(SRC_DIR)/,$(SRCS))
-OBJ_DIR = obj
-OBJS = $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
-
-LIBFT = $(LIBFT_DIR)/libft.a
+SRCS        := main.c \
+                $(addprefix parse/,$(PARSE_SRCS)) \
+                $(addprefix exec/,$(EXEC_SRCS))
+OBJS        := $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 
 ifneq ($(SHOW),1)
-QUIET = @
+QUIET       := @
 endif
 
 all: $(LIBFT) $(NAME)
 
-$(LIBFT):
-	$(QUIET)make -C $(LIBFT_DIR) bonus
-
 $(NAME): $(OBJS) $(LIBFT)
-	$(QUIET)$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MINILIB_FLAGS) -o $(NAME)
+	$(QUIET)$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+
+$(LIBFT):
+	$(QUIET)$(MAKE) -s -C $(LIBFT_DIR) bonus
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(QUIET)$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	@echo "cleaned obj folder"
 	$(QUIET)rm -rf $(OBJ_DIR)
-	$(QUIET)make -C $(LIBFT_DIR) clean
+	$(QUIET)$(MAKE) -s -C $(LIBFT_DIR) clean
 
 fclean: clean
 	$(QUIET)rm -f $(NAME)
-	$(QUIET)make -C $(LIBFT_DIR) fclean
+	$(QUIET)$(MAKE) -s -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-.PHONY: all clean re fclean
-
+.PHONY: all clean fclean re
