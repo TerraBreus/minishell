@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions.h                                        :+:      :+:    :+:   */
+/*   functions.h                                         :+:    :+:           */
 /*                                                    +:+ +:+         +:+     */
 /*   By: terrabuntu <terrabuntu@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/09 16:00:51 by terrabuntu       ###   ########.fr       */
+/*   Updated: 2025/05/16 16:27:49 by zivanov        ########   odam.nl        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,32 +63,48 @@ char			*my_getenv(t_custom_env *my_env, char *variable);
 // - - - - - - - - - - - - - - - - - - - - - - \\
 */
 
-//main_execution.c
-int	exec_cmd_list(t_cmd	*cmd_list, t_custom_env *t_envp);
+//adult_entertainment.c
+int	adult_entertainment(t_cmd cmd_list, t_custom_envp t_envp);
+
+//child_slavery.c
+void	child_slavery(t_cmd *cmd_list, t_custom_envp *t_envp, t_pipe *plumb_box);
+
+//count_commands.c
+int	count_commands(t_cmd *c);
+
+//execute_command.c
+int	exec_cmd(char **cmd_and_flags, char **envp, int last_read_end);
 
 //find_executables.c
 char	*find_full_path(char *paths[], char *cmd);
 char	**create_possible_paths(char *envp[]);
 void	free_paths(char **possible_paths);
 
-//execute_command.c
-int	exec_cmd_in_child(char **cmd_and_flags, char **envp, int last_read_end);
+//init_pipe_struct.c
+int	init_pipe(t_pipe **plumb_box);
+
+//main_execution.c
+int	chain_of_commands(t_cmd *cmd_list, t_custom_env *t_envp);
+
+//multiple_commands.c
+int	multiple_commands(t_cmd *cmd_list, t_custom_envp *t_envp);
 
 //redirection_handlers.c
-int	handle_in(t_redir *r);
-int	handle_out(t_redir *r);
-int	handle_append(t_redir *r);
-int	handle_heredoc(t_redir *r);
-
-//pipex.c
-int	setup_last_read_end(int *last_read_end);
-int	create_new_pipe(int *last_read_end);
+int	handle_in(t_redir *r)
+int	handle_out(t_redir *r)
+int	handle_append(t_redir *r)
+int	handle_heredoc(t_redir *r)
 
 //restore_io.c
 int	save_or_restore_io(int restore_or_save);
-int	close_and_return(int in, int out);
-//setup_io.c
-int	setup_io(t_redir *redir_data);
 
+//set_redirection.c
+int	set_redirection(t_redir *redirection);
+
+//setup_lastreadend.c
+int	set_last_read_end(t_pipe *p)
+
+//single_command.c
+int	single_command(t_cmd *cmd_list, t_custom_envp *t_envp);
 
 #endif
