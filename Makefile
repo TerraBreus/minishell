@@ -28,13 +28,19 @@ PARSE_SRCS = \
 	utils_leftovers.c
 
 EXEC_SRCS = \
-	execute_command.c		\
-	find_executables.c		\
-	main_execution.c		\
-	pipex.c				\
-	redirection_handlers.c		\
-	restore_io.c			\
-	setup_io.c
+	    adult_entertainment.c	\
+	    child_slavery.c		\
+	    count_commands.c		\
+	    execute_command.c		\
+	    find_executables.c		\
+	    init_pipe_struct.c		\
+	    main_execution.c		\
+	    multiple_commands.c		\
+	    redirection_handlers.c	\
+	    restore_io.c		\
+	    set_redirection.c		\
+	    setup_lastreadend.c		\
+	    single_command.c		\
 
 PARSE_SOURCES = $(addprefix $(PARSE_DIR)/,$(PARSE_SRCS))
 EXEC_SOURCES = $(addprefix $(EXEC_DIR)/,$(EXEC_SRCS))
