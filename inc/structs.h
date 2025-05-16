@@ -65,4 +65,10 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+typedef struct s_pipe
+{
+	int 	pfd[2];
+	int	last_read_end;
+}	t_pipe;
+
 #endif
