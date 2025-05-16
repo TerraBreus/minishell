@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cmd_struct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:44 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	token_to_struct(t_shell *shell, t_cmd **exec)
 	t_cmd	*cmd;
 
 	i = 0;
-	if (shell->found_error == TRUE)
+	if (shell->found_error == true)
 		return ;
 	while (shell->tokens[i])
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   loop_start.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:58 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	shell_reset(t_shell *shell)
 {
 	g_signal = 0;
 	shell->tc = 0;
-	shell->found_error = FALSE;
+	shell->found_error = false;
 	shell->tokens = NULL;
 }
 
@@ -28,7 +28,7 @@ static int	token_count_malloc(t_shell *shell, char *input)
 
 	i = 0;
 	while (i < ft_strlen(input)
-		&& shell->found_error == FALSE)
+		&& shell->found_error == false)
 	{
 		skip_space(input, &i);
 		tokenize_input_len(shell, input, &i);
@@ -51,18 +51,18 @@ static void	tokenize_input(t_shell *shell, char *input)
 	size_t	start;
 
 	i = 0;
-	if (is_input_empty(shell, input) == TRUE)
+	if (is_input_empty(shell, input) == true)
 		return ;
 	add_history(input);
 	skip_space(input, &i);
 	if (token_count_malloc(shell, input) == FAILURE)
 		return ;
 	while (i < ft_strlen(input)
-		&& shell->found_error == FALSE)
+		&& shell->found_error == false)
 	{
 		start = i;
 		tokenize_input_len(shell, input, &i);
-		if (shell->found_error == TRUE)
+		if (shell->found_error == true)
 			return ;
 		shell->tokens[shell->tc++] = ft_substr(input, start, i - start);
 		skip_space(input, &i);
@@ -76,9 +76,9 @@ void	is_it_ready(t_shell *shell)
 
 	i = 0;
 	while (i < shell->tc
-		&& shell->found_error == FALSE)
+		&& shell->found_error == false)
 	{
-		if (is_operator(shell->tokens[i][0]) == TRUE
+		if (is_operator(shell->tokens[i][0]) == true
 		&& (i == shell->tc - 1
 		|| i == 0))
 		{
@@ -96,19 +96,19 @@ void	loop(t_shell *shell)
 {
 	char	*input;
 
-	setup_signals();
+	setup_signals(shell);
 	shell_reset(shell);
 	input = readline("my_shell: ");
-	ctrl_d(input);
-	signal_is_int(shell);
+	sigquit(input);
+	sigint(shell);
 	tokenize_input(shell, input);
 	free(input);
 	is_it_ready(shell);
-	if (shell->found_error == FALSE)
+	if (shell->found_error == false)
 	{
 		expand_tokens(shell);
 		cleanup_quotes(shell);
-		print_tokens(shell);
+		exec_single(shell, shell->tokens);
 	}
 	cleanup_shell(shell);
 }

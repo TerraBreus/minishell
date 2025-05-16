@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cmd_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:12 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	add_redir(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i)
 			*i += 2;
 		}
 		else
-			(*i)++;
+			*i += 1;
 	}
 }
 
@@ -90,7 +90,7 @@ void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i)
 		&& get_redir_type(tokens[*i]) == NONE)
 	{
 		argc++;
-		(*i)++;
+		*i += 1;
 	}
 	cmd->argv = malloc(sizeof(char *) * (argc + 1));
 	if (!cmd->argv)

@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:44 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@
 
 // TODO: heredoc, cd, pwd, exit
 
-int	main(int argc, char **argv, char **env)
+int	main(
+		int argc,
+		char **argv,
+		char **env
+		)
 {
 	t_shell	shell;
 

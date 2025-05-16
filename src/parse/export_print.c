@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   export_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:44 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ bool	print_export_list(t_shell *shell, char **env_copy)
 	while (env_copy[i])
 	{
 		temp_arr[i] = ft_strdup(env_copy[i]);
-		return (on_fail(shell, temp_arr, &i), NULL);
+		if (!temp_arr[i])
+			return (on_fail(shell, temp_arr, &i), NULL);
 		i++;
 	}
 	temp_arr[i] = NULL;

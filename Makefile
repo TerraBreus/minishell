@@ -17,7 +17,7 @@ PARSE_SRCS = \
 	token_operator.c \
 	token_quote.c \
 	token_rest.c \
-	env_cmd.c \
+	builtin_env.c \
 	builtin_export.c \
 	export_print.c \
 	builtin_local.c \
@@ -32,7 +32,8 @@ PARSE_SRCS = \
 	signal.c \
 	utils.c \
 	utils_bool1.c \
-	utils_bool2.c
+	utils_bool2.c \
+	exec_single.c
 
 EXEC_SRCS =
 
@@ -67,7 +68,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(QUIET)$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(QUIET)rm -f $(OBJS)
+	$(QUIET)rm -rf $(OBJ_DIR)
 	$(QUIET)make -C $(LIBFT_DIR) clean
 
 fclean: clean

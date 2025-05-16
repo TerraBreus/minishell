@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:58 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	my_echo(char **arg_array)
 	bool	newline_flag;
 	size_t	i;
 
-	i = 0;
+	i = 1;
 	newline_flag = false;
-	if (!arg_array)
+	if (!arg_array || !arg_array[i])
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		return ;
 	}
-	if (ft_strncmp(arg_array[i], "-n", 3) == true
+	if (ft_strncmp(arg_array[i], "-n", 3) == 0
 		&& arg_array[i + 1])
 	{
 		newline_flag = true;

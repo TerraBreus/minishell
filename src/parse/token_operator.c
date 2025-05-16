@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   token_operator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:36:31 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	do_heredoc(t_shell *shell, char *input, size_t *i)
+static void	do_heredoc(t_shell *shell, char *input, size_t *i)
 {
 	(void)input;
 	(void)i;
@@ -33,7 +33,7 @@ void	token_operator(t_shell *shell, char *input, size_t *i)
 	if (is_operator(input[*i + 1]))
 	{
 		if (input[*i] != input[*i + 1])
-			shell->found_error = TRUE;
+			shell->found_error = true;
 		else if (is_heredoc(input, i))
 			do_heredoc(shell, input, i);
 		else
@@ -42,5 +42,5 @@ void	token_operator(t_shell *shell, char *input, size_t *i)
 	else
 		*i += 1;
 	if (shell->found_error == true)
-		syntax_error(shell, "unknown operator combination");
+		syntax_error(shell, OPERATOR_ERROR);
 }

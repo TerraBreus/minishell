@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   token_rest.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:58 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ static bool	is_meta_char(t_shell *shell, char c)
 		|| c == '\\')
 	{
 		syntax_error(shell, &c);
-		return (TRUE);
+		return (true);
 	}
 	else
-		return (FALSE);
+		return (false);
 }
 
-void	make_key(t_shell *shell, char *input, size_t *i)
+static void	make_key(t_shell *shell, char *input, size_t *i)
 {
-	(*i)++;
+	*i += 1;
 	while (input[*i]
 		&& !is_space(input[*i])
 		&& !is_operator(input[*i])
@@ -43,7 +43,7 @@ void	make_key(t_shell *shell, char *input, size_t *i)
 		if (input[*i] == '"' || input[*i] == '\'')
 			token_quote(shell, input, i);
 		else
-			(*i)++;
+			*i += 1;
 	}
 }
 
@@ -56,7 +56,7 @@ static void	token_word(t_shell *shell, char *input, size_t *i)
 		&& input[*i] != '\''
 		&& input[*i] != '"')
 	{
-		(*i)++;
+		*i += 1;
 		if (input[*i] == '=')
 			make_key(shell, input, i);
 	}

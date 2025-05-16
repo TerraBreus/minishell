@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:00:03 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ char	*my_getenv(t_shell *shell, char *var_name)
 		if (ft_strncmp(shell->env_copy[env_items],
 				var_name, var_name_len) == 0)
 		{
-			while (shell->env_copy[env_items][i] != '=')
+			while (shell->env_copy[env_items][i]
+					&& shell->env_copy[env_items][i] != '=')
 				i++;
 			return (ft_substr(shell->env_copy[env_items], i + 1,
 					ft_strlen(shell->env_copy[env_items]) - i));

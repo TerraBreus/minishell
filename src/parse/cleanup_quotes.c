@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   cleanup_quotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:12 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@ static char	*clean_str(
 	char	quote;
 
 	quote = str[*i];
-	(*i)++;
+	*i += 1;
 	while (str[*i] && str[*i] != quote)
 	{
-		result = ft_strjoin_char_and_free(result, str[*i]);
+		result = ft_strjoin_char(result, str[*i]);
 		if (!result)
-			return (malloc_fail(shell, "clean_str"), NULL);
-		(*i)++;
+			return (malloc_fail(shell, "clean str"), NULL);
+		*i += 1;
 	}
 	if (str[*i] == quote)
-		(*i)++;
+		*i += 1;
 	return (result);
 }
 
 static char	*join_char(
 	t_shell *shell, char *str, size_t *i, char *result)
 {
-	result = ft_strjoin_char_and_free(result, str[*i]);
+	result = ft_strjoin_char(result, str[*i]);
 	if (!result)
-		return (malloc_fail(shell, "handle_regular_char"), NULL);
-	(*i)++;
+		return (malloc_fail(shell, "handle regular char"), NULL);
+	*i += 1;
 	return (result);
 }
 
@@ -49,7 +49,7 @@ static char	*clean_token(t_shell *shell, char *str)
 	i = 0;
 	result = ft_strdup("");
 	if (!result)
-		return (malloc_fail(shell, "remove_all_quotes"), NULL);
+		return (malloc_fail(shell, "remove all quotes"), NULL);
 	while (str[i])
 	{
 		if (is_quote(str[i]))

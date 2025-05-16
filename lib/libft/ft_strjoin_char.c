@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_char_free.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 18:34:38 by masmit            #+#    #+#             */
-/*   Updated: 2024/10/29 14:57:43 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:03:55 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // concatenated 1 char to a string, and frees the input
 // return result should still be freed
-char	*ft_strjoin_char_and_free(char *s, char c)
+char	*ft_strjoin_char(char *s, char c)
 {
 	char	buffer[2];
 	char	*temp;

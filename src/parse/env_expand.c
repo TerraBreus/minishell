@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:58 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ static char	*expand_var(t_shell *shell, char *str, size_t *i)
 	start = *i + 1;
 	if (str[start] == '?')
 	{
-		(*i) = start + 1;
+		*i = start + 1;
 		return (ft_itoa(shell->last_errno));
 	}
-	while (ft_isalnum(str[start]) || str[start] == '_')
+	while (valid_filename(str[start]))
 		start++;
 	var_name = ft_substr(str, *i + 1, start - (*i + 1));
+	if (!var_name)
+		return (malloc_fail(shell, "expand var"), NULL);
 	value = my_getenv(shell, var_name);
 	free(var_name);
 	*i = start;
@@ -43,6 +45,8 @@ static char	*handle_expansion(
 
 	expanded_var = expand_var(shell, str, i);
 	temp = ft_strjoin(result, expanded_var);
+	if (!temp)
+		return (malloc_fail(shell, "handle expansion"), NULL);
 	free(result);
 	free(expanded_var);
 	return (temp);
@@ -59,6 +63,8 @@ static char	*check_expansion(t_shell *shell, char *str)
 	in_singles = false;
 	in_doubles = false;
 	result = ft_strdup("");
+	if (!result)
+		return (malloc_fail(shell, "check expansion"), NULL);
 	while (str[i])
 	{
 		update_bools(str[i], &in_singles, &in_doubles);
@@ -66,7 +72,7 @@ static char	*check_expansion(t_shell *shell, char *str)
 			result = handle_expansion(shell, str, &i, result);
 		else
 		{
-			result = ft_strjoin_char_and_free(result, str[i]);
+			result = ft_strjoin_char(result, str[i]);
 			i++;
 		}
 	}
@@ -79,11 +85,11 @@ void	expand_tokens(t_shell *shell)
 	char	*new_token;
 
 	i = 0;
-	if (shell->found_error == TRUE)
+	if (shell->found_error == true)
 		return ;
 	while (shell->tokens[i])
 	{
-		if (has_path(shell->tokens[i]))
+		if (has_path(shell->tokens[i]) == true)
 		{
 			new_token = check_expansion(shell, shell->tokens[i]);
 			free(shell->tokens[i]);

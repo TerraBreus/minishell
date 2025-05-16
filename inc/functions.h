@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 16:53:19 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:25:12 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,26 @@ void	cleanup_quotes(t_shell *shell);
 
 // env cmd_list
 char	*my_getenv(t_shell *shell, char *var_name);
-void	my_export(t_shell *shell, char *arg);
-void	export_local(t_shell *shell, char *variable);
-bool	print_export_list(t_shell *shell, char **env_copy);
 
 // pass tokens to parser
 void	token_to_struct(t_shell *shell, t_cmd **exec);
 void	add_redir(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i);
 void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i);
 void	print_exec(t_cmd *exec);
+
+// exec single command
+void	exec_single(t_shell *shell, char **arg_list);
+
+// builtins
+void	my_echo(char **arg_array);
+void	my_env(t_shell *shell);
+void	my_cd(t_shell *shell, char **arg_list);
+void	my_export(t_shell *shell, char *arg);
+void	export_local(t_shell *shell, char *variable);
+void	my_unset(t_shell *shell, char **arg_list);
+
+// builtin helper
+bool	print_export_list(t_shell *shell, char **env_copy);
 
 // utils bools
 bool	has_path(char *str);
@@ -52,9 +63,9 @@ void	update_bools(
 			char c, bool *in_singles, bool *in_doubles);
 
 // signals
-void	setup_signals(void);
-void	signal_is_int(t_shell *shell);
-void	ctrl_d(char *input);
+void	setup_signals(t_shell *shell);
+void	sigint(t_shell *shell);
+void	sigquit(char *input);
 
 // utils else
 void	skip_litteral(char *str, size_t *i);
@@ -68,5 +79,6 @@ void	cleanup_shell(t_shell *shell);
 // in case of errors
 void	malloc_fail(t_shell *shell, char *location);
 void	syntax_error(t_shell *shell, char *invalid_token);
+void	sigaction_fail(t_shell *shell, int error);
 
 #endif

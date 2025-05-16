@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 14:14:58 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:34:44 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signal_is_int(t_shell *shell)
+void	sigint(t_shell *shell)
 {
 	if (g_signal == SIGINT)
 	{
 		shell->last_errno = 130;
 		g_signal = 0;
-		shell->found_error = TRUE;
+		shell->found_error = true;
 	}
 }
 
-void	ctrl_d(char *input)
+void	sigquit(char *input)
 {
 	if (!input)
 	{
@@ -41,7 +41,7 @@ static void	sig_int_handler(int sig)
 	rl_redisplay();
 }
 
-void	setup_signals(void)
+void	setup_signals(t_shell *shell)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
@@ -49,9 +49,17 @@ void	setup_signals(void)
 	ft_memset(&sa_int, 0, sizeof(sa_int));
 	sa_int.sa_handler = sig_int_handler;
 	sigemptyset(&sa_int.sa_mask);
-	sigaction(SIGINT, &sa_int, NULL);
+	if (sigaction(SIGINT, &sa_int, NULL) != 0)
+	{
+		sigaction_fail(shell, errno);
+		return ;
+	}
 	sa_int.sa_flags = SA_RESTART;
 	ft_memset(&sa_quit, 0, sizeof(sa_quit));
 	sa_quit.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &sa_quit, NULL);
+	if (sigaction(SIGQUIT, &sa_quit, NULL) != 0)
+	{
+		sigaction_fail(shell, errno);
+		return ;
+	}
 }
