@@ -17,7 +17,7 @@ int	chain_of_commands(t_cmd *cmd_list, t_custom_env *t_envp)
 
 	//MULTIPLE COMMANDS WILL CREATE A PIPE STRUCTURE. SINGLE_COMMAND WONT.
 	if (cmd_c == 1)
-		error_check = single_command(cmd_list, t_envp);
+		error_check = temp_single_command(cmd_list, t_envp);
 	else
 		error_check = multiple_commands(cmd_list, t_envp);	//TODO
 
