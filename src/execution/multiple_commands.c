@@ -37,7 +37,13 @@ int	multiple_commands(t_cmd *cmd_list, t_custom_env *t_envp)
 		cmd_list = cmd_list->next;
 	}
 
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	//At the end, we must wait for all child processes to finish
+	for (int fd = 0; fd < 1024; ++fd)
+		if (fcntl(fd, F_GETFD) != -1)
+			dprintf(2, "parent has open fd: %d\n", fd);
+
 	while (wait(NULL) != -1)	//TODO: must save exitstatus of last child
 		;
 	return (0);
