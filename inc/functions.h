@@ -103,8 +103,11 @@ int	set_redirection(t_redir *redir_data);
 
 //setup_lastreadend.c
 int	set_last_read_end(t_pipe *p);
-;
+
 //single_command.c;
 int	single_command(t_cmd *cmd_list, t_custom_env *t_envp);
-;
+
+//temp_single_command.c (This is here cause I need to clone stuff BEFORE executing single_command
+int	temp_single_command(t_cmd *cmd_list, t_custom_env *envp);
+
 #endif
