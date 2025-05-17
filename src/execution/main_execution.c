@@ -22,6 +22,6 @@ int	chain_of_commands(t_cmd *cmd_list, t_custom_env *t_envp)
 		error_check = multiple_commands(cmd_list, t_envp);	//TODO
 
 	//RESTORE THE STDIN AND STDOUT TO ALLOW FOR NEW PROMPT AND USER INPUT. 
-	save_or_restore_IO(RESTORE);
+	save_or_restore_io(RESTORE);
 	return (error_check);
 }

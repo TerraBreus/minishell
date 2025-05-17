@@ -39,7 +39,7 @@ void	loop(t_custom_env *my_env)
 			malloc_fail("cmd_list in loop", my_env, token_list);
 		print_cmd_list(cmd_list);
 		save_or_restore_io(SAVE);
-		exec_cmd_list(cmd_list, my_env);
+		chain_of_commands(cmd_list, my_env);
 		save_or_restore_io(RESTORE);
 		cleanup_cmd_list(cmd_list);
 		ft_lstclear(&token_list, token_del);

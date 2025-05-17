@@ -1,3 +1,5 @@
+#include "minishell.h"
+
 int	count_commands(t_cmd *c)
 {
 	int	result;

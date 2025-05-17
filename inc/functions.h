@@ -64,16 +64,16 @@ char			*my_getenv(t_custom_env *my_env, char *variable);
 */
 
 //adult_entertainment.c
-int	adult_entertainment(t_cmd cmd_list, t_custom_envp t_envp);
+int	adult_entertainment(t_cmd *cmd_list, t_custom_env *t_envp);
 
 //child_slavery.c
-void	child_slavery(t_cmd *cmd_list, t_custom_envp *t_envp, t_pipe *plumb_box);
+void	child_slavery(t_cmd *cmd_list, t_custom_env *t_envp, t_pipe *plumb_box);
 
 //count_commands.c
 int	count_commands(t_cmd *c);
 
 //execute_command.c
-int	exec_cmd(char **cmd_and_flags, char **envp, int last_read_end);
+int	exec_cmd(char **cmd_and_flags, char **envp);
 
 //find_executables.c
 char	*find_full_path(char *paths[], char *cmd);
@@ -87,24 +87,24 @@ int	init_pipe(t_pipe **plumb_box);
 int	chain_of_commands(t_cmd *cmd_list, t_custom_env *t_envp);
 
 //multiple_commands.c
-int	multiple_commands(t_cmd *cmd_list, t_custom_envp *t_envp);
+int	multiple_commands(t_cmd *cmd_list, t_custom_env *t_envp);
 
 //redirection_handlers.c
-int	handle_in(t_redir *r)
-int	handle_out(t_redir *r)
-int	handle_append(t_redir *r)
-int	handle_heredoc(t_redir *r)
+int	handle_in(t_redir *r);
+int	handle_out(t_redir *r);
+int	handle_append(t_redir *r);
+int	handle_heredoc(t_redir *r);
 
 //restore_io.c
 int	save_or_restore_io(int restore_or_save);
 
 //set_redirection.c
-int	set_redirection(t_redir *redirection);
+int	set_redirection(t_redir *redir_data);
 
 //setup_lastreadend.c
-int	set_last_read_end(t_pipe *p)
-
-//single_command.c
-int	single_command(t_cmd *cmd_list, t_custom_envp *t_envp);
-
+int	set_last_read_end(t_pipe *p);
+;
+//single_command.c;
+int	single_command(t_cmd *cmd_list, t_custom_env *t_envp);
+;
 #endif

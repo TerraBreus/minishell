@@ -1,11 +1,10 @@
 #include "minishell.h"
 
-int	exec_cmd(char **cmd_and_flags, char **envp, int last_read_end)
+int	exec_cmd(char **cmd_and_flags, char **envp)
 {
 	char	**possible_paths;
 	char	*path;
 
-	close(last_read_end);
 	possible_paths = create_possible_paths(envp);
 	if (possible_paths == NULL)
 		return (-1);

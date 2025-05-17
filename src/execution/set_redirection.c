@@ -1,4 +1,6 @@
-int	set_redirection(t_redir *redirection)
+#include "minishell.h"
+
+int	set_redirection(t_redir *redir_data)
 {
 	static t_redir_handler handlers[] = { 
 		handle_in,

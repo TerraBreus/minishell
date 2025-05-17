@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	multiple_commands(t_cmd *cmd_list, t_custom_envp *t_envp)
+int	multiple_commands(t_cmd *cmd_list, t_custom_env *t_envp)
 {
 	t_pipe	*plumb_box;
 	pid_t	pid;
@@ -30,7 +30,7 @@ int	multiple_commands(t_cmd *cmd_list, t_custom_envp *t_envp)
 		if (pid == -1)
 			exit(EXIT_FAILURE);	//TODO: what must we do when forking fails?
 		else if(pid == 0)
-			child_slavery(cmd_list, t_envp);		//TODO: close all irrelevant fd's
+			child_slavery(cmd_list, t_envp, plumb_box);		//TODO: close all irrelevant fd's
 		else
 			adult_entertainment(cmd_list, t_envp); //TODO: close all irrelevant fd's
 	
