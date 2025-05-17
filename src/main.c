@@ -26,6 +26,7 @@ void	loop(t_custom_env *my_env)
 
 	token_list = NULL;
 	cmd_list = NULL;
+//	input = ft_strdup("echo hello | cat");
 	input = readline("minishell$ ");
 	ctrl_d(input);
 	if (*input != '\0')
@@ -38,9 +39,7 @@ void	loop(t_custom_env *my_env)
 		if (!cmd_list)
 			malloc_fail("cmd_list in loop", my_env, token_list);
 		print_cmd_list(cmd_list);
-		save_or_restore_io(SAVE);
 		chain_of_commands(cmd_list, my_env);
-		save_or_restore_io(RESTORE);
 		cleanup_cmd_list(cmd_list);
 		ft_lstclear(&token_list, token_del);
 	}
