@@ -41,6 +41,7 @@ EXEC_SRCS = \
 	    set_redirection.c		\
 	    setup_lastreadend.c		\
 	    single_command.c		\
+	    temp_single_command.c
 
 PARSE_SOURCES = $(addprefix $(PARSE_DIR)/,$(PARSE_SRCS))
 EXEC_SOURCES = $(addprefix $(EXEC_DIR)/,$(EXEC_SRCS))
