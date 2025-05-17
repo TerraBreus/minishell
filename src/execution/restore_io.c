@@ -28,6 +28,12 @@ int	save_or_restore_io(int restore_or_save)
 		close(copy_out);
 		return (0);
 	}
+	else if(restore_or_save == CLOSE)
+	{
+		close(copy_in);
+		close(copy_out);
+		return (0);
+	}
 	else 
 		return (-1);
 }
