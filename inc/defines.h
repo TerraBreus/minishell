@@ -15,15 +15,17 @@
 
 # include "minishell.h"
 
-# define FAILURE false
-# define SUCCES true
+# define FAILURE		false
+# define SUCCES			true
 
-# define SYNTAX_ERROR 2
+# define SYNTAX_ERROR	2
+# define DIR_PROMPT		126
+# define DIR_NOT_FOUND	127
 
-# define EXPORT_ERROR "\
+# define EXPORT_ERROR	"\
 minishell: export: invalid identifier found in filename\n"
 
-# define OPERATOR_ERROR "\
+# define OPERATOR_ERROR	"\
 unknown operator combination"
 
 #endif

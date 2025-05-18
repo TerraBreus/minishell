@@ -12,37 +12,30 @@
 
 #include "minishell.h"
 
-void	env_init(t_shell *shell, char **env)
+extern char	**environ;
+
+int	env_init(t_shell *shell)
 {
 	size_t	i;
 
 	i = 0;
-	while (env[i])
+	while (environ[i])
 		i++;
 	shell->env_copy = malloc(sizeof(char *) * (i + 1));
-	if (!shell->env_copy)
-	{
-		malloc_fail(shell, "env_copy");
-		return ;
-	}
+	shell->exp_copy = malloc(sizeof(char *) * (i + 1));
+	if (!shell->env_copy || !shell->exp_copy)
+		return (malloc_fail(shell, "env init"), FAILURE);
 	i = 0;
-	while (env[i])
+	while (environ[i])
 	{
-		shell->env_copy[i] = ft_strdup(env[i]);
-		if (!shell->env_copy[i])
-		{
-			malloc_fail(shell, "env_copy[i]");
-			return ;
-		}
+		shell->env_copy[i] = ft_strdup(environ[i]);
+		shell->exp_copy[i] = ft_strdup(environ[i]);
+		if (!shell->env_copy[i] || !shell->exp_copy[i])
+			return (malloc_fail(shell, "env_copy[i]"), FAILURE);
 		i++;
 	}
 	shell->env_copy[i] = NULL;
-}
-
-void	local_init(t_shell *shell)
-{
-	shell->local_vars = malloc(sizeof(char *));
-	if (!shell->local_vars)
-		malloc_fail(shell, "vars_init");
-	shell->local_vars[0] = NULL;
+	shell->exp_copy[i] = NULL;
+	bubble_sort(shell->exp_copy, i);
+	return (SUCCES);
 }

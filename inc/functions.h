@@ -16,8 +16,7 @@
 # include "minishell.h"
 
 // global signal declared in included_libs, otherwise makefile error
-void	env_init(t_shell *shell, char **env);
-void	local_init(t_shell *shell);
+int		env_init(t_shell *shell);
 
 void	loop(t_shell *shell);
 
@@ -46,12 +45,13 @@ void	exec_single(t_shell *shell, char **arg_list);
 void	my_echo(char **arg_array);
 void	my_env(t_shell *shell);
 void	my_cd(t_shell *shell, char **arg_list);
-void	my_export(t_shell *shell, char *arg);
-void	export_local(t_shell *shell, char *variable);
+void	my_export(t_shell *shell, char **arg_list);
 void	my_unset(t_shell *shell, char **arg_list);
+void	my_pwd(t_shell *shell);
 
 // builtin helper
-bool	print_export_list(t_shell *shell, char **env_copy);
+void	delete_var(char **export_array, size_t *i);
+void	add_to_env(t_shell *shell, char *str);
 
 // utils bools
 bool	has_path(char *str);

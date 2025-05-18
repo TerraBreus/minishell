@@ -12,93 +12,107 @@
 
 #include "minishell.h"
 
-static void	add_var(t_shell *shell, char *arg)
-{
-	size_t	i;
-
-	i = 0;
-	while (shell->env_copy[i])
-		i++;
-	shell->env_copy = ft_realloc(shell->env_copy,
-			sizeof(char *) * i,
-			sizeof(char *) * (i + 2));
-	if (!shell->env_copy)
-	{
-		malloc_fail(shell, "add var");
-		return ;
-	}
-	shell->env_copy[i] = ft_strdup(arg);
-	if (!shell->env_copy[i])
-	{
-		malloc_fail(shell, "add var");
-		return ;
-	}
-	shell->env_copy[i + 1] = NULL;
-}
-
-static void	update_var(
-	t_shell *shell, int index, char *arg)
-{
-	free(shell->env_copy[index]);
-	shell->env_copy[index] = ft_strdup(arg);
-	if (!shell->env_copy[index])
-		malloc_fail(shell, "add_to_env");
-}
-
-static int	find_index(t_shell *shell, const char *arg, size_t key_len)
+static int	find_index(char **env, char *str, size_t len)
 {
 	int	i;
 
 	i = 0;
-	while (shell->env_copy[i])
+	while (env[i])
 	{
-		if (ft_strncmp(shell->env_copy[i], arg, key_len) == 0
-			&& shell->env_copy[i][key_len] == '=')
+		if (ft_strncmp(env[i], str, len) == 0
+			&& env[i][len] == '=')
 			return (i);
 		i++;
 	}
 	return (-1);
 }
 
-static void	add_to_env(t_shell *shell, char *arg)
-{
-	size_t	key_len;
-	int		index;
-
-	if (ft_strchr(arg, '=') != 0)
-		key_len = ft_strchr(arg, '=') - arg;
-	else
-		key_len = ft_strlen(arg);
-	index = find_index(shell, arg, key_len);
-	if (index != -1)
-		update_var(shell, index, arg);
-	else
-		add_var(shell, arg);
-}
-
-// just pass arg with '=' inside, ill do the rest
-// on no arg export prints same list as env but sorted
-void	my_export(t_shell *shell, char *arg)
+bool	valid_filename(t_shell *shell, char *str)
 {
 	size_t	i;
 
 	i = 0;
-	if (!arg)
+	while (is_filename_char(str[i]))
+		i++;
+	if (str[i] == '\0' || str[i] == '=')
+		return (true);
+	else
 	{
-		print_export_list(shell, shell->env_copy);
+		ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+		shell->last_errno = 1;
+	}
+	return (false);
+}
+
+static void	add_to_export(t_shell *shell, char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (shell->exp_copy[i])
+		i++;
+	shell->exp_copy = ft_realloc(shell->exp_copy,
+			sizeof(char *) * (i + 1),
+			sizeof(char *) * (i + 2));
+	if (!shell->exp_copy)
+		malloc_fail(shell, "add to export");
+	shell->exp_copy[i] = ft_strdup(str);
+	if (!shell->exp_copy[i])
+		malloc_fail(shell, "add to export");
+	shell->exp_copy[i + 1] = NULL;
+}
+
+static void	remove_from_export(t_shell *shell, char *str)
+{
+	size_t	i;
+	size_t	name_len;
+	char	*old_name;
+
+	name_len = 0;
+	while (str[name_len] != '=')
+		name_len++;
+	old_name = ft_substr(str, 0, name_len);
+	if (!old_name)
+		malloc_fail(shell, "remove from export");
+	i = 0;
+	while (shell->exp_copy[i])
+	{
+		if (ft_strncmp(shell->exp_copy[i], old_name, name_len) == 0
+			&& shell->exp_copy[i][name_len] == '\0')
+		{
+			printf("var found\n");
+			delete_var(shell->exp_copy, &i);
+			break ;
+		}
+		i++;
+	}
+	free(old_name);
+}
+
+void	my_export(t_shell *shell, char **arg_list)
+{
+	size_t	i;
+
+	i = 1;
+	if (!arg_list[i])
+	{
+		just_print(shell->exp_copy);
 		return ;
 	}
-	while (arg[i] && arg[i] != '=')
+	while (arg_list[i])
 	{
-		if (valid_filename(arg[i]) == true)
-			i++;
-		else
+		if (!valid_filename(shell, arg_list[i]))
+			continue ;
+		if (ft_strchr(arg_list[i], '='))
 		{
-			write(STDOUT_FILENO, EXPORT_ERROR, ft_strlen(EXPORT_ERROR));
-			shell->last_errno = 1;
-			return ;
+			add_to_env(shell, arg_list[i]);
+			remove_from_export(shell, arg_list[i]);
 		}
+		else if (find_index(shell->env_copy, arg_list[i],
+				ft_strlen(arg_list[i])) == -1)
+			add_to_export(shell, arg_list[i]);
+		i++;
 	}
-	add_to_env(shell, arg);
 }
-// TODO update add_to_env for exporting local vars

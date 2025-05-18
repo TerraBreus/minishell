@@ -19,7 +19,7 @@ typedef struct e_shell
 	char			**tokens;
 	size_t			tc;
 	char			**env_copy;
-	char			**local_vars;
+	char			**exp_copy;
 	int				last_errno;
 	bool			found_error;
 }					t_shell;

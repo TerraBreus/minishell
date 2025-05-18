@@ -23,7 +23,9 @@ static bool	is_meta_char(t_shell *shell, char c)
 		|| c == '*'
 		|| c == '['
 		|| c == ']'
-		|| c == '\\')
+		|| c == '\\'
+		|| c == '+'
+		|| c == '#')
 	{
 		syntax_error(shell, &c);
 		return (true);
@@ -40,7 +42,7 @@ static void	make_key(t_shell *shell, char *input, size_t *i)
 		&& !is_operator(input[*i])
 		&& !is_meta_char(shell, input[*i]))
 	{
-		if (input[*i] == '"' || input[*i] == '\'')
+		if (is_quote(input[*i]))
 			token_quote(shell, input, i);
 		else
 			*i += 1;
@@ -52,9 +54,7 @@ static void	token_word(t_shell *shell, char *input, size_t *i)
 	while (input[*i]
 		&& !is_space(input[*i])
 		&& !is_operator(input[*i])
-		&& !is_meta_char(shell, input[*i])
-		&& input[*i] != '\''
-		&& input[*i] != '"')
+		&& !is_meta_char(shell, input[*i]))
 	{
 		*i += 1;
 		if (input[*i] == '=')

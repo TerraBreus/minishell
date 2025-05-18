@@ -60,6 +60,16 @@ void	cleanup_env(t_shell *shell)
 		free(shell->env_copy);
 		shell->env_copy = NULL;
 	}
+	if (shell->exp_copy)
+	{
+		while (shell->exp_copy[i])
+		{
+			free(shell->exp_copy[i]);
+			i++;
+		}
+		free(shell->exp_copy);
+		shell->exp_copy = NULL;
+	}
 }
 
 void	print_tokens(t_shell *shell)

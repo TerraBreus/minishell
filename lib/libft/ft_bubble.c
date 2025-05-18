@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_print.c                                     :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/16 18:34:44 by masmit           ###   ########.fr       */
+/*   Created: 2024/10/15 13:39:45 by masmit            #+#    #+#             */
+/*   Updated: 2024/10/22 19:26:03 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 static void	swap(char **a, char **b)
 {
@@ -45,42 +45,4 @@ void	bubble_sort(char **arr, size_t size)
 			break ;
 		i++;
 	}
-}
-
-static void	on_fail(t_shell *shell, char **temp_arr, size_t *i)
-{
-	if (!temp_arr[*i])
-	{
-		while ((*i)-- > 0)
-			free(temp_arr[*i]);
-		free(temp_arr);
-		malloc_fail(shell, "print_export_list");
-		return ;
-	}
-}
-
-bool	print_export_list(t_shell *shell, char **env_copy)
-{
-	char	**temp_arr;
-	size_t	i;
-
-	i = 0;
-	while (env_copy && env_copy[i])
-		i++;
-	temp_arr = malloc(sizeof(char *) * (i + 1));
-	if (!temp_arr)
-		return (malloc_fail(shell, "print export list"), NULL);
-	i = 0;
-	while (env_copy[i])
-	{
-		temp_arr[i] = ft_strdup(env_copy[i]);
-		if (!temp_arr[i])
-			return (on_fail(shell, temp_arr, &i), NULL);
-		i++;
-	}
-	temp_arr[i] = NULL;
-	bubble_sort(temp_arr, i);
-	just_print(temp_arr);
-	free(temp_arr);
-	return (true);
 }

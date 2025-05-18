@@ -25,8 +25,8 @@ void	my_echo(char **arg_array)
 		write(STDOUT_FILENO, "\n", 1);
 		return ;
 	}
-	if (ft_strncmp(arg_array[i], "-n", 3) == 0
-		&& arg_array[i + 1])
+	while (arg_array[i]
+		&& ft_strncmp(arg_array[i], "-n", 2) == 0)
 	{
 		newline_flag = true;
 		i++;
@@ -34,7 +34,8 @@ void	my_echo(char **arg_array)
 	while (arg_array[i])
 	{
 		write(STDOUT_FILENO, arg_array[i], ft_strlen(arg_array[i]));
-		ft_putchar_fd(' ', STDOUT_FILENO);
+		if (arg_array[i + 1])
+			ft_putchar_fd(' ', STDOUT_FILENO);
 		i++;
 	}
 	if (newline_flag == false)

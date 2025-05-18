@@ -24,7 +24,7 @@ static char	*expand_var(t_shell *shell, char *str, size_t *i)
 		*i = start + 1;
 		return (ft_itoa(shell->last_errno));
 	}
-	while (valid_filename(str[start]))
+	while (is_filename_char(str[start]))
 		start++;
 	var_name = ft_substr(str, *i + 1, start - (*i + 1));
 	if (!var_name)

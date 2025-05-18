@@ -28,9 +28,8 @@ bool	is_path(char *str, size_t *i)
 		if (str[*i] != '$')
 			return (false);
 		if (str[*i] == '$'
-			&& (str[*i + 1] == '_'
-				|| str[*i + 1] == '?'
-				|| ft_isalnum(str[*i + 1])))
+			&& (is_filename_char(str[*i + 1])
+				|| str[*i + 1] == '?'))
 			return (true);
 	}
 	return (false);
@@ -59,7 +58,7 @@ bool	has_path(char *str)
 		update_bools(str[i], &in_single, &in_double);
 		if (str[i] == '$' && !in_single)
 		{
-			if (str[i + 1] == '?' || valid_filename(str[i + 1]))
+			if (str[i + 1] == '?' || is_filename_char(str[i + 1]))
 				return (true);
 		}
 		i++;
