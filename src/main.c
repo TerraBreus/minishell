@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   And all the pieces matter...                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/16 18:34:44 by masmit           ###   ########.fr       */
+/*   By: Me                                         +#+  +:+       +#+        */
+/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
+/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
+/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 // parsing, done
 // signals, done on interactive mode, missing in exec
 // builtin, done export
-// 			done local vars
 // 			done env
+// 			done pwd
 // 			done echo
 // 			done unset
 
-// TODO: heredoc, cd, pwd, exit
+// TODO: heredoc, cd, exit
 
 int	main(void)
 {

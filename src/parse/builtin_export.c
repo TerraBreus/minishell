@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*   And all the pieces matter...                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/16 18:34:44 by masmit           ###   ########.fr       */
+/*   By: Me                                         +#+  +:+       +#+        */
+/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
+/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
+/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	find_index(char **env, char *str, size_t len)
+int	find_index(char **env, char *str, size_t len)
 {
 	int	i;
 

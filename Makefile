@@ -18,7 +18,6 @@ PARSE_SRCS := \
 				builtin_env.c \
 				builtin_export.c \
 				builtin_export_helper.c \
-				builtin_local.c \
 				builtin_echo.c \
 				builtin_cd.c \
 				builtin_unset.c \

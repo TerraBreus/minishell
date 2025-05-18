@@ -52,6 +52,7 @@ void	my_pwd(t_shell *shell);
 // builtin helper
 void	delete_var(char **export_array, size_t *i);
 void	add_to_env(t_shell *shell, char *str);
+int		find_index(char **env_array, char *str, size_t len);
 
 // utils bools
 bool	has_path(char *str);
