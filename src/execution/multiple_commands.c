@@ -18,13 +18,7 @@ int	multiple_commands(t_cmd *cmd_list, t_custom_env *t_envp)
 		{
 			if (pipe(plumb_box->pfd) == -1)
 				exit(EXIT_FAILURE);	//TODO Free pipe structure.
-							//set write side of pipe to STDOUT.
-			if (dup2(plumb_box->pfd[1], STDOUT_FILENO) == -1)
-				exit(EXIT_FAILURE);	//TODO Free close and exit.
-			close(plumb_box->pfd[1]);
-			plumb_box->last_read_end = plumb_box->pfd[0];
-		}
-		
+		}	
 		//Actions differ between child and parent.
 		pid = fork();
 		if (pid == -1)
@@ -32,7 +26,7 @@ int	multiple_commands(t_cmd *cmd_list, t_custom_env *t_envp)
 		else if(pid == 0)
 			child_slavery(cmd_list, t_envp, plumb_box);		//TODO: close all irrelevant fd's
 		else
-			adult_entertainment(cmd_list, t_envp); //TODO: close all irrelevant fd's
+			adult_entertainment(cmd_list, t_envp, plumb_box); //TODO: close all irrelevant fd's
 	
 		cmd_list = cmd_list->next;
 	}
