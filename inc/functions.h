@@ -64,7 +64,7 @@ char			*my_getenv(t_custom_env *my_env, char *variable);
 */
 
 //adult_entertainment.c
-int	adult_entertainment(t_cmd *cmd_list, t_custom_env *t_envp);
+int	adult_entertainment(t_cmd *cmd_list, t_custom_env *t_envp, t_pipe *pipe_data);
 
 //child_slavery.c
 void	child_slavery(t_cmd *cmd_list, t_custom_env *t_envp, t_pipe *plumb_box);
@@ -94,6 +94,11 @@ int	handle_in(t_redir *r);
 int	handle_out(t_redir *r);
 int	handle_append(t_redir *r);
 int	handle_heredoc(t_redir *r);
+
+//pipe handling.
+int	setup_pipe_last_cmd(t_pipe *pipe_data);
+int	setup_pipe_middle_cmd(t_pipe *pipe_data);
+int	setup_pipe_first_cmd(t_pipe *pipe_data);
 
 //restore_io.c
 int	save_or_restore_io(int restore_or_save);
