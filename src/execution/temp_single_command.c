@@ -9,5 +9,8 @@ int	temp_single_command(t_cmd *cmd_list, t_custom_env *envp)
 		return (-1);
 	else if (pid == 0)
 		return (single_command(cmd_list, envp));
+	if (wait(NULL) == -1)
+		;
+
 	return (0);
 }
