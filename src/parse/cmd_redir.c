@@ -14,13 +14,13 @@
 
 static t_redir_type	get_redir_type(char *token)
 {
-	if (strcmp(token, "<") == 0)
+	if (ft_strncmp(token, "<", 1) == 0)
 		return (IN);
-	if (strcmp(token, ">>") == 0)
+	if (ft_strncmp(token, ">>", 2) == 0)
 		return (APPEND);
-	if (strcmp(token, ">") == 0)
+	if (ft_strncmp(token, ">", 1) == 0)
 		return (OUT);
-	if (strcmp(token, "<<") == 0)
+	if (ft_strncmp(token, "<<", 2) == 0)
 		return (HEREDOC);
 	return (NONE);
 }
@@ -33,7 +33,7 @@ static t_redir	*create_redir(t_shell *shell, char *token, char *next_token)
 	if (!new_node)
 		return (malloc_fail(shell, "create redir"), NULL);
 	new_node->type = get_redir_type(token);
-	new_node->filename_path = ft_strdup(next_token);
+	new_node->filename_path = cleanup_quotes(shell, ft_strdup(next_token));
 	new_node->heredoc_fd = -1;
 	new_node->next = NULL;
 	return (new_node);
@@ -58,7 +58,7 @@ void	add_redir(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i)
 {
 	t_redir	*redir;
 
-	while (tokens[*i] && ft_strcmp(tokens[*i], "|") != 0)
+	while (tokens[*i] && ft_strncmp(tokens[*i], "|", 1) != 0)
 	{
 		if (get_redir_type(tokens[*i]) != NONE)
 		{
@@ -86,7 +86,7 @@ void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i)
 
 	argc = 0;
 	start = *i;
-	while (tokens[*i] && ft_strcmp(tokens[*i], "|") != 0
+	while (tokens[*i] && ft_strncmp(tokens[*i], "|", 1) != 0
 		&& get_redir_type(tokens[*i]) == NONE)
 	{
 		argc++;
@@ -98,7 +98,7 @@ void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i)
 	j = 0;
 	while (j < argc)
 	{
-		cmd->argv[j] = ft_strdup(tokens[start + j]);
+		cmd->argv[j] = cleanup_quotes(shell, ft_strdup(tokens[start + j]));
 		if (!cmd->argv[j])
 			malloc_fail(shell, "add args");
 		j++;

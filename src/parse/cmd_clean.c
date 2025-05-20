@@ -12,24 +12,56 @@
 
 #include "minishell.h"
 
-bool	is_quote(char c)
+static void	clean_redir(t_redir **redir)
 {
-	if (!c)
-		return (false);
-	if (c == '\'' || c == '"')
-		return (true);
-	return (false);
+	t_redir	*current;
+	t_redir	*next;
+
+	current = *redir;
+	while (current)
+	{
+		next = current->next;
+		if (current->filename_path)
+			free(current->filename_path);
+		if (current->heredoc_fd != -1)
+			close(current->heredoc_fd);
+		free(current);
+		current = next;
+	}
+	*redir = NULL;
 }
 
-void	just_print(char **arr)
+static void	clean_argv(char ***argv)
 {
-	size_t	i;
+	int	i;
 
+	if (!*argv)
+		return ;
 	i = 0;
-	while (arr[i])
+	while ((*argv)[i])
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putendl_fd(arr[i], STDOUT_FILENO);
+		free((*argv)[i]);
 		i++;
 	}
+	free(*argv);
+	*argv = NULL;
+}
+
+void	cleanup_struct(t_cmd **exec)
+{
+	t_cmd	*current;
+	t_cmd	*next;
+
+	if (!exec || !*exec)
+		return ;
+	current = *exec;
+	while (current)
+	{
+		next = current->next;
+		clean_argv(&current->argv);
+		clean_redir(&current->redirection);
+		free(current);
+		current = next;
+	}
+	*exec = NULL;
 }

@@ -12,21 +12,6 @@
 
 #include "minishell.h"
 
-void	delete_var(char **export_array, size_t *i)
-{
-	size_t	j;
-
-	free(export_array[*i]);
-	j = *i;
-	while (export_array[j + 1])
-	{
-		export_array[j] = export_array[j + 1];
-		j++;
-	}
-	export_array[j] = NULL;
-	*i = j;
-}
-
 static void	add_var(t_shell *shell, char *str)
 {
 	size_t	i;

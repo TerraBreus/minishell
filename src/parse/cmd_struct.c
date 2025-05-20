@@ -63,7 +63,7 @@ void	token_to_struct(t_shell *shell, t_cmd **exec)
 		add_args(shell, cmd, shell->tokens, &i);
 		add_redir(shell, cmd, shell->tokens, &i);
 		add_cmd_back(exec, cmd);
-		if (shell->tokens[i] && ft_strcmp(shell->tokens[i], "|") == 0)
+		if (shell->tokens[i] && ft_strncmp(shell->tokens[i], "|", 1) == 0)
 			i++;
 	}
 }

@@ -27,10 +27,11 @@ PARSE_SRCS := \
 				cmd_struct.c \
 				cmd_redir.c \
 				cmd_print.c \
+				cmd_clean.c \
 				signal.c \
 				utils.c \
-				utils_bool1.c \
-				utils_bool2.c \
+				shell_cleanup.c \
+				utils_bool.c \
 				exec_single.c
 
 EXEC_SRCS   := 

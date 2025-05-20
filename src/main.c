@@ -13,14 +13,16 @@
 #include "minishell.h"
 
 // parsing, done
-// signals, done on interactive mode, missing in exec
 // builtin, done export
 // 			done env
 // 			done pwd
 // 			done echo
 // 			done unset
+// 			done exit
+// 			done cd
 
-// TODO: heredoc, cd, exit
+// TODO: heredoc
+// signals, done on interactive mode, missing in exec
 
 int	main(void)
 {

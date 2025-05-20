@@ -60,22 +60,20 @@ static char	*clean_token(t_shell *shell, char *str)
 	return (result);
 }
 
-void	cleanup_quotes(t_shell *shell)
+char	*cleanup_quotes(t_shell *shell, char *token)
 {
 	char	*new_token;
-	size_t	i;
 
-	i = 0;
 	new_token = NULL;
-	while (shell->tokens[i])
+	if (!token)
+		return (NULL);
+	if (strchr(token, '"')
+		|| strchr(token, '\''))
 	{
-		if (strchr(shell->tokens[i], '"')
-			|| strchr(shell->tokens[i], '\''))
-		{
-			new_token = clean_token(shell, shell->tokens[i]);
-			free(shell->tokens[i]);
-			shell->tokens[i] = new_token;
-		}
-		i++;
+		new_token = clean_token(shell, token);
+		free(token);
+		return (new_token);
 	}
+	else
+		return (token);
 }

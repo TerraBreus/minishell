@@ -30,14 +30,15 @@ void	dir_unknown(t_shell *shell)
 	shell->found_error = true;
 }
 
-void	my_exit(t_shell *shell)
+void	my_exit(t_shell *shell, t_cmd **exec)
 {
 	cleanup_env(shell);
 	cleanup_shell(shell);
+	cleanup_struct(exec);
 	exit(EXIT_SUCCESS);
 }
 
-void	exec_single(t_shell *shell, char **arg_list)
+void	exec_single(t_shell *shell, char **arg_list, t_cmd **exec)
 {
 	if (!arg_list || !arg_list[0])
 		return ;
@@ -56,7 +57,7 @@ void	exec_single(t_shell *shell, char **arg_list)
 	else if (ft_strncmp(arg_list[0], "unset", 4) == 0)
 		my_unset(shell, arg_list);
 	else if (ft_strncmp(arg_list[0], "exit", 5) == 0)
-		my_exit(shell);
+		my_exit(shell, exec);
 	else
 		cmd_unknown(shell);
 }

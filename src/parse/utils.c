@@ -29,51 +29,6 @@ void	skip_litteral(char *str, size_t *i)
 	}
 }
 
-void	cleanup_shell(t_shell *shell)
-{
-	size_t	i;
-
-	i = 0;
-	if (!shell->tokens)
-		return ;
-	while (i < shell->tc)
-	{
-		free(shell->tokens[i]);
-		i++;
-	}
-	free(shell->tokens);
-	shell->tokens = NULL;
-}
-
-void	cleanup_env(t_shell *shell)
-{
-	size_t	i;
-
-	i = 0;
-	if (shell->env_copy)
-	{
-		while (shell->env_copy[i])
-		{
-			free(shell->env_copy[i]);
-			i++;
-		}
-		free(shell->env_copy);
-		shell->env_copy = NULL;
-	}
-	i = 0;
-	if (shell->exp_copy)
-	{
-		while (shell->exp_copy[i])
-		{
-			free(shell->exp_copy[i]);
-			i++;
-		}
-		free(shell->exp_copy);
-		shell->exp_copy = NULL;
-	}
-	free(shell->old_pwd);
-}
-
 void	print_tokens(t_shell *shell)
 {
 	size_t	i;
@@ -82,6 +37,28 @@ void	print_tokens(t_shell *shell)
 	while (i < shell->tc)
 	{
 		printf("%s\n", shell->tokens[i]);
+		i++;
+	}
+}
+
+bool	is_quote(char c)
+{
+	if (!c)
+		return (false);
+	if (c == '\'' || c == '"')
+		return (true);
+	return (false);
+}
+
+void	just_print(char **arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putendl_fd(arr[i], STDOUT_FILENO);
 		i++;
 	}
 }

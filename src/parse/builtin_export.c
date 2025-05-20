@@ -82,7 +82,7 @@ static void	remove_from_export(t_shell *shell, char *str)
 		if (ft_strncmp(shell->exp_copy[i], old_name, name_len) == 0
 			&& shell->exp_copy[i][name_len] == '\0')
 		{
-			delete_var(shell->exp_copy, &i);
+			remove_arg(shell->exp_copy, &i);
 			break ;
 		}
 		i++;

@@ -27,7 +27,8 @@ void	tokenize_input_len(t_shell *shell, char *input, size_t *i);
 
 // once tokenized
 void	expand_tokens(t_shell *shell);
-void	cleanup_quotes(t_shell *shell);
+// void	cleanup_quotes(t_shell *shell);
+char	*cleanup_quotes(t_shell *shell, char *token);
 
 // env cmd_list
 char	*my_getenv(t_shell *shell, char *var_name);
@@ -36,10 +37,13 @@ char	*my_getenv(t_shell *shell, char *var_name);
 void	token_to_struct(t_shell *shell, t_cmd **exec);
 void	add_redir(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i);
 void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i);
+
+// and cleanup after
+void	cleanup_struct(t_cmd **exec);
 void	print_exec(t_cmd *exec);
 
 // exec single command
-void	exec_single(t_shell *shell, char **arg_list);
+void	exec_single(t_shell *shell, char **arg_list, t_cmd **exec);
 
 // builtins
 void	my_echo(char **arg_array);
@@ -50,7 +54,7 @@ void	my_unset(t_shell *shell, char **arg_list);
 void	my_pwd(t_shell *shell);
 
 // builtin helper
-void	delete_var(char **export_array, size_t *i);
+void	remove_arg(char **env_copy, size_t *delete_pos);
 void	add_to_env(t_shell *shell, char *str);
 int		find_index(char **env_array, char *str, size_t len);
 
