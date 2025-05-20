@@ -14,6 +14,15 @@
 
 extern char	**environ;
 
+static int	pwd_init(t_shell *shell)
+{
+	shell->old_pwd = malloc(PATH_MAX);
+	if (!shell->old_pwd)
+		return (malloc_fail(shell, "env init"), FAILURE);
+	getcwd(shell->old_pwd, PATH_MAX);
+	return (SUCCESS);
+}
+
 int	env_init(t_shell *shell)
 {
 	size_t	i;
@@ -37,5 +46,7 @@ int	env_init(t_shell *shell)
 	shell->env_copy[i] = NULL;
 	shell->exp_copy[i] = NULL;
 	bubble_sort(shell->exp_copy, i);
-	return (SUCCES);
+	if (pwd_init(shell) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
 }

@@ -20,6 +20,7 @@ typedef struct e_shell
 	size_t			tc;
 	char			**env_copy;
 	char			**exp_copy;
+	char			*old_pwd;
 	int				last_errno;
 	bool			found_error;
 }					t_shell;

@@ -70,6 +70,7 @@ void	cleanup_env(t_shell *shell)
 		free(shell->exp_copy);
 		shell->exp_copy = NULL;
 	}
+	free(shell->old_pwd);
 }
 
 void	print_tokens(t_shell *shell)

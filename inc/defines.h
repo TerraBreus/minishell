@@ -16,7 +16,7 @@
 # include "minishell.h"
 
 # define FAILURE		false
-# define SUCCES			true
+# define SUCCESS		true
 
 # define SYNTAX_ERROR	2
 # define DIR_PROMPT		126
@@ -27,5 +27,14 @@ minishell: export: invalid identifier found in filename\n"
 
 # define OPERATOR_ERROR	"\
 unknown operator combination"
+
+# define CWD_ERROR "\
+WARNING: unable to get current working directory\n"
+
+# define PWD_ERROR "\
+WARNING: unable to go to given directory\n"
+
+# define CD_TOO_MANY_ARGS "\
+minishell: cd: too many arguments\n"
 
 #endif

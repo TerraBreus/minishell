@@ -14,22 +14,17 @@
 
 void	my_pwd(t_shell *shell)
 {
-	size_t	i;
-	size_t	j;
+	char	*location;
 
-	j = 5;
-	i = 0;
-	while (shell->env_copy[i])
+	location = malloc(PATH_MAX);
+	if (!location)
 	{
-		if (ft_strncmp(shell->env_copy[i], "HOME=", 5) == 0)
-		{
-			while (shell->env_copy[i][j] != '\0')
-			{
-				ft_putchar_fd(shell->env_copy[i][j], STDOUT_FILENO);
-				j++;
-			}
-			ft_putchar_fd('\n', STDOUT_FILENO);
-		}
-		i++;
+		malloc_fail(shell, "my pwd");
+		return ;
 	}
+	if (getcwd(location, PATH_MAX) != NULL)
+		printf("%s\n", location);
+	else
+		printf("PWD couldn't be determined\n");
+	free(location);
 }

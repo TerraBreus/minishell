@@ -15,6 +15,9 @@
 
 # include "minishell.h"
 
+/* Max path safety limit */
+# include <limits.h>
+
 /* Personal libft */
 # include "libft.h"
 

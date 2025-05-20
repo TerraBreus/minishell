@@ -41,7 +41,7 @@ static int	token_count_malloc(t_shell *shell, char *input)
 		return (FAILURE);
 	}
 	shell->tc = 0;
-	return (SUCCES);
+	return (SUCCESS);
 }
 
 // tc = token count
