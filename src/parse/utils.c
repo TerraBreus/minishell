@@ -60,6 +60,7 @@ void	cleanup_env(t_shell *shell)
 		free(shell->env_copy);
 		shell->env_copy = NULL;
 	}
+	i = 0;
 	if (shell->exp_copy)
 	{
 		while (shell->exp_copy[i])

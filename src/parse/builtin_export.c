@@ -82,7 +82,6 @@ static void	remove_from_export(t_shell *shell, char *str)
 		if (ft_strncmp(shell->exp_copy[i], old_name, name_len) == 0
 			&& shell->exp_copy[i][name_len] == '\0')
 		{
-			printf("var found\n");
 			delete_var(shell->exp_copy, &i);
 			break ;
 		}

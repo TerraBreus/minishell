@@ -37,4 +37,7 @@ WARNING: unable to go to given directory\n"
 # define CD_TOO_MANY_ARGS "\
 minishell: cd: too many arguments\n"
 
+# define UNKNOWN_PWD "\
+PWD couldn't be determined\n"
+
 #endif

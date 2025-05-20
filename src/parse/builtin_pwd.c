@@ -25,6 +25,6 @@ void	my_pwd(t_shell *shell)
 	if (getcwd(location, PATH_MAX) != NULL)
 		printf("%s\n", location);
 	else
-		printf("PWD couldn't be determined\n");
+		ft_putstr_fd(UNKNOWN_PWD, STDERR_FILENO);
 	free(location);
 }

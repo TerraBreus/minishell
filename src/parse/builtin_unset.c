@@ -24,6 +24,24 @@ void	remove_arg(char **env_copy, size_t *delete_pos)
 		i++;
 	}
 	env_copy[i] = NULL;
+	*delete_pos = i;
+}
+
+int	var_match(char *env_item, char *to_remove)
+{
+	size_t	env_len;
+	size_t	remove_len;
+
+	env_len = 0;
+	while (env_item[env_len] != '=')
+		env_len++;
+	remove_len = ft_strlen(to_remove);
+	if (env_len != remove_len)
+		return (FAILURE);
+	if (ft_strncmp(env_item, to_remove, env_len) == 0)
+		return (SUCCESS);
+	else
+		return (FAILURE);
 }
 
 void	my_unset(t_shell *shell, char **arg_list)
@@ -31,18 +49,13 @@ void	my_unset(t_shell *shell, char **arg_list)
 	size_t	i;
 	size_t	j;
 
-	j = 0;
-	if (!arg_list)
-		return ;
+	j = 1;
 	while (arg_list[j] != NULL)
 	{
 		i = 0;
 		while (shell->env_copy[i] != NULL)
 		{
-			if (ft_strncmp(
-					shell->env_copy[i], arg_list[j],
-					ft_strlen(arg_list[j]) == 0)
-				&& shell->env_copy[i][ft_strlen(arg_list[j])] == '=')
+			if (var_match(shell->env_copy[i], arg_list[j]) == SUCCESS)
 				remove_arg(shell->env_copy, &i);
 			else
 				i++;

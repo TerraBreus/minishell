@@ -76,6 +76,7 @@ void	just_print(char **temp_arr);
 
 // no leaks
 void	cleanup_shell(t_shell *shell);
+void	cleanup_env(t_shell *shell);
 
 // in case of errors
 void	malloc_fail(t_shell *shell, char *location);
