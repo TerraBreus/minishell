@@ -12,26 +12,53 @@
 
 #include "minishell.h"
 
-// parsing, done
-// builtin, done export
-// 			done env
-// 			done pwd
-// 			done echo
-// 			done unset
-// 			done exit
-// 			done cd
-
-// TODO: heredoc
-// signals, done on interactive mode, missing in exec
-
-int	main(void)
+void	skip_space(char *input, size_t *i)
 {
-	t_shell	shell;
+	while (input[*i] == ' ' || input[*i] == '\t')
+		*i += 1;
+}
 
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+void	skip_litteral(char *str, size_t *i)
+{
+	if (str[*i] == '\'')
+	{
+		*i += 1;
+		while (str[*i] != '\'')
+			*i += 1;
+		*i += 1;
+	}
+}
+
+void	print_tokens(t_shell *shell)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < shell->tc)
+	{
+		printf("%s\n", shell->tokens[i]);
+		i++;
+	}
+}
+
+bool	is_quote(char c)
+{
+	if (!c)
+		return (false);
+	if (c == '\'' || c == '"')
+		return (true);
+	return (false);
+}
+
+void	just_print(char **arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putendl_fd(arr[i], STDOUT_FILENO);
+		i++;
+	}
 }

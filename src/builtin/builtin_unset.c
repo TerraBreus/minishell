@@ -12,26 +12,54 @@
 
 #include "minishell.h"
 
-// parsing, done
-// builtin, done export
-// 			done env
-// 			done pwd
-// 			done echo
-// 			done unset
-// 			done exit
-// 			done cd
-
-// TODO: heredoc
-// signals, done on interactive mode, missing in exec
-
-int	main(void)
+void	remove_arg(char **env_copy, size_t *delete_pos)
 {
-	t_shell	shell;
+	size_t	i;
 
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+	i = *delete_pos;
+	free(env_copy[*delete_pos]);
+	while (env_copy[i + 1])
+	{
+		env_copy[i] = env_copy[i + 1];
+		i++;
+	}
+	env_copy[i] = NULL;
+	*delete_pos = i;
+}
+
+static int	var_match(char *env_item, char *to_remove)
+{
+	size_t	env_len;
+	size_t	remove_len;
+
+	env_len = 0;
+	while (env_item[env_len] != '=')
+		env_len++;
+	remove_len = ft_strlen(to_remove);
+	if (env_len != remove_len)
+		return (FAILURE);
+	if (ft_strncmp(env_item, to_remove, env_len) == 0)
+		return (SUCCESS);
+	else
+		return (FAILURE);
+}
+
+void	my_unset(t_shell *shell, char **arg_list)
+{
+	size_t	i;
+	size_t	j;
+
+	j = 1;
+	while (arg_list[j] != NULL)
+	{
+		i = 0;
+		while (shell->env_copy[i] != NULL)
+		{
+			if (var_match(shell->env_copy[i], arg_list[j]) == SUCCESS)
+				remove_arg(shell->env_copy, &i);
+			else
+				i++;
+		}
+		j++;
+	}
 }

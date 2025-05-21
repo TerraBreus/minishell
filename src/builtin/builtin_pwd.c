@@ -12,26 +12,19 @@
 
 #include "minishell.h"
 
-// parsing, done
-// builtin, done export
-// 			done env
-// 			done pwd
-// 			done echo
-// 			done unset
-// 			done exit
-// 			done cd
-
-// TODO: heredoc
-// signals, done on interactive mode, missing in exec
-
-int	main(void)
+void	my_pwd(t_shell *shell)
 {
-	t_shell	shell;
+	char	*location;
 
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+	location = malloc(PATH_MAX);
+	if (!location)
+	{
+		malloc_fail(shell, "my pwd");
+		return ;
+	}
+	if (getcwd(location, PATH_MAX) != NULL)
+		printf("%s\n", location);
+	else
+		ft_putstr_fd(UNKNOWN_PWD, STDERR_FILENO);
+	free(location);
 }

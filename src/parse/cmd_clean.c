@@ -12,26 +12,56 @@
 
 #include "minishell.h"
 
-// parsing, done
-// builtin, done export
-// 			done env
-// 			done pwd
-// 			done echo
-// 			done unset
-// 			done exit
-// 			done cd
-
-// TODO: heredoc
-// signals, done on interactive mode, missing in exec
-
-int	main(void)
+static void	clean_redir(t_redir **redir)
 {
-	t_shell	shell;
+	t_redir	*current;
+	t_redir	*next;
 
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+	current = *redir;
+	while (current)
+	{
+		next = current->next;
+		if (current->filename_path)
+			free(current->filename_path);
+		if (current->heredoc_fd != -1)
+			close(current->heredoc_fd);
+		free(current);
+		current = next;
+	}
+	*redir = NULL;
+}
+
+static void	clean_argv(char ***argv)
+{
+	int	i;
+
+	if (!*argv)
+		return ;
+	i = 0;
+	while ((*argv)[i])
+	{
+		free((*argv)[i]);
+		i++;
+	}
+	free(*argv);
+	*argv = NULL;
+}
+
+void	cleanup_struct(t_cmd **exec)
+{
+	t_cmd	*current;
+	t_cmd	*next;
+
+	if (!exec || !*exec)
+		return ;
+	current = *exec;
+	while (current)
+	{
+		next = current->next;
+		clean_argv(&current->argv);
+		clean_redir(&current->redirection);
+		free(current);
+		current = next;
+	}
+	*exec = NULL;
 }

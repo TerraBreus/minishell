@@ -1,28 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 18:34:38 by masmit            #+#    #+#             */
-/*   Updated: 2024/10/29 14:57:43 by masmit           ###   ########.fr       */
+/*   Created: 2024/10/15 13:39:45 by masmit            #+#    #+#             */
+/*   Updated: 2024/10/22 19:26:03 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// concatenated 1 char to a string, and frees the input
-// return result should still be freed
-char	*ft_strjoin_char_and_free(char *s, char c)
+static void	swap(char **a, char **b)
 {
-	char	buffer[2];
 	char	*temp;
 
-	buffer[0] = c;
-	buffer[1] = '\0';
-	temp = ft_strdup(buffer);
-	if (!temp)
-		return (free(s), NULL);
-	return (ft_strjoin_and_free(s, temp));
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+void	bubble_sort(char **arr, size_t size)
+{
+	size_t	i;
+	size_t	j;
+	size_t	swapped;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		j = 0;
+		swapped = 0;
+		while (j < size - i - 1)
+		{
+			if (ft_strcmp(arr[j], arr[j + 1]) > 0)
+			{
+				swap(&arr[j], &arr[j + 1]);
+				swapped = 1;
+			}
+			j++;
+		}
+		if (!swapped)
+			break ;
+		i++;
+	}
 }

@@ -27,7 +27,10 @@ void	*ft_realloc(void *pointer, size_t old_size, size_t new_size)
 	if (!new_pointer)
 		return (NULL);
 	if (old_size < new_size)
+	{
 		ft_memcpy(new_pointer, pointer, old_size);
+		ft_memset((char *)new_pointer + old_size, 0, new_size - old_size);
+	}
 	else
 		ft_memcpy(new_pointer, pointer, new_size);
 	free(pointer);

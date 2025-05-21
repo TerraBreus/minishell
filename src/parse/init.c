@@ -12,26 +12,41 @@
 
 #include "minishell.h"
 
-// parsing, done
-// builtin, done export
-// 			done env
-// 			done pwd
-// 			done echo
-// 			done unset
-// 			done exit
-// 			done cd
+extern char	**environ;
 
-// TODO: heredoc
-// signals, done on interactive mode, missing in exec
-
-int	main(void)
+static int	pwd_init(t_shell *shell)
 {
-	t_shell	shell;
+	shell->old_pwd = malloc(PATH_MAX);
+	if (!shell->old_pwd)
+		return (malloc_fail(shell, "env init"), FAILURE);
+	getcwd(shell->old_pwd, PATH_MAX);
+	return (SUCCESS);
+}
 
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+int	env_init(t_shell *shell)
+{
+	size_t	i;
+
+	i = 0;
+	while (environ[i])
+		i++;
+	shell->env_copy = malloc(sizeof(char *) * (i + 1));
+	shell->exp_copy = malloc(sizeof(char *) * (i + 1));
+	if (!shell->env_copy || !shell->exp_copy)
+		return (malloc_fail(shell, "env init"), FAILURE);
+	i = 0;
+	while (environ[i])
+	{
+		shell->env_copy[i] = ft_strdup(environ[i]);
+		shell->exp_copy[i] = ft_strdup(environ[i]);
+		if (!shell->env_copy[i] || !shell->exp_copy[i])
+			return (malloc_fail(shell, "env_copy[i]"), FAILURE);
+		i++;
+	}
+	shell->env_copy[i] = NULL;
+	shell->exp_copy[i] = NULL;
+	bubble_sort(shell->exp_copy, i);
+	if (pwd_init(shell) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
 }

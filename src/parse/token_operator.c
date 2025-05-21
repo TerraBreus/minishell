@@ -12,26 +12,35 @@
 
 #include "minishell.h"
 
-// parsing, done
-// builtin, done export
-// 			done env
-// 			done pwd
-// 			done echo
-// 			done unset
-// 			done exit
-// 			done cd
-
-// TODO: heredoc
-// signals, done on interactive mode, missing in exec
-
-int	main(void)
+static void	do_heredoc(t_shell *shell, char *input, size_t *i)
 {
-	t_shell	shell;
+	(void)input;
+	(void)i;
+	(void)shell;
+	ft_putstr_fd("function not yet implemented", STDOUT_FILENO);
+}
 
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+static bool	is_heredoc(char *input, size_t *i)
+{
+	if (input[*i] == '<' && input[*i + 1] == '<')
+		return (true);
+	else
+		return (false);
+}
+
+void	token_operator(t_shell *shell, char *input, size_t *i)
+{
+	if (is_operator(input[*i + 1]))
+	{
+		if (input[*i] != input[*i + 1])
+			shell->found_error = true;
+		else if (is_heredoc(input, i))
+			do_heredoc(shell, input, i);
+		else
+			*i += 2;
+	}
+	else
+		*i += 1;
+	if (shell->found_error == true)
+		syntax_error(shell, OPERATOR_ERROR);
 }

@@ -12,50 +12,58 @@
 
 #include "minishell.h"
 
-static void	token_extension(char *input, size_t *i)
+static t_cmd	*new_node(t_shell *shell)
 {
-	while (input[*i]
-		&& input[*i] != '\''
-		&& input[*i] != '"'
-		&& !is_space(input[*i])
-		&& !is_operator(input[*i]))
-		*i += 1;
-}
+	t_cmd	*new_cmd;
 
-static void	string_interpolated(t_shell *shell, char *input, size_t *i)
-{
-	*i += 1;
-	while (input[*i]
-		&& input[*i] != '"')
-		*i += 1;
-	if (input[*i] == '"')
-		*i += 1;
-	else
-		syntax_error(shell, "UNCLOSED QUOTE");
-}
-
-static void	string_litteral(t_shell *shell, char *input, size_t *i)
-{
-	*i += 1;
-	while (input[*i]
-		&& input[*i] != '\'')
-		*i += 1;
-	if (input[*i] == '\'')
-		*i += 1;
-	else
-		syntax_error(shell, "UNCLOSED QUOTE");
-}
-
-void	token_quote(t_shell *shell, char *input, size_t *i)
-{
-	if (input[*i])
+	new_cmd = malloc(sizeof(t_cmd));
+	if (!new_cmd)
 	{
-		if (input[*i] == '\'')
-			string_litteral(shell, input, i);
-		else
-			string_interpolated(shell, input, i);
+		malloc_fail(shell, "new command");
+		return (NULL);
 	}
+	new_cmd->argv = NULL;
+	new_cmd->pid = -1;
+	new_cmd->redirection = NULL;
+	new_cmd->next = NULL;
+	return (new_cmd);
+}
+
+static void	add_cmd_back(t_cmd **exec, t_cmd *new_cmd)
+{
+	t_cmd	*temp;
+
+	if (!*exec)
+	{
+		*exec = new_cmd;
+		return ;
+	}
+	temp = *exec;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new_cmd;
+}
+
+void	token_to_struct(t_shell *shell, t_cmd **exec)
+{
+	size_t	i;
+	t_cmd	*cmd;
+
+	i = 0;
 	if (shell->found_error == true)
 		return ;
-	token_extension(input, i);
+	while (shell->tokens[i])
+	{
+		cmd = new_node(shell);
+		if (!cmd)
+		{
+			malloc_fail(shell, "token to struct");
+			return ;
+		}
+		add_args(shell, cmd, shell->tokens, &i);
+		add_redir(shell, cmd, shell->tokens, &i);
+		add_cmd_back(exec, cmd);
+		if (shell->tokens[i] && ft_strncmp(shell->tokens[i], "|", 1) == 0)
+			i++;
+	}
 }

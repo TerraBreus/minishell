@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:37:26 by masmit            #+#    #+#             */
-/*   Updated: 2025/04/24 13:17:06 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/16 18:03:55 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_and_free(char *s1, char *s2);
-char	*ft_strjoin_char_and_free(char *s, char c);
+char	*ft_strjoin_char(char *s, char c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *str, char c);
 char	*ft_itoa(int n);
@@ -60,6 +60,8 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+bool	is_filename_char(char c);
+void	bubble_sort(char **arr, size_t size);
 
 typedef struct s_list
 {

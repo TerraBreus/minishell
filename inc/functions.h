@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/05 16:53:19 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/21 15:18:10 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,46 +15,77 @@
 
 # include "minishell.h"
 
-// identifieng input into tokens.
-t_list			*tokenize_input(char *input);
-char			*token_get(char *input, size_t *i);
-char			*token_quote(char *input, size_t *i);
-char			*token_heredoc(char *input, size_t *i);
+// global signal declared in included_libs, otherwise makefile error
+int		env_init(t_shell *shell);
 
-// checks if tokens are valid, and give error accordingly
-void			syntax_error(char *message);
-void			malloc_fail(
-					char *message, t_custom_env	*my_env, t_list *token_list);
+void	loop(t_shell *shell);
 
-// once tokenized, iterate through token, label and expand them
-void			token_expansion(t_list *token_list, t_custom_env *env);
-char			*insert_path(char *token, t_custom_env *env);
+// prompt to tokens
+void	token_quote(t_shell *shell, char *input, size_t *i);
+void	token_operator(t_shell *shell, char *input, size_t *i);
+void	tokenize_input_len(t_shell *shell, char *input, size_t *i);
 
-// iteration helper functions
-void			token_del(void *content);
+// once tokenized
+void	expand_tokens(t_shell *shell);
 
-// put tokens in new cmd struct for exec
-t_cmd			*cmd_struct(t_list *token_list);
-void			print_cmd_list(t_cmd *cmd_list);
-void			cleanup_cmd_list(t_cmd *cmd_head);
+// void	cleanup_quotes(t_shell *shell);
+char	*cleanup_quotes(t_shell *shell, char *token);
 
-// utils for building the struct
-void			copy_argv(char **new_argv, char **old_argv, int argc);
-void			append_redir(t_cmd *cmd, t_redir *redir);
-t_redir_type	get_redir_type(t_token_type type);
+// env cmd_list
+char	*my_getenv(t_shell *shell, char *var_name);
 
-// leftover utilities for small functions and debugging.
-void			print_tokens(t_list *head);
-bool			is_operator(char c);
-void			skip_litteral(char *token, size_t *i);
+// pass tokens to parser
+void	token_to_struct(t_shell *shell, t_cmd **exec);
+void	add_redir(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i);
+void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i);
 
-// custom env init
-t_custom_env	*shell_env_init(char **env);
-void			cleanup_env(t_custom_env *my_env);
+// and cleanup after
+void	cleanup_struct(t_cmd **exec);
+void	print_exec(t_cmd *exec);
 
-// custom env commands
-void			my_export(t_custom_env *my_env, char *new_var, char *value);
-void			my_unset(t_custom_env *my_env, char *variable);
-char			*my_getenv(t_custom_env *my_env, char *variable);
+// exec single command
+void	exec_single(t_shell *shell, t_cmd **exec);
+
+// builtins
+void	my_echo(char **arg_array);
+void	my_env(t_shell *shell);
+void	my_cd(t_shell *shell, char **arg_list);
+void	my_export(t_shell *shell, char **arg_list);
+void	my_unset(t_shell *shell, char **arg_list);
+void	my_pwd(t_shell *shell);
+
+// builtin helper
+void	remove_arg(char **env_copy, size_t *delete_pos);
+void	add_to_env(t_shell *shell, char *str);
+int		find_index(char **env_array, char *str, size_t len);
+
+// utils bools
+bool	has_path(char *str);
+bool	is_path(char *str, size_t *i);
+bool	is_operator(char c);
+bool	is_input_empty(t_shell *shell, char *input);
+bool	is_quote(char c);
+void	update_bools(
+			char c, bool *in_singles, bool *in_doubles);
+
+// signals
+void	setup_signals(t_shell *shell);
+void	sigint(t_shell *shell);
+void	sigquit(char *input);
+
+// utils else
+void	skip_litteral(char *str, size_t *i);
+void	skip_space(char *input, size_t *i);
+void	print_tokens(t_shell *shell);
+void	just_print(char **temp_arr);
+
+// no leaks
+void	cleanup_shell(t_shell *shell);
+void	cleanup_env(t_shell *shell);
+
+// in case of errors
+void	malloc_fail(t_shell *shell, char *location);
+void	syntax_error(t_shell *shell, char *invalid_token);
+void	sigaction_fail(t_shell *shell, int error);
 
 #endif

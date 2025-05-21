@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_is_filename_char.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 15:47:55 by masmit            #+#    #+#             */
-/*   Updated: 2025/04/22 15:52:31 by masmit           ###   ########.fr       */
+/*   Created: 2024/10/12 15:39:32 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/16 18:34:58 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	token_del(void *content)
+bool	is_filename_char(char c)
 {
-	t_token_data	*token_data;
-
-	token_data = (t_token_data *)content;
-	if (token_data)
-	{
-		if (token_data->token)
-			free(token_data->token);
-		if (token_data->error)
-			free(token_data->error);
-		free(token_data);
-	}
+	if (!c)
+		return (false);
+	if (ft_isalnum(c) || c == '_')
+		return (true);
+	else
+		return (false);
 }

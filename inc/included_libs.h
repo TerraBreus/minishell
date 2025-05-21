@@ -15,6 +15,9 @@
 
 # include "minishell.h"
 
+/* Max path safety limit */
+# include <limits.h>
+
 /* Personal libft */
 # include "libft.h"
 
@@ -68,5 +71,7 @@
 
 /* Readline history management (add_history) */
 # include <readline/history.h>
+
+extern int	g_signal;
 
 #endif

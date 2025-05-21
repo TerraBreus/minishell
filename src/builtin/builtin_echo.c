@@ -12,26 +12,32 @@
 
 #include "minishell.h"
 
-// parsing, done
-// builtin, done export
-// 			done env
-// 			done pwd
-// 			done echo
-// 			done unset
-// 			done exit
-// 			done cd
-
-// TODO: heredoc
-// signals, done on interactive mode, missing in exec
-
-int	main(void)
+// echo in bash can have multiple arguments so imma just print them as an array
+void	my_echo(char **arg_array)
 {
-	t_shell	shell;
+	bool	newline_flag;
+	size_t	i;
 
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+	i = 1;
+	newline_flag = false;
+	if (!arg_array || !arg_array[i])
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		return ;
+	}
+	while (arg_array[i]
+		&& ft_strncmp(arg_array[i], "-n", 2) == 0)
+	{
+		newline_flag = true;
+		i++;
+	}
+	while (arg_array[i])
+	{
+		write(STDOUT_FILENO, arg_array[i], ft_strlen(arg_array[i]));
+		if (arg_array[i + 1])
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		i++;
+	}
+	if (newline_flag == false)
+		(write(STDOUT_FILENO, "\n", 1));
 }

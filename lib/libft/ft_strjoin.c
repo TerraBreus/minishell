@@ -14,7 +14,7 @@
 
 //n_l is new location.
 // joins s1 and s2 in new location, leaves old strings intact
-// return new string if succes, NULL if joining fails
+// return new string if SUCCESS, NULL if joining fails
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*n_l;
