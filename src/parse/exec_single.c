@@ -14,7 +14,7 @@
 //  and 7 to create holy bash
 #include "minishell.h"
 
-void	cmd_unknown(t_shell *shell)
+static void	cmd_unknown(t_shell *shell)
 {
 	write(STDERR_FILENO, shell->tokens[0], ft_strlen(shell->tokens[0]));
 	write(STDERR_FILENO, ": Command not found\n", 21);
@@ -22,7 +22,7 @@ void	cmd_unknown(t_shell *shell)
 	shell->found_error = true;
 }
 
-void	dir_unknown(t_shell *shell)
+static void	dir_unknown(t_shell *shell)
 {
 	write(STDERR_FILENO, shell->tokens[0], ft_strlen(shell->tokens[0]));
 	write(STDERR_FILENO, ": Is a directory\n", 18);
@@ -30,15 +30,15 @@ void	dir_unknown(t_shell *shell)
 	shell->found_error = true;
 }
 
-void	my_exit(t_shell *shell, t_cmd **exec)
+static void	my_exit(t_shell *shell, t_cmd *exec)
 {
 	cleanup_env(shell);
 	cleanup_shell(shell);
-	cleanup_struct(exec);
+	cleanup_struct(&exec);
 	exit(EXIT_SUCCESS);
 }
 
-void	exec_single(t_shell *shell, char **arg_list, t_cmd **exec)
+void	exec_single(t_shell *shell, char **arg_list, t_cmd *exec)
 {
 	if (!arg_list || !arg_list[0])
 		return ;

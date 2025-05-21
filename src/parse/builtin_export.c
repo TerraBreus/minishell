@@ -27,7 +27,7 @@ int	find_index(char **env, char *str, size_t len)
 	return (-1);
 }
 
-bool	valid_filename(t_shell *shell, char *str)
+static bool	valid_filename(t_shell *shell, char *str)
 {
 	size_t	i;
 

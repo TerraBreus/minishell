@@ -70,7 +70,7 @@ static void	tokenize_input(t_shell *shell, char *input)
 	shell->tokens[shell->tc] = NULL;
 }
 
-void	is_it_ready(t_shell *shell)
+static void	is_it_ready(t_shell *shell)
 {
 	size_t	i;
 
@@ -110,7 +110,8 @@ void	loop(t_shell *shell)
 	{
 		expand_tokens(shell);
 		token_to_struct(shell, &exec);
-		exec_single(shell, shell->tokens, &exec);
+		print_exec(exec);
+		exec_single(shell, shell->tokens, exec);
 		cleanup_struct(&exec);
 	}
 	cleanup_shell(shell);

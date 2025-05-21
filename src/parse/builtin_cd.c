@@ -19,7 +19,7 @@ static void	cd_error(t_shell *shell, char *err_token)
 	shell->last_errno = 1;
 }
 
-int	update_pwd(t_shell *shell, const char *new_path)
+static int	update_pwd(t_shell *shell, const char *new_path)
 {
 	char	*old_pwd;
 	char	*new_pwd;
