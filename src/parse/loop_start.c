@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   We're building something here detective.           :+:      :+:    :+:   */
-/*        And were building it from scratch           +:+ +:+         +:+     */
-/*   By: Me                                         +#+  +:+       +#+        */
-/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
-/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
-/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
+/*   loop_start.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/21 13:15:19 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/21 13:15:53 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	loop(t_shell *shell)
 		expand_tokens(shell);
 		token_to_struct(shell, &exec);
 		print_exec(exec);
-		exec_single(shell, shell->tokens, exec);
+		exec_single(shell, shell->tokens, &exec);
 		cleanup_struct(&exec);
 	}
 	cleanup_shell(shell);

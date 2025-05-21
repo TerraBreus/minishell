@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   And all the pieces matter...                       :+:      :+:    :+:   */
+/*   env_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Me                                         +#+  +:+       +#+        */
-/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
-/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
-/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/21 13:14:57 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/21 13:14:59 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static char	*expand_var(t_shell *shell, char *str, size_t *i)
 		*i = start + 1;
 		return (ft_itoa(shell->last_errno));
 	}
+	if (!is_filename_char(str[start]))
+		return (*i = start, ft_strdup("$"));
 	while (is_filename_char(str[start]))
 		start++;
 	var_name = ft_substr(str, *i + 1, start - (*i + 1));

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   And all the pieces matter...                       :+:      :+:    :+:   */
+/*   exec_single.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Me                                         +#+  +:+       +#+        */
-/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
-/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
-/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/21 13:15:06 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/21 13:15:08 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	my_exit(t_shell *shell, t_cmd *exec)
 	exit(EXIT_SUCCESS);
 }
 
-void	exec_single(t_shell *shell, char **arg_list, t_cmd *exec)
+void	exec_single(t_shell *shell, char **arg_list, t_cmd **exec)
 {
 	if (!arg_list || !arg_list[0])
 		return ;
@@ -57,7 +57,7 @@ void	exec_single(t_shell *shell, char **arg_list, t_cmd *exec)
 	else if (ft_strncmp(arg_list[0], "unset", 4) == 0)
 		my_unset(shell, arg_list);
 	else if (ft_strncmp(arg_list[0], "exit", 5) == 0)
-		my_exit(shell, exec);
+		my_exit(shell, *exec);
 	else
 		cmd_unknown(shell);
 }

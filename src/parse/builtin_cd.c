@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   And all the pieces matter...                       :+:      :+:    :+:   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Me                                         +#+  +:+       +#+        */
-/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
-/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
-/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/21 13:14:27 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/21 13:14:31 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	my_cd(t_shell *shell, char **arg_list)
 {
 	if (!arg_list[1])
 	{
-		update_pwd(shell, getenv("HOME"));
+		update_pwd(shell, my_getenv(shell, "HOME"));
 		return ;
 	}
 	if (arg_list[2])
