@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 12:57:18 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/21 15:18:10 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	cleanup_struct(t_cmd **exec);
 void	print_exec(t_cmd *exec);
 
 // exec single command
-void	exec_single(t_shell *shell, char **arg_list, t_cmd **exec);
+void	exec_single(t_shell *shell, t_cmd **exec);
 
 // builtins
 void	my_echo(char **arg_array);

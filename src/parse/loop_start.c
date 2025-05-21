@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:15:19 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 13:15:53 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/21 15:20:14 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ static void	is_it_ready(t_shell *shell)
 		&& shell->found_error == false)
 	{
 		if (is_operator(shell->tokens[i][0]) == true
-		&& (i == shell->tc - 1
-		|| i == 0))
+		&& (i == shell->tc - 1 || i == 0))
 		{
 			syntax_error(shell, &shell->tokens[i][0]);
 			return ;
@@ -108,10 +107,10 @@ void	loop(t_shell *shell)
 	is_it_ready(shell);
 	if (shell->found_error == false)
 	{
+		shell->last_errno = 0;
 		expand_tokens(shell);
 		token_to_struct(shell, &exec);
-		print_exec(exec);
-		exec_single(shell, shell->tokens, &exec);
+		exec_single(shell, &exec);
 		cleanup_struct(&exec);
 	}
 	cleanup_shell(shell);

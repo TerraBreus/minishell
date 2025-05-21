@@ -1,29 +1,31 @@
-NAME        := minishell
-CC          := cc
-CFLAGS      := -Wall -Wextra -Werror -Iinc -Ilib/libft
-LDFLAGS     := -Llib/libft -lft -lreadline -lncurses
+NAME			:= minishell
+CC				:= cc
+CFLAGS			:= -Wall -Wextra -Werror -Iinc -Ilib/libft
+LDFLAGS			:= -Llib/libft -lft -lreadline -lncurses
 
-SRC_DIR     := src
-OBJ_DIR     := obj
-LIBFT_DIR   := lib/libft
-LIBFT       := $(LIBFT_DIR)/libft.a
+SRC_DIR			:= src
+OBJ_DIR			:= obj
+LIBFT_DIR		:= lib/libft
+LIBFT			:= $(LIBFT_DIR)/libft.a
 
-PARSE_SRCS := \
-				init.c \
-				error.c \
-				loop_start.c \
-				token_operator.c \
-				token_quote.c \
-				token_rest.c \
+BUILTIN_SRCS	:= \
 				builtin_env.c \
 				builtin_export.c \
 				builtin_export_helper.c \
 				builtin_echo.c \
 				builtin_cd.c \
 				builtin_unset.c \
-				builtin_pwd.c \
-				env_expand.c \
+				builtin_pwd.c
+
+PARSE_SRCS		:= \
+				init.c \
+				error.c \
+				loop_start.c \
+				token_operator.c \
+				token_quote.c \
+				token_rest.c \
 				cleanup_quotes.c \
+				env_expand.c \
 				cmd_struct.c \
 				cmd_redir.c \
 				cmd_print.c \
@@ -34,13 +36,14 @@ PARSE_SRCS := \
 				utils_bool.c \
 				exec_single.c
 
-EXEC_SRCS   := 
+EXEC_SRCS		:= 
 
-SRCS        := main.c \
+SRCS			:= main.c \
 				$(addprefix parse/,$(PARSE_SRCS)) \
-				$(addprefix exec/,$(EXEC_SRCS))
+				$(addprefix exec/,$(EXEC_SRCS)) \
+				$(addprefix builtin/,$(BUILTIN_SRCS))
 
-OBJS        := $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
+OBJS			:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 
 all: $(LIBFT) $(NAME)
 

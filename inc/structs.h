@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.h                                           :+:    :+:           */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:18 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/01 16:01:02 by zivanov        ########   odam.nl        */
+/*   Updated: 2025/05/21 15:31:41 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ typedef struct e_shell
 	int				last_errno;
 	bool			found_error;
 }					t_shell;
-
-// --Structs for executing commands, piping,--
-// --heredoc and other redirection operators--
 
 typedef enum e_redir_type
 {

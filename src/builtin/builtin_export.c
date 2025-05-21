@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   And all the pieces matter...                       :+:      :+:    :+:   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Me                                         +#+  +:+       +#+        */
-/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
-/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
-/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: Invalid date        by n One             #+#    #+#             */
+/*   Updated: 2025/05/21 15:29:52 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static bool	valid_filename(t_shell *shell, char *str)
 	i = 0;
 	while (is_filename_char(str[i]))
 		i++;
-	if (str[i] == '\0' || str[i] == '=')
+	if ((str[i] == '\0' || str[i] == '=') && i != 0)
 		return (true);
 	else
 	{
@@ -103,8 +103,11 @@ void	my_export(t_shell *shell, char **arg_list)
 	while (arg_list[i])
 	{
 		if (!valid_filename(shell, arg_list[i]))
+		{
+			i++;
 			continue ;
-		if (ft_strchr(arg_list[i], '='))
+		}
+		else if (ft_strchr(arg_list[i], '='))
 		{
 			add_to_env(shell, arg_list[i]);
 			remove_from_export(shell, arg_list[i]);

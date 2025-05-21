@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:15:06 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 13:15:08 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/21 15:19:10 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,50 @@ static void	my_exit(t_shell *shell, t_cmd *exec)
 	exit(EXIT_SUCCESS);
 }
 
-void	exec_single(t_shell *shell, char **arg_list, t_cmd **exec)
+// void	exec_single(t_shell *shell, char **arg_list, t_cmd **exec)
+// {
+// 	if (!arg_list || !arg_list[0])
+// 		return ;
+// 	if (ft_strncmp(arg_list[0], "echo", 5) == 0)
+// 		my_echo(arg_list);
+// 	else if (ft_strncmp(arg_list[0], "cd", 3) == 0)
+// 		my_cd(shell, arg_list);
+// 	else if (ft_strncmp(arg_list[0], "pwd", 4) == 0)
+// 		my_pwd(shell);
+// 	else if (ft_strncmp(arg_list[0], "export", 7) == 0)
+// 		my_export(shell, arg_list);
+// 	else if (ft_strncmp(arg_list[0], "env", 4) == 0)
+// 		my_env(shell);
+// 	else if (arg_list[0][0] == '/')
+// 		dir_unknown(shell);
+// 	else if (ft_strncmp(arg_list[0], "unset", 4) == 0)
+// 		my_unset(shell, arg_list);
+// 	else if (ft_strncmp(arg_list[0], "exit", 5) == 0)
+// 		my_exit(shell, exec);
+// 	else
+// 		cmd_unknown(shell);
+// }
+
+void	exec_single(t_shell *shell, t_cmd **exec)
 {
-	if (!arg_list || !arg_list[0])
-		return ;
-	if (ft_strncmp(arg_list[0], "echo", 5) == 0)
-		my_echo(arg_list);
-	else if (ft_strncmp(arg_list[0], "cd", 3) == 0)
-		my_cd(shell, arg_list);
-	else if (ft_strncmp(arg_list[0], "pwd", 4) == 0)
+	t_cmd	*current;
+
+	current = *exec;
+	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
+		my_echo(current->argv);
+	else if (ft_strncmp(current->argv[0], "cd", 3) == 0)
+		my_cd(shell, current->argv);
+	else if (ft_strncmp(current->argv[0], "pwd", 4) == 0)
 		my_pwd(shell);
-	else if (ft_strncmp(arg_list[0], "export", 7) == 0)
-		my_export(shell, arg_list);
-	else if (ft_strncmp(arg_list[0], "env", 4) == 0)
+	else if (ft_strncmp(current->argv[0], "export", 7) == 0)
+		my_export(shell, current->argv);
+	else if (ft_strncmp(current->argv[0], "env", 4) == 0)
 		my_env(shell);
-	else if (arg_list[0][0] == '/')
+	else if (current->argv[0][0] == '/')
 		dir_unknown(shell);
-	else if (ft_strncmp(arg_list[0], "unset", 4) == 0)
-		my_unset(shell, arg_list);
-	else if (ft_strncmp(arg_list[0], "exit", 5) == 0)
+	else if (ft_strncmp(current->argv[0], "unset", 4) == 0)
+		my_unset(shell, current->argv);
+	else if (ft_strncmp(current->argv[0], "exit", 5) == 0)
 		my_exit(shell, *exec);
 	else
 		cmd_unknown(shell);
