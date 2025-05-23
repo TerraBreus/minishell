@@ -92,6 +92,8 @@ void	sigaction_fail(t_shell *shell, int error);
 // EXECUTION (unsorted)
 // --------------------------------
 
+void	execution(t_cmd *cmd_list, t_shell *shell_data);
+
 //	Simple functions counting amount of commands to execute
 int	count_commands(t_cmd *cmd_list);
 
@@ -107,4 +109,23 @@ void	parse_mult_cmd(t_cmd *cmd_list);
 
 // pipe pointer can be set to NULL if no pipe is needed (aka single_command)
 int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
+
+//simple pipe call but in a struct.
+int	create_pipe(t_pipe *pipe_data);
+
+//Function dup2's to stdin/out and closes pipes for both child as the parent
+int	setup_pipe_builtout(t_pipe *pipe_data, pid_t pid, t_cmd_type type);
+
+//setup_redirections
+int	setup_redir(t_redir *redir_data);
+
+//redirection_handlers.c
+int	handle_in(t_redir *r);
+int	handle_out(t_redir *r);
+int	handle_append(t_redir *r);
+int	handle_heredoc(t_redir *r);
+
+// Executing a single command using execve.
+int	exec_cmd(char **cmd_and_flags, char **envp);
+
 #endif
