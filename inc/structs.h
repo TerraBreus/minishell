@@ -42,6 +42,8 @@ typedef struct s_redir
 	struct s_redir	*next;
 }					t_redir;
 
+typedef int (*t_redir_handler)(t_redir *r);
+
 typedef enum e_cmd_type
 {
 	FIRST,
