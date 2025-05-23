@@ -14,7 +14,9 @@
 
 void	skip_space(char *input, size_t *i)
 {
-	while (input[*i] == ' ' || input[*i] == '\t')
+	while (input[*i] == ' '
+		|| input[*i] == '\t'
+		|| input[*i] == '\n')
 		*i += 1;
 }
 

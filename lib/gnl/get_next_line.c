@@ -24,7 +24,6 @@ char	*empty_bucket(char *bucket)
 		i++;
 	if (!bucket[i])
 	{
-		free(bucket);
 		bucket = NULL;
 		return (NULL);
 	}

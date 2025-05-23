@@ -16,7 +16,9 @@ bool	is_space(char c)
 {
 	if (!c)
 		return (false);
-	if (c == ' ')
+	if (c == ' '
+		|| c == '\t'
+		|| c == '\n')
 		return (true);
 	return (false);
 }

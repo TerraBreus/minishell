@@ -22,7 +22,7 @@ static void	shell_reset(t_shell *shell)
 	shell->tokens = NULL;
 }
 
-static int	token_count_malloc(t_shell *shell, char *input)
+static int	token_malloc(t_shell *shell, char *input)
 {
 	size_t	i;
 
@@ -31,7 +31,7 @@ static int	token_count_malloc(t_shell *shell, char *input)
 		&& shell->found_error == false)
 	{
 		skip_space(input, &i);
-		tokenize_input_len(shell, input, &i);
+		token_len(shell, input, &i);
 		shell->tc++;
 	}
 	shell->tokens = ft_calloc(shell->tc + 1, sizeof(char *));
@@ -55,13 +55,13 @@ static void	tokenize_input(t_shell *shell, char *input)
 		return ;
 	add_history(input);
 	skip_space(input, &i);
-	if (token_count_malloc(shell, input) == FAILURE)
+	if (token_malloc(shell, input) == FAILURE)
 		return ;
 	while (i < ft_strlen(input)
 		&& shell->found_error == false)
 	{
 		start = i;
-		tokenize_input_len(shell, input, &i);
+		token_len(shell, input, &i);
 		if (shell->found_error == true)
 			return ;
 		shell->tokens[shell->tc++] = ft_substr(input, start, i - start);

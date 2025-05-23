@@ -22,7 +22,7 @@ void	loop(t_shell *shell);
 // prompt to tokens
 void	token_quote(t_shell *shell, char *input, size_t *i);
 void	token_operator(t_shell *shell, char *input, size_t *i);
-void	tokenize_input_len(t_shell *shell, char *input, size_t *i);
+void	token_len(t_shell *shell, char *input, size_t *i);
 
 // once tokenized
 void	expand_tokens(t_shell *shell);
@@ -88,5 +88,6 @@ void	syntax_error(t_shell *shell, char *invalid_token);
 void	sigaction_fail(t_shell *shell, int error);
 void	filename_invalid(t_shell *shell, char *str);
 void	quick_clean(t_shell *shell);
+void	subject_error(t_shell *shell, char c);
 
 #endif
