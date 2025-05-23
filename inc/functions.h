@@ -88,4 +88,23 @@ void	malloc_fail(t_shell *shell, char *location);
 void	syntax_error(t_shell *shell, char *invalid_token);
 void	sigaction_fail(t_shell *shell, int error);
 
+// -------------------------------
+// EXECUTION (unsorted)
+// --------------------------------
+
+//	Simple functions counting amount of commands to execute
+int	count_commands(t_cmd *cmd_list);
+
+//On SAVE, function duplicates the STDIN STDOUT processes and saves it in static variables.
+//On RESTORE, function closes the files attached to STDIN and STDOUT FILENO and dupes them to the copies
+//(making interaction for a new prompt possible)
+//On CLOSE, which is more for the child processes. the copies of STDIN and STDOUT are closed.
+int	save_close_restore_io(int save_close_restore);
+
+// FUNCTIONS USED ONLY WHEN PIPING
+int	mult_cmd(t_cmd *cmd_list, t_shell *shell_data);
+void	parse_mult_cmd(t_cmd *cmd_list);
+
+// pipe pointer can be set to NULL if no pipe is needed (aka single_command)
+int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
 #endif
