@@ -72,6 +72,8 @@
 /* Readline history management (add_history) */
 # include <readline/history.h>
 
+/* Simple boolean values */
+# include <stdbool.h>
 extern int	g_signal;
 
 #endif
