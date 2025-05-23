@@ -1,6 +1,6 @@
 NAME			:= minishell
 CC				:= cc
-CFLAGS			:= -Wall -Wextra -Werror -Iinc -Ilib/libft
+CFLAGS			:= -Wall -Wextra -Werror -Iinc -Ilib/libft -g
 LDFLAGS			:= -Llib/libft -lft -lreadline -lncurses
 
 SRC_DIR			:= src
@@ -36,7 +36,18 @@ PARSE_SRCS		:= \
 				utils_bool.c \
 				exec_single.c
 
-EXEC_SRCS		:= 
+EXEC_SRCS		:= \
+			   builtout_cmd.c		\
+			   count_commands.c		\
+			   create_pipe.c		\
+			   exec_cmd.c			\
+			   execution.c			\
+			   mult_cmd.c			\
+			   parse_mult_cmd.c		\
+			   redirection_handlers.c	\
+			   save_close_restore_io.c	\
+			   setup_pipe_builtout.c	\
+			   setup_redir.c	
 
 SRCS			:= main.c \
 				$(addprefix parse/,$(PARSE_SRCS)) \
