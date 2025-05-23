@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-int	close_and_return(int in, int out)
+static int	close_and_return(int in, int out)
 {
 	close(in);
 	close(out);
 	return (-1);
 }
 
-int	save_or_restore_io(int restore_or_save)
+int	save_close_restore_io(int restore_or_save)
 {
 	static int	copy_in;
 	static int	copy_out;
