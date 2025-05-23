@@ -100,6 +100,7 @@ void	loop(t_shell *shell)
 	setup_signals(shell);
 	shell_reset(shell);
 	input = readline("my_shell: ");
+	//input = ft_strdup("echo hello | cat");
 	sigquit(input);
 	sigint(shell);
 	tokenize_input(shell, input);
@@ -110,7 +111,8 @@ void	loop(t_shell *shell)
 		shell->last_errno = 0;
 		expand_tokens(shell);
 		token_to_struct(shell, &exec);
-		exec_single(shell, &exec);
+		//exec_single(shell, &exec);
+		execution(exec, shell);
 		cleanup_struct(&exec);
 	}
 	cleanup_shell(shell);
