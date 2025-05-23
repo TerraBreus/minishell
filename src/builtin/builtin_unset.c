@@ -50,10 +50,10 @@ void	my_unset(t_shell *shell, char **arg_list)
 	size_t	j;
 
 	j = 1;
-	while (arg_list[j] != NULL)
+	while (arg_list[j])
 	{
 		i = 0;
-		while (shell->env[i] != NULL)
+		while (shell->env[i])
 		{
 			if (var_match(shell->env[i], arg_list[j]) == SUCCESS)
 				remove_arg(shell->env, &i);

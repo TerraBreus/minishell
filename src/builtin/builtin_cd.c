@@ -56,10 +56,15 @@ void	my_cd(t_shell *shell, char **arg_list)
 		cd_error(shell, CD_TOO_MANY_ARGS);
 		return ;
 	}
-	if (ft_strncmp(arg_list[1], "-", 2) == 0)
+	if (*arg_list[1] == '-')
 	{
-		update_pwd(shell, shell->old_pwd);
-		my_pwd(shell);
+		if (arg_list[1][1] == '\0')
+		{
+			update_pwd(shell, shell->old_pwd);
+			my_pwd(shell);
+		}
+		else
+			cd_error(shell, CD_TOKEN_ERR);
 	}
 	else
 		update_pwd(shell, arg_list[1]);

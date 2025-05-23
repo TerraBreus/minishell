@@ -57,8 +57,7 @@ void	just_print(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putendl_fd(arr[i], STDOUT_FILENO);
+		printf("declare -x %s\n", arr[i]);
 		i++;
 	}
 }

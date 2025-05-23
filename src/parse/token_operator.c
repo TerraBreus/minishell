@@ -32,6 +32,8 @@ void	token_operator(t_shell *shell, char *input, size_t *i)
 {
 	if (is_operator(input[*i + 1]))
 	{
+		if (input[*i] == '|')
+			shell->found_error = true;
 		if (input[*i] != input[*i + 1])
 			shell->found_error = true;
 		else if (is_heredoc(input, i))

@@ -38,30 +38,6 @@ static void	my_exit(t_shell *shell, t_cmd *exec)
 	exit(EXIT_SUCCESS);
 }
 
-// void	exec_single(t_shell *shell, char **arg_list, t_cmd **exec)
-// {
-// 	if (!arg_list || !arg_list[0])
-// 		return ;
-// 	if (ft_strncmp(arg_list[0], "echo", 5) == 0)
-// 		my_echo(arg_list);
-// 	else if (ft_strncmp(arg_list[0], "cd", 3) == 0)
-// 		my_cd(shell, arg_list);
-// 	else if (ft_strncmp(arg_list[0], "pwd", 4) == 0)
-// 		my_pwd(shell);
-// 	else if (ft_strncmp(arg_list[0], "export", 7) == 0)
-// 		my_export(shell, arg_list);
-// 	else if (ft_strncmp(arg_list[0], "env", 4) == 0)
-// 		my_env(shell);
-// 	else if (arg_list[0][0] == '/')
-// 		dir_unknown(shell);
-// 	else if (ft_strncmp(arg_list[0], "unset", 4) == 0)
-// 		my_unset(shell, arg_list);
-// 	else if (ft_strncmp(arg_list[0], "exit", 5) == 0)
-// 		my_exit(shell, exec);
-// 	else
-// 		cmd_unknown(shell);
-// }
-
 void	exec_single(t_shell *shell, t_cmd **exec)
 {
 	t_cmd	*current;

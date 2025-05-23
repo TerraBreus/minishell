@@ -19,8 +19,7 @@ void	my_env(t_shell *shell)
 	i = 0;
 	while (shell->env[i])
 	{
-		write(STDOUT_FILENO, shell->env[i], ft_strlen(shell->env[i]));
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		printf("%s\n", shell->env[i]);
 		i++;
 	}
 }

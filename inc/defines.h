@@ -40,4 +40,7 @@ minishell: cd: too many arguments\n"
 # define UNKNOWN_PWD "\
 PWD couldn't be determined\n"
 
+# define CD_TOKEN_ERR "\
+minishell: cd: invalid option\n"
+
 #endif
