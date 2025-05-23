@@ -42,12 +42,28 @@ typedef struct s_redir
 	struct s_redir	*next;
 }					t_redir;
 
+typedef enum e_cmd_type
+{
+	FIRST,
+	MIDDLE,
+	LAST,
+	SINGLE
+}	t_cmd_type;
+
 typedef struct s_cmd
 {
 	char			**argv;
 	pid_t			pid;
 	t_redir			*redirection;
 	struct s_cmd	*next;
+	t_cmd_type	type;
+	bool		built_in;
 }					t_cmd;
+
+typedef struct s_pipe
+{
+	int	pfd[2];
+	int	lre;
+}	t_pipe;
 
 #endif
