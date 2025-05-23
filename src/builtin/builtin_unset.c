@@ -12,18 +12,18 @@
 
 #include "minishell.h"
 
-void	remove_arg(char **env_copy, size_t *delete_pos)
+void	remove_arg(char **env, size_t *delete_pos)
 {
 	size_t	i;
 
 	i = *delete_pos;
-	free(env_copy[*delete_pos]);
-	while (env_copy[i + 1])
+	free(env[*delete_pos]);
+	while (env[i + 1])
 	{
-		env_copy[i] = env_copy[i + 1];
+		env[i] = env[i + 1];
 		i++;
 	}
-	env_copy[i] = NULL;
+	env[i] = NULL;
 	*delete_pos = i;
 }
 
@@ -53,10 +53,10 @@ void	my_unset(t_shell *shell, char **arg_list)
 	while (arg_list[j] != NULL)
 	{
 		i = 0;
-		while (shell->env_copy[i] != NULL)
+		while (shell->env[i] != NULL)
 		{
-			if (var_match(shell->env_copy[i], arg_list[j]) == SUCCESS)
-				remove_arg(shell->env_copy, &i);
+			if (var_match(shell->env[i], arg_list[j]) == SUCCESS)
+				remove_arg(shell->env, &i);
 			else
 				i++;
 		}

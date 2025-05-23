@@ -16,8 +16,7 @@
 # include "minishell.h"
 
 // global signal declared in included_libs, otherwise makefile error
-int		env_init(t_shell *shell);
-
+int		shell_init(t_shell *shell);
 void	loop(t_shell *shell);
 
 // prompt to tokens
@@ -55,7 +54,7 @@ void	my_unset(t_shell *shell, char **arg_list);
 void	my_pwd(t_shell *shell);
 
 // builtin helper
-void	remove_arg(char **env_copy, size_t *delete_pos);
+void	remove_arg(char **env, size_t *delete_pos);
 void	add_to_env(t_shell *shell, char *str);
 int		find_index(char **env_array, char *str, size_t len);
 
@@ -69,7 +68,7 @@ void	update_bools(
 			char c, bool *in_singles, bool *in_doubles);
 
 // signals
-void	setup_signals(t_shell *shell);
+int		signals_init(t_shell *shell);
 void	sigint(t_shell *shell);
 void	sigquit(char *input);
 
@@ -87,5 +86,7 @@ void	cleanup_env(t_shell *shell);
 void	malloc_fail(t_shell *shell, char *location);
 void	syntax_error(t_shell *shell, char *invalid_token);
 void	sigaction_fail(t_shell *shell, int error);
+void	filename_invalid(t_shell *shell, char *str);
+void	quick_clean(t_shell *shell);
 
 #endif

@@ -15,8 +15,8 @@
 
 # include "minishell.h"
 
-# define FAILURE		false
-# define SUCCESS		true
+# define FAILURE		-1
+# define SUCCESS		1
 
 # define SYNTAX_ERROR	2
 # define DIR_PROMPT		126

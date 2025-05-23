@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*   And all the pieces matter...                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by n One             #+#    #+#             */
-/*   Updated: 2025/05/21 15:29:52 by masmit           ###   ########.fr       */
+/*   By: Me                                         +#+  +:+       +#+        */
+/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
+/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
+/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,7 @@ static bool	valid_filename(t_shell *shell, char *str)
 	if ((str[i] == '\0' || str[i] == '=') && i != 0)
 		return (true);
 	else
-	{
-		ft_putstr_fd("minishell: export: `", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-		shell->last_errno = 1;
-	}
+		filename_invalid(shell, str);
 	return (false);
 }
 
@@ -102,19 +97,17 @@ void	my_export(t_shell *shell, char **arg_list)
 	}
 	while (arg_list[i])
 	{
-		if (!valid_filename(shell, arg_list[i]))
+		if (valid_filename(shell, arg_list[i]))
 		{
-			i++;
-			continue ;
+			if (ft_strchr(arg_list[i], '='))
+			{
+				add_to_env(shell, arg_list[i]);
+				remove_from_export(shell, arg_list[i]);
+			}
+			else if (find_index(shell->env, arg_list[i],
+					ft_strlen(arg_list[i])) == -1)
+				add_to_export(shell, arg_list[i]);
 		}
-		else if (ft_strchr(arg_list[i], '='))
-		{
-			add_to_env(shell, arg_list[i]);
-			remove_from_export(shell, arg_list[i]);
-		}
-		else if (find_index(shell->env_copy, arg_list[i],
-				ft_strlen(arg_list[i])) == -1)
-			add_to_export(shell, arg_list[i]);
 		i++;
 	}
 }

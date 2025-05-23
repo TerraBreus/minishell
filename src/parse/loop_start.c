@@ -70,7 +70,7 @@ static void	tokenize_input(t_shell *shell, char *input)
 	shell->tokens[shell->tc] = NULL;
 }
 
-static void	is_it_ready(t_shell *shell)
+static void	syntax_check(t_shell *shell)
 {
 	size_t	i;
 
@@ -97,14 +97,13 @@ void	loop(t_shell *shell)
 	t_cmd	*exec;
 
 	exec = NULL;
-	setup_signals(shell);
 	shell_reset(shell);
 	input = readline("my_shell: ");
 	sigquit(input);
 	sigint(shell);
 	tokenize_input(shell, input);
 	free(input);
-	is_it_ready(shell);
+	syntax_check(shell);
 	if (shell->found_error == false)
 	{
 		shell->last_errno = 0;

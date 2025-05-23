@@ -38,3 +38,11 @@ void	sigaction_fail(t_shell *shell, int error)
 	shell->found_error = true;
 	shell->last_errno = error;
 }
+
+void	filename_invalid(t_shell *shell, char *str)
+{
+	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+	shell->last_errno = 1;
+}

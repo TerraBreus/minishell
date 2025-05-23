@@ -41,7 +41,7 @@ static void	sig_int_handler(int sig)
 	rl_redisplay();
 }
 
-void	setup_signals(t_shell *shell)
+int	signals_init(t_shell *shell)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
@@ -52,7 +52,7 @@ void	setup_signals(t_shell *shell)
 	if (sigaction(SIGINT, &sa_int, NULL) != 0)
 	{
 		sigaction_fail(shell, errno);
-		return ;
+		return (FAILURE);
 	}
 	sa_int.sa_flags = SA_RESTART;
 	ft_memset(&sa_quit, 0, sizeof(sa_quit));
@@ -60,6 +60,7 @@ void	setup_signals(t_shell *shell)
 	if (sigaction(SIGQUIT, &sa_quit, NULL) != 0)
 	{
 		sigaction_fail(shell, errno);
-		return ;
+		return (FAILURE);
 	}
+	return (SUCCESS);
 }
