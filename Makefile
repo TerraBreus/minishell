@@ -20,10 +20,11 @@ BUILTIN_SRCS	:= \
 PARSE_SRCS		:= \
 				init.c \
 				error.c \
-				loop_start.c \
+				loop.c \
+				token.c \
 				token_operator.c \
 				token_quote.c \
-				token_rest.c \
+				token_len.c \
 				cleanup_quotes.c \
 				env_expand.c \
 				cmd_struct.c \

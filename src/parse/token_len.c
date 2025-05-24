@@ -25,7 +25,10 @@ static bool	is_meta_char(t_shell *shell, char c)
 		|| c == ']'
 		|| c == '\\'
 		|| c == '+'
-		|| c == '#')
+		|| c == '#'
+		|| c == '^'
+		|| c == '('
+		|| c == ')')
 	{
 		subject_error(shell, c);
 		return (true);

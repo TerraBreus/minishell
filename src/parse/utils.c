@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	skip_space(char *input, size_t *i)
+void	skip_blank(char *input, size_t *i)
 {
 	while (input[*i] == ' '
 		|| input[*i] == '\t'

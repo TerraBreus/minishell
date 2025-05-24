@@ -19,6 +19,8 @@ char	*ft_strjoin_char(char *s, char c)
 	char	buffer[2];
 	char	*temp;
 
+	if (!s)
+		return (NULL);
 	buffer[0] = c;
 	buffer[1] = '\0';
 	temp = ft_strdup(buffer);

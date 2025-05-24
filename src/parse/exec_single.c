@@ -42,6 +42,8 @@ void	exec_single(t_shell *shell, t_cmd **exec)
 {
 	t_cmd	*current;
 
+	if (shell->found_error == true)
+		return ;
 	current = *exec;
 	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
 		my_echo(current->argv);

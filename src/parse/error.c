@@ -51,7 +51,8 @@ void	filename_invalid(t_shell *shell, char *str)
 void	subject_error(t_shell *shell, char c)
 {
 	ft_putstr_fd("error: \
-minishell: subject doesnt require specified meta_char: `", STDERR_FILENO);
+minishell: subject doesnt \
+require specified meta character: `", STDERR_FILENO);
 	ft_putchar_fd(c, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
 	shell->found_error = true;

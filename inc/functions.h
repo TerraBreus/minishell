@@ -20,6 +20,7 @@ int		shell_init(t_shell *shell);
 void	loop(t_shell *shell);
 
 // prompt to tokens
+void	tokenize_input(t_shell *shell, char *input);
 void	token_quote(t_shell *shell, char *input, size_t *i);
 void	token_operator(t_shell *shell, char *input, size_t *i);
 void	token_len(t_shell *shell, char *input, size_t *i);
@@ -74,7 +75,7 @@ void	sigquit(char *input);
 
 // utils else
 void	skip_litteral(char *str, size_t *i);
-void	skip_space(char *input, size_t *i);
+void	skip_blank(char *input, size_t *i);
 void	print_tokens(t_shell *shell);
 void	just_print(char **temp_arr);
 
