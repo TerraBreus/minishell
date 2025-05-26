@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 // echo in bash can have multiple arguments so imma just print them as an array
-void	my_echo(char **arg_array)
+int	my_echo(char **arg_array)
 {
 	bool	newline_flag;
 	size_t	i;
@@ -21,10 +21,7 @@ void	my_echo(char **arg_array)
 	i = 1;
 	newline_flag = false;
 	if (!arg_array || !arg_array[i])
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		return ;
-	}
+		return (write(STDOUT_FILENO, "\n", 1), 0);
 	while (arg_array[i]
 		&& ft_strncmp(arg_array[i], "-n", 2) == 0)
 	{
@@ -40,4 +37,5 @@ void	my_echo(char **arg_array)
 	}
 	if (newline_flag == false)
 		(write(STDOUT_FILENO, "\n", 1));
+	return (0);
 }

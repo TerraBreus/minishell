@@ -44,16 +44,13 @@ void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i);
 void	cleanup_struct(t_cmd **exec);
 void	print_exec(t_cmd *exec);
 
-// exec single command
-void	exec_single(t_shell *shell, t_cmd **exec);
-
 // builtins
-void	my_echo(char **arg_array);
-void	my_env(t_shell *shell);
-void	my_cd(t_shell *shell, char **arg_list);
-void	my_export(t_shell *shell, char **arg_list);
-void	my_unset(t_shell *shell, char **arg_list);
-void	my_pwd(t_shell *shell);
+int	my_echo(char **arg_array);
+int	my_env(t_shell *shell);
+int	my_cd(t_shell *shell, char **arg_list);
+int	my_export(t_shell *shell, char **arg_list);
+int	my_unset(t_shell *shell, char **arg_list);
+int	my_pwd(t_shell *shell);
 
 // builtin helper
 void	remove_arg(char **env, size_t *delete_pos);
@@ -92,7 +89,7 @@ void	sigaction_fail(t_shell *shell, int error);
 void	subject_error(t_shell *shell, char c);
 
 // temp for checking builtins
-void	exec_single(t_shell *shell, t_cmd **exec);
+int	exec_single(t_shell *shell, t_cmd **exec);
 
 // -------------------------------
 // EXECUTION (unsorted)

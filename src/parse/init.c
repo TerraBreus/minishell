@@ -31,21 +31,21 @@ int	env_init(t_shell *shell)
 	while (environ[i])
 		i++;
 	shell->env = malloc(sizeof(char *) * (i + 1));
-	shell->exp_copy = malloc(sizeof(char *) * (i + 1));
-	if (!shell->env || !shell->exp_copy)
+	shell->export = malloc(sizeof(char *) * (i + 1));
+	if (!shell->env || !shell->export)
 		return (malloc_fail(shell, "env init"), FAILURE);
 	i = 0;
 	while (environ[i])
 	{
 		shell->env[i] = ft_strdup(environ[i]);
-		shell->exp_copy[i] = ft_strdup(environ[i]);
-		if (!shell->env[i] || !shell->exp_copy[i])
+		shell->export[i] = ft_strdup(environ[i]);
+		if (!shell->env[i] || !shell->export[i])
 			return (malloc_fail(shell, "env[i]"), FAILURE);
 		i++;
 	}
 	shell->env[i] = NULL;
-	shell->exp_copy[i] = NULL;
-	bubble_sort(shell->exp_copy, i);
+	shell->export[i] = NULL;
+	bubble_sort(shell->export, i);
 	return (SUCCESS);
 }
 

@@ -47,8 +47,8 @@ void	cleanup_env(t_shell *shell)
 {
 	free_arr(shell->env);
 	shell->env = NULL;
-	free_arr(shell->exp_copy);
-	shell->exp_copy = NULL;
+	free_arr(shell->export);
+	shell->export = NULL;
 	if (shell->old_pwd)
 		free(shell->old_pwd);
 	shell->old_pwd = NULL;

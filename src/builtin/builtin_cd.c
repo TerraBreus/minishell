@@ -44,17 +44,17 @@ static int	update_pwd(t_shell *shell, const char *new_path)
 }
 
 // arg 0 is always cd
-void	my_cd(t_shell *shell, char **arg_list)
+int	my_cd(t_shell *shell, char **arg_list)
 {
 	if (!arg_list[1])
 	{
 		update_pwd(shell, my_getenv(shell, "HOME"));
-		return ;
+		return (0);
 	}
 	if (arg_list[2])
 	{
 		cd_error(shell, CD_TOO_MANY_ARGS);
-		return ;
+		return (1);
 	}
 	if (ft_strncmp(arg_list[1], "-", 2) == 0)
 	{
@@ -63,4 +63,5 @@ void	my_cd(t_shell *shell, char **arg_list)
 	}
 	else
 		update_pwd(shell, arg_list[1]);
+	return (0);
 }

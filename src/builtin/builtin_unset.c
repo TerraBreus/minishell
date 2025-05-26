@@ -44,7 +44,7 @@ static int	var_match(char *env_item, char *to_remove)
 		return (FAILURE);
 }
 
-void	my_unset(t_shell *shell, char **arg_list)
+int	my_unset(t_shell *shell, char **arg_list)
 {
 	size_t	i;
 	size_t	j;
@@ -62,4 +62,5 @@ void	my_unset(t_shell *shell, char **arg_list)
 		}
 		j++;
 	}
+	return (0);
 }

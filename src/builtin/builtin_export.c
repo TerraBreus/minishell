@@ -51,17 +51,17 @@ static void	add_to_export(t_shell *shell, char *str)
 	size_t	i;
 
 	i = 0;
-	while (shell->exp_copy[i])
+	while (shell->export[i])
 		i++;
-	shell->exp_copy = ft_realloc(shell->exp_copy,
+	shell->export = ft_realloc(shell->export,
 			sizeof(char *) * (i + 1),
 			sizeof(char *) * (i + 2));
-	if (!shell->exp_copy)
+	if (!shell->export)
 		malloc_fail(shell, "add to export");
-	shell->exp_copy[i] = ft_strdup(str);
-	if (!shell->exp_copy[i])
+	shell->export[i] = ft_strdup(str);
+	if (!shell->export[i])
 		malloc_fail(shell, "add to export");
-	shell->exp_copy[i + 1] = NULL;
+	shell->export[i + 1] = NULL;
 }
 
 static void	remove_from_export(t_shell *shell, char *str)
@@ -77,12 +77,12 @@ static void	remove_from_export(t_shell *shell, char *str)
 	if (!old_name)
 		malloc_fail(shell, "remove from export");
 	i = 0;
-	while (shell->exp_copy[i])
+	while (shell->export[i])
 	{
-		if (ft_strncmp(shell->exp_copy[i], old_name, name_len) == 0
-			&& shell->exp_copy[i][name_len] == '\0')
+		if (ft_strncmp(shell->export[i], old_name, name_len) == 0
+			&& shell->export[i][name_len] == '\0')
 		{
-			remove_arg(shell->exp_copy, &i);
+			remove_arg(shell->export, &i);
 			break ;
 		}
 		i++;
@@ -90,24 +90,21 @@ static void	remove_from_export(t_shell *shell, char *str)
 	free(old_name);
 }
 
-void	my_export(t_shell *shell, char **arg_list)
+int	my_export(t_shell *shell, char **arg_list)
 {
 	size_t	i;
 
 	i = 1;
 	if (!arg_list[i])
 	{
-		just_print(shell->exp_copy);
-		return ;
+		just_print(shell->export);
+		return (0);
 	}
 	while (arg_list[i])
 	{
-		if (!valid_filename(shell, arg_list[i]))
+		if (valid_filename(shell, arg_list[i]))
 		{
-			i++;
-			continue ;
-		}
-		else if (ft_strchr(arg_list[i], '='))
+		if (ft_strchr(arg_list[i], '='))
 		{
 			add_to_env(shell, arg_list[i]);
 			remove_from_export(shell, arg_list[i]);
@@ -115,6 +112,8 @@ void	my_export(t_shell *shell, char **arg_list)
 		else if (find_index(shell->env, arg_list[i],
 				ft_strlen(arg_list[i])) == -1)
 			add_to_export(shell, arg_list[i]);
+		}
 		i++;
 	}
+	return (0);
 }

@@ -19,6 +19,8 @@ void	malloc_fail(t_shell *shell, char *location)
 	ft_putchar_fd('\n', STDERR_FILENO);
 	shell->found_error = true;
 	shell->last_errno = ENOMEM;
+	quick_clean(shell);
+	exit(ENOMEM);
 }
 
 void	syntax_error(t_shell *shell, char *invalid_token)

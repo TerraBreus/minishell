@@ -40,6 +40,8 @@ minishell: cd: too many arguments\n"
 # define UNKNOWN_PWD "\
 PWD couldn't be determined\n"
 
+# define BUILTIN_NOT_FOUND 26
+
 # define SAVE		0
 # define RESTORE	1
 # define CLOSE		2

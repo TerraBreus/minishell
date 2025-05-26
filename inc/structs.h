@@ -19,7 +19,7 @@ typedef struct e_shell
 	char			**tokens;
 	size_t			tc;
 	char			**env;
-	char			**exp_copy;
+	char			**export;
 	char			*old_pwd;
 	int				last_errno;
 	bool			found_error;

@@ -12,19 +12,17 @@
 
 #include "minishell.h"
 
-void	my_pwd(t_shell *shell)
+int	my_pwd(t_shell *shell)
 {
 	char	*location;
 
 	location = malloc(PATH_MAX);
 	if (!location)
-	{
 		malloc_fail(shell, "my pwd");
-		return ;
-	}
 	if (getcwd(location, PATH_MAX) != NULL)
 		printf("%s\n", location);
 	else
 		ft_putstr_fd(UNKNOWN_PWD, STDERR_FILENO);
 	free(location);
+	return (0);
 }

@@ -14,20 +14,13 @@
 //  and 7 to create holy bash
 #include "minishell.h"
 
-static void	cmd_unknown(t_shell *shell)
-{
-	write(STDERR_FILENO, shell->tokens[0], ft_strlen(shell->tokens[0]));
-	write(STDERR_FILENO, ": Command not found\n", 21);
-	shell->last_errno = SYNTAX_ERROR;
-	shell->found_error = true;
-}
-
-static void	dir_unknown(t_shell *shell)
+static int	dir_unknown(t_shell *shell)
 {
 	write(STDERR_FILENO, shell->tokens[0], ft_strlen(shell->tokens[0]));
 	write(STDERR_FILENO, ": Is a directory\n", 18);
 	shell->last_errno = DIR_PROMPT;
 	shell->found_error = true;
+	return (1);
 }
 
 static void	my_exit(t_shell *shell, t_cmd *exec)
@@ -38,29 +31,30 @@ static void	my_exit(t_shell *shell, t_cmd *exec)
 	exit(EXIT_SUCCESS);
 }
 
-void	exec_single(t_shell *shell, t_cmd **exec)
+// returns (builtin not found) if cmd is not builtin
+// can be used in slick if statement
+int	exec_single(t_shell *shell, t_cmd **exec)
 {
 	t_cmd	*current;
 
 	if (shell->found_error == true)
-		return ;
+		return (1);
 	current = *exec;
 	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
-		my_echo(current->argv);
+		return (my_echo(current->argv));
 	else if (ft_strncmp(current->argv[0], "cd", 3) == 0)
-		my_cd(shell, current->argv);
+		return (my_cd(shell, current->argv));
 	else if (ft_strncmp(current->argv[0], "pwd", 4) == 0)
-		my_pwd(shell);
+		return (my_pwd(shell));
 	else if (ft_strncmp(current->argv[0], "export", 7) == 0)
-		my_export(shell, current->argv);
+		return (my_export(shell, current->argv));
 	else if (ft_strncmp(current->argv[0], "env", 4) == 0)
-		my_env(shell);
+		return (my_env(shell));
 	else if (current->argv[0][0] == '/')
-		dir_unknown(shell);
+		return (dir_unknown(shell));
 	else if (ft_strncmp(current->argv[0], "unset", 4) == 0)
-		my_unset(shell, current->argv);
+		return (my_unset(shell, current->argv));
 	else if (ft_strncmp(current->argv[0], "exit", 5) == 0)
 		my_exit(shell, *exec);
-	else
-		cmd_unknown(shell);
+	return (BUILTIN_NOT_FOUND);
 }

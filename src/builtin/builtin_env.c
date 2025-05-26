@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	my_env(t_shell *shell)
+int	my_env(t_shell *shell)
 {
 	size_t	i;
 
@@ -23,6 +23,7 @@ void	my_env(t_shell *shell)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		i++;
 	}
+	return (0);
 }
 
 char	*my_getenv(t_shell *shell, char *var_name)
