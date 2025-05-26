@@ -1,12 +1,9 @@
+#include "minishell.h"
 
-/*
 static void	no_cmd_given(void)
 {
-	//print error message.
+	write(STDERR_FILENO, "bimbo\n", 6);		//TODO I mean this should be impossible so you can put everything you want here really...
 }
-*/
-
-#include "minishell.h"
 
 void	execution(t_cmd *cmd_list, t_shell *shell_data)
 {
@@ -14,17 +11,11 @@ void	execution(t_cmd *cmd_list, t_shell *shell_data)
 
 	save_close_restore_io(SAVE);
 	cmd_c = count_commands(cmd_list);
-	if (cmd_c < 2)					//TODO Remove when you have more options
-		return ;
-	/*
 	if (cmd_c < 1)
-		no_cmd_given();				//TODO what to do when NULL pointer given?
+		no_cmd_given();	
 	else if (cmd_c == 1)
-		;//single_command(cmd_list, shell_data);	//TODO
+		single_cmd(cmd_list, shell_data);	//IN PROGRESS
 	else
-		; //mult_commands(cmd_list, shell_data);	//IN PROGRESS
-	*/
-	mult_cmd(cmd_list, shell_data);
+		mult_cmd(cmd_list, shell_data);	//IN PROGRESS
 	save_close_restore_io(RESTORE);
-
 }
