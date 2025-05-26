@@ -17,6 +17,7 @@ int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 		exit(EXIT_FAILURE);				//TODO dup2 failure
 	if (pid == 0)
 	{
+		save_close_restore_io(CLOSE);
 		exec_cmd(cmd_list->argv, shell_data->env_copy);
 		return (-1);
 	}
