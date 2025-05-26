@@ -62,11 +62,11 @@ static void	my_exit(t_shell *shell, t_cmd *exec)
 // 		cmd_unknown(shell);
 // }
 
-void	exec_single(t_shell *shell, t_cmd **exec)
+void	builtin_cmd(t_shell *shell, t_cmd *exec)
 {
 	t_cmd	*current;
 
-	current = *exec;
+	current = exec;
 	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
 		my_echo(current->argv);
 	else if (ft_strncmp(current->argv[0], "cd", 3) == 0)
@@ -82,7 +82,7 @@ void	exec_single(t_shell *shell, t_cmd **exec)
 	else if (ft_strncmp(current->argv[0], "unset", 4) == 0)
 		my_unset(shell, current->argv);
 	else if (ft_strncmp(current->argv[0], "exit", 5) == 0)
-		my_exit(shell, *exec);
+		my_exit(shell, exec);
 	else
 		cmd_unknown(shell);
 }
