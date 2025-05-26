@@ -6,6 +6,7 @@ Small tasks:
 - [ ] Setup IO/pipes for built in programs. AKA: implement built_in commands when piping
 - [x] Make `single_command`, both built in as built out
 - [ ] Check for file permissions when reading infiles, writing/appending to outfiles, reading from heredoc.
+- [ ] close IO duplicates in child when only single (builtout) command is executed
 
 Medium Tasks:
 ---
