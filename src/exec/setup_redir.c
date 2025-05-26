@@ -15,7 +15,7 @@ int	setup_redir(t_redir *redir_data)
 			return (-1);
 		if (handlers[redir_data->type](redir_data) == -1)
 			return (-1);
-		redir_data->next = redir_data;
+		redir_data = redir_data->next;
 	}
 	return (0);
 }
