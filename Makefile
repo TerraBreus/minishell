@@ -48,6 +48,7 @@ EXEC_SRCS		:= \
 			   redirection_handlers.c \
 			   save_close_restore_io.c \
 			   setup_pipe_builtout.c \
+			   setup_pipe_builtin.c \
 			   setup_redir.c \
 			   single_cmd.c
 
