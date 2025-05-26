@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:15:19 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 15:20:14 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/26 17:26:05 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ void	loop(t_shell *shell)
 		shell->last_errno = 0;
 		expand_tokens(shell);
 		token_to_struct(shell, &exec);
-		//exec_single(shell, &exec);
 		execution(exec, shell);
 		cleanup_struct(&exec);
 	}

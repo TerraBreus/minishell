@@ -5,7 +5,7 @@ bool	is_built_in(t_cmd *cmd_list)
 	t_cmd	*current;
 
 	current = cmd_list;
-	if (ft_strncmp(current->argv[0], "my_echo", 8) == 0)	//TODO
+	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
 		return (true);
 	else if (ft_strncmp(current->argv[0], "cd", 3) == 0)
 		return (true);

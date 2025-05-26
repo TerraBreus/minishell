@@ -2,6 +2,7 @@
 
 static void	no_cmd_given(void)
 {
+	ft_leak(1234);
 	write(STDERR_FILENO, "bimbo\n", 6);		//TODO I mean this should be impossible so you can put everything you want here really...
 }
 

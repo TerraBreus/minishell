@@ -6,13 +6,15 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:37:26 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/16 18:03:55 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/26 16:54:34 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "../ft_printf/ft_printf.h"
+# include "../gnl/get_next_line.h"
 # include <stddef.h>
 # include <stdlib.h>
 # include <stdio.h>

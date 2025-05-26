@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_single.c                                      :+:      :+:    :+:   */
+/*   builtin_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:15:06 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 15:19:10 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/26 16:38:26 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	exec_builtin(t_shell *shell, t_cmd *exec)
 	t_cmd	*current;
 
 	current = exec;
-	if (ft_strncmp(current->argv[0], "my_echo", 8) == 0)	//TODO
+	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
 		my_echo(current->argv);
 	else if (ft_strncmp(current->argv[0], "cd", 3) == 0)
 		my_cd(shell, current->argv);
