@@ -12,9 +12,11 @@
 
 #include "minishell.h"
 
-void	skip_space(char *input, size_t *i)
+void	skip_blank(char *input, size_t *i)
 {
-	while (input[*i] == ' ' || input[*i] == '\t')
+	while (input[*i] == ' '
+		|| input[*i] == '\t'
+		|| input[*i] == '\n')
 		*i += 1;
 }
 
@@ -57,8 +59,7 @@ void	just_print(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putendl_fd(arr[i], STDOUT_FILENO);
+		printf("declare -x %s\n", arr[i]);
 		i++;
 	}
 }

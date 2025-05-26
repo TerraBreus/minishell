@@ -74,6 +74,7 @@
 
 /* Simple boolean values */
 # include <stdbool.h>
+
 extern int	g_signal;
 
 #endif

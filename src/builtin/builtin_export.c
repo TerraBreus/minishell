@@ -112,7 +112,7 @@ void	my_export(t_shell *shell, char **arg_list)
 			add_to_env(shell, arg_list[i]);
 			remove_from_export(shell, arg_list[i]);
 		}
-		else if (find_index(shell->env_copy, arg_list[i],
+		else if (find_index(shell->env, arg_list[i],
 				ft_strlen(arg_list[i])) == -1)
 			add_to_export(shell, arg_list[i]);
 		i++;

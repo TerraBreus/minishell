@@ -30,23 +30,35 @@ int	env_init(t_shell *shell)
 	i = 0;
 	while (environ[i])
 		i++;
-	shell->env_copy = malloc(sizeof(char *) * (i + 1));
+	shell->env = malloc(sizeof(char *) * (i + 1));
 	shell->exp_copy = malloc(sizeof(char *) * (i + 1));
-	if (!shell->env_copy || !shell->exp_copy)
+	if (!shell->env || !shell->exp_copy)
 		return (malloc_fail(shell, "env init"), FAILURE);
 	i = 0;
 	while (environ[i])
 	{
-		shell->env_copy[i] = ft_strdup(environ[i]);
+		shell->env[i] = ft_strdup(environ[i]);
 		shell->exp_copy[i] = ft_strdup(environ[i]);
-		if (!shell->env_copy[i] || !shell->exp_copy[i])
-			return (malloc_fail(shell, "env_copy[i]"), FAILURE);
+		if (!shell->env[i] || !shell->exp_copy[i])
+			return (malloc_fail(shell, "env[i]"), FAILURE);
 		i++;
 	}
-	shell->env_copy[i] = NULL;
+	shell->env[i] = NULL;
 	shell->exp_copy[i] = NULL;
 	bubble_sort(shell->exp_copy, i);
+	return (SUCCESS);
+}
+
+int	shell_init(t_shell *shell)
+{
+	if (!isatty(1) || !isatty(0))
+		return (FAILURE);
+	if (env_init(shell) == FAILURE)
+		return (FAILURE);
 	if (pwd_init(shell) == FAILURE)
 		return (FAILURE);
+	if (signals_init(shell) == FAILURE)
+		return (FAILURE);
+	shell->last_errno = 0;
 	return (SUCCESS);
 }

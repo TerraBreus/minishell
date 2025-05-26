@@ -28,10 +28,8 @@ int	main(void)
 {
 	t_shell	shell;
 
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
+	if (shell_init(&shell) == FAILURE)
+		return (quick_clean(&shell), EXIT_FAILURE);
 	while (true)
 		loop(&shell);
-	return (shell.last_errno);
 }

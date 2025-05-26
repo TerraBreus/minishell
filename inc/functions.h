@@ -16,14 +16,15 @@
 # include "minishell.h"
 
 // global signal declared in included_libs, otherwise makefile error
-int		env_init(t_shell *shell);
+int		shell_init(t_shell *shell);
 
 void	loop(t_shell *shell);
 
 // prompt to tokens
+void	tokenize_input(t_shell *shell, char *input);
+void	token_len(t_shell *shell, char *input, size_t *i);
 void	token_quote(t_shell *shell, char *input, size_t *i);
 void	token_operator(t_shell *shell, char *input, size_t *i);
-void	tokenize_input_len(t_shell *shell, char *input, size_t *i);
 
 // once tokenized
 void	expand_tokens(t_shell *shell);
@@ -55,7 +56,7 @@ void	my_unset(t_shell *shell, char **arg_list);
 void	my_pwd(t_shell *shell);
 
 // builtin helper
-void	remove_arg(char **env_copy, size_t *delete_pos);
+void	remove_arg(char **env, size_t *delete_pos);
 void	add_to_env(t_shell *shell, char *str);
 int		find_index(char **env_array, char *str, size_t len);
 
@@ -69,13 +70,13 @@ void	update_bools(
 			char c, bool *in_singles, bool *in_doubles);
 
 // signals
-void	setup_signals(t_shell *shell);
+int		signals_init(t_shell *shell);
 void	sigint(t_shell *shell);
 void	sigquit(char *input);
 
 // utils else
 void	skip_litteral(char *str, size_t *i);
-void	skip_space(char *input, size_t *i);
+void	skip_blank(char *input, size_t *i);
 void	print_tokens(t_shell *shell);
 void	just_print(char **temp_arr);
 
@@ -84,9 +85,14 @@ void	cleanup_shell(t_shell *shell);
 void	cleanup_env(t_shell *shell);
 
 // in case of errors
+void	quick_clean(t_shell *shell);
 void	malloc_fail(t_shell *shell, char *location);
 void	syntax_error(t_shell *shell, char *invalid_token);
 void	sigaction_fail(t_shell *shell, int error);
+void	subject_error(t_shell *shell, char c);
+
+// temp for checking builtins
+void	exec_single(t_shell *shell, t_cmd **exec);
 
 // -------------------------------
 // EXECUTION (unsorted)
@@ -95,47 +101,50 @@ void	sigaction_fail(t_shell *shell, int error);
 void	execution(t_cmd *cmd_list, t_shell *shell_data);
 
 //	Simple functions counting amount of commands to execute
-int	count_commands(t_cmd *cmd_list);
+int		count_commands(t_cmd *cmd_list);
 
-//On SAVE, function duplicates the STDIN STDOUT processes and saves it in static variables.
-//On RESTORE, function closes the files attached to STDIN and STDOUT FILENO and dupes them to the copies
+//On SAVE, function duplicates the STDIN STDOUT processes
+// and saves it in static variables.
+//On RESTORE, function closes the files attached to STDIN
+// and STDOUT FILENO and dupes them to the copies
 //(making interaction for a new prompt possible)
-//On CLOSE, which is more for the child processes. the copies of STDIN and STDOUT are closed.
-int	save_close_restore_io(int save_close_restore);
+//On CLOSE, which is more for the child processes.
+// the copies of STDIN and STDOUT are closed.
+int		save_close_restore_io(int save_close_restore);
 
 // FUNCTIONS USED ONLY WHEN PIPING
-int	mult_cmd(t_cmd *cmd_list, t_shell *shell_data);
+int		mult_cmd(t_cmd *cmd_list, t_shell *shell_data);
 void	parse_mult_cmd(t_cmd *cmd_list);
 
 // pipe pointer can be set to NULL if no pipe is needed (aka single_command)
-int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
+int		builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
 
 //simple pipe call but in a struct.
-int	create_pipe(t_pipe *pipe_data);
+int		create_pipe(t_pipe *pipe_data);
 
 //Function dup2's to stdin/out and closes pipes for both child as the parent
-int	setup_pipe_builtout(t_pipe *pipe_data, pid_t pid, t_cmd_type type);
+int		setup_pipe_builtout(t_pipe *pipe_data, pid_t pid, t_cmd_type type);
 
 //setup_redirections
-int	setup_redir(t_redir *redir_data);
+int		setup_redir(t_redir *redir_data);
 
 //redirection_handlers.c
-int	handle_in(t_redir *r);
-int	handle_out(t_redir *r);
-int	handle_append(t_redir *r);
-int	handle_heredoc(t_redir *r);
+int		handle_in(t_redir *r);
+int		handle_out(t_redir *r);
+int		handle_append(t_redir *r);
+int		handle_heredoc(t_redir *r);
 
 // Executing a single (built out) command using execve.
-int	exec_cmd(char **cmd_and_flags, char **envp);
+int		exec_cmd(char **cmd_and_flags, char **envp);
 
 //simple strncmp to check if command is built_in or not.
 bool	is_built_in(t_cmd *cmd_list);
 
 //sets up pipe for builtin command (without forking)
-int	setup_pipe_builtin(t_pipe *pipe_data, t_cmd_type type);
+int		setup_pipe_builtin(t_pipe *pipe_data, t_cmd_type type);
 // overal flow for builtin_command
-int	builtin_cmd(t_shell *shell, t_cmd *exec, t_pipe *pipe_data);
+int		builtin_cmd(t_shell *shell, t_cmd *exec, t_pipe *pipe_data);
 //function for when prompt only asks for a single command (build in or out)
-int	single_cmd(t_cmd *cmd_list, t_shell *shell_data);
+int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 
 #endif

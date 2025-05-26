@@ -18,7 +18,7 @@ typedef struct e_shell
 {
 	char			**tokens;
 	size_t			tc;
-	char			**env_copy;
+	char			**env;
 	char			**exp_copy;
 	char			*old_pwd;
 	int				last_errno;
@@ -42,7 +42,7 @@ typedef struct s_redir
 	struct s_redir	*next;
 }					t_redir;
 
-typedef int (*t_redir_handler)(t_redir *r);
+typedef int	(*t_redir_handler)(t_redir *r);
 
 typedef enum e_cmd_type
 {
@@ -58,8 +58,8 @@ typedef struct s_cmd
 	pid_t			pid;
 	t_redir			*redirection;
 	struct s_cmd	*next;
-	t_cmd_type	type;
-	bool		built_in;
+	t_cmd_type		type;
+	bool			built_in;
 }					t_cmd;
 
 typedef struct s_pipe

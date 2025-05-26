@@ -25,9 +25,12 @@ static bool	is_meta_char(t_shell *shell, char c)
 		|| c == ']'
 		|| c == '\\'
 		|| c == '+'
-		|| c == '#')
+		|| c == '#'
+		|| c == '^'
+		|| c == '('
+		|| c == ')')
 	{
-		syntax_error(shell, &c);
+		subject_error(shell, c);
 		return (true);
 	}
 	else
@@ -62,7 +65,7 @@ static void	token_word(t_shell *shell, char *input, size_t *i)
 	}
 }
 
-void	tokenize_input_len(t_shell *shell, char *input, size_t *i)
+void	token_len(t_shell *shell, char *input, size_t *i)
 {
 	if (is_quote(input[*i]))
 		token_quote(shell, input, i);

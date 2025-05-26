@@ -58,7 +58,7 @@ void	add_redir(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i)
 {
 	t_redir	*redir;
 
-	while (tokens[*i] && ft_strncmp(tokens[*i], "|", 1) != 0)
+	while (tokens[*i] && *tokens[*i] != '|')
 	{
 		if (get_redir_type(tokens[*i]) != NONE)
 		{
@@ -86,7 +86,7 @@ void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i)
 
 	argc = 0;
 	start = *i;
-	while (tokens[*i] && ft_strncmp(tokens[*i], "|", 1) != 0
+	while (tokens[*i] && *tokens[*i] != '|'
 		&& get_redir_type(tokens[*i]) == NONE)
 	{
 		argc++;

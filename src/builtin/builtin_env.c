@@ -17,9 +17,9 @@ void	my_env(t_shell *shell)
 	size_t	i;
 
 	i = 0;
-	while (shell->env_copy[i])
+	while (shell->env[i])
 	{
-		write(STDOUT_FILENO, shell->env_copy[i], ft_strlen(shell->env_copy[i]));
+		write(STDOUT_FILENO, shell->env[i], ft_strlen(shell->env[i]));
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		i++;
 	}
@@ -36,16 +36,16 @@ char	*my_getenv(t_shell *shell, char *var_name)
 	env_items = 0;
 	i = 0;
 	var_name_len = ft_strlen(var_name);
-	while (shell->env_copy[env_items])
+	while (shell->env[env_items])
 	{
-		if (ft_strncmp(shell->env_copy[env_items],
+		if (ft_strncmp(shell->env[env_items],
 				var_name, var_name_len) == 0)
 		{
-			while (shell->env_copy[env_items][i]
-					&& shell->env_copy[env_items][i] != '=')
+			while (shell->env[env_items][i]
+					&& shell->env[env_items][i] != '=')
 				i++;
-			return (ft_substr(shell->env_copy[env_items], i + 1,
-					ft_strlen(shell->env_copy[env_items]) - i));
+			return (ft_substr(shell->env[env_items], i + 1,
+					ft_strlen(shell->env[env_items]) - i));
 		}
 		env_items++;
 	}
