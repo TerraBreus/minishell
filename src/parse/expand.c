@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_expand.c                                       :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 13:14:57 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 13:14:59 by masmit           ###   ########.fr       */
+/*   Created: 2025/05/21 15:46:18 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/21 17:17:04 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static char	*check_expansion(t_shell *shell, char *str)
 	return (result);
 }
 
-void	expand_tokens(t_shell *shell)
+void	expand_tokens(t_shell *shell, char **args)
 {
 	size_t	i;
 	char	*new_token;
@@ -89,13 +89,13 @@ void	expand_tokens(t_shell *shell)
 	i = 0;
 	if (shell->found_error == true)
 		return ;
-	while (shell->tokens[i])
+	while (args[i])
 	{
-		if (has_path(shell->tokens[i]) == true)
+		if (has_path(args[i]) == true)
 		{
-			new_token = check_expansion(shell, shell->tokens[i]);
-			free(shell->tokens[i]);
-			shell->tokens[i] = new_token;
+			new_token = check_expansion(shell, args[i]);
+			free(args[i]);
+			args[i] = new_token;
 		}
 		i++;
 	}

@@ -1,25 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   bools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by n One             #+#    #+#             */
-/*   Updated: 2025/05/21 17:10:30 by masmit           ###   ########.fr       */
+/*   Created: 2025/05/21 17:07:38 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/21 17:07:48 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
-{
-	t_shell	shell;
-
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
-}

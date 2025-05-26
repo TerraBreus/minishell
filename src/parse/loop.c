@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by n One             #+#    #+#             */
-/*   Updated: 2025/05/21 17:10:30 by masmit           ###   ########.fr       */
+/*   Created: 2025/05/21 15:46:18 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/21 17:16:41 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+void	loop(t_shell *shell)
 {
-	t_shell	shell;
+	char	*input;
 
-	if (env_init(&shell) == FAILURE)
-		return (cleanup_shell(&shell), EXIT_FAILURE);
-	shell.last_errno = 0;
-	while (true)
-		loop(&shell);
-	return (shell.last_errno);
+	input = readline("$>");
+	tokenize(shell, input);
+	expand_tokens(shell, shell->tokens);
+	free(input);
+	cleanup_shell(shell);
 }

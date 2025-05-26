@@ -8,35 +8,11 @@ OBJ_DIR			:= obj
 LIBFT_DIR		:= lib/libft
 LIBFT			:= $(LIBFT_DIR)/libft.a
 
-BUILTIN_SRCS	:= \
-				builtin_env.c \
-				builtin_export.c \
-				builtin_export_helper.c \
-				builtin_echo.c \
-				builtin_cd.c \
-				builtin_unset.c \
-				builtin_pwd.c
+BUILTIN_SRCS	:=
 
-PARSE_SRCS		:= \
-				init.c \
-				error.c \
-				loop_start.c \
-				token_operator.c \
-				token_quote.c \
-				token_rest.c \
-				cleanup_quotes.c \
-				env_expand.c \
-				cmd_struct.c \
-				cmd_redir.c \
-				cmd_print.c \
-				cmd_clean.c \
-				signal.c \
-				utils.c \
-				shell_cleanup.c \
-				utils_bool.c \
-				exec_single.c
+PARSE_SRCS		:=
 
-EXEC_SRCS		:= 
+EXEC_SRCS		:=
 
 SRCS			:= main.c \
 				$(addprefix parse/,$(PARSE_SRCS)) \

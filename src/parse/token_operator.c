@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   And all the pieces matter...                       :+:      :+:    :+:   */
+/*   token_helper.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Me                                         +#+  +:+       +#+        */
-/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
-/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
-/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/21 17:01:43 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/21 17:04:50 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static bool	is_meta_char(t_shell *shell, char c)
+{
+	if (c == '{'
+		|| c == '}'
+		|| c == '`'
+		|| c == '~'
+		|| c == '&'
+		|| c == ';'
+		|| c == '*'
+		|| c == '['
+		|| c == ']'
+		|| c == '\\'
+		|| c == '+'
+		|| c == '#')
+	{
+		syntax_error(shell, &c);
+		return (true);
+	}
+	else
+		return (false);
+}
 
 static void	do_heredoc(t_shell *shell, char *input, size_t *i)
 {

@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 15:18:10 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/21 17:18:22 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	loop(t_shell *shell);
 // prompt to tokens
 void	token_quote(t_shell *shell, char *input, size_t *i);
 void	token_operator(t_shell *shell, char *input, size_t *i);
-void	tokenize_input_len(t_shell *shell, char *input, size_t *i);
+void	token_len(t_shell *shell, char *input, size_t *i);
 
 // once tokenized
-void	expand_tokens(t_shell *shell);
+void	expand_tokens(t_shell *shell, char **args);
 
 // void	cleanup_quotes(t_shell *shell);
 char	*cleanup_quotes(t_shell *shell, char *token);
