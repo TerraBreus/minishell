@@ -2,9 +2,9 @@
 
 Small tasks:
 ---
-- [ ] Make/use a checker to decide whether program is built in or not.
+- [x] Make/use a checker to decide whether program is built in or not.
 - [ ] Setup IO/pipes for built in programs.
-- [ ] Make `single_command`, both built in as built out
+- [x] Make `single_command`, both built in as built out
 - [ ] Check for file permissions when reading infiles, writing/appending to outfiles, reading from heredoc.
 
 Medium Tasks:
