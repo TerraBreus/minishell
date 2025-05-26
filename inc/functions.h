@@ -130,8 +130,11 @@ int	exec_cmd(char **cmd_and_flags, char **envp);
 
 //simple strncmp to check if command is built_in or not.
 bool	is_built_in(t_cmd *cmd_list);
-//simple strncmp and calls corresponding function 
-void	builtin_cmd(t_shell *shell, t_cmd *exec);
+
+//sets up pipe for builtin command (without forking)
+int	setup_pipe_builtin(t_pipe *pipe_data, t_cmd_type type);
+// overal flow for builtin_command
+int	builtin_cmd(t_shell *shell, t_cmd *exec, t_pipe *pipe_data);
 //function for when prompt only asks for a single command (build in or out)
 int	single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 
