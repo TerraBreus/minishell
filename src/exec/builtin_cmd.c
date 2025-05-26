@@ -62,12 +62,13 @@ static void	my_exit(t_shell *shell, t_cmd *exec)
 // 		cmd_unknown(shell);
 // }
 
-void	builtin_cmd(t_shell *shell, t_cmd *exec)
+
+void	exec_builtin(t_shell *shell, t_cmd *exec)
 {
 	t_cmd	*current;
 
 	current = exec;
-	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
+	if (ft_strncmp(current->argv[0], "my_echo", 8) == 0)	//TODO
 		my_echo(current->argv);
 	else if (ft_strncmp(current->argv[0], "cd", 3) == 0)
 		my_cd(shell, current->argv);
@@ -86,3 +87,17 @@ void	builtin_cmd(t_shell *shell, t_cmd *exec)
 	else
 		cmd_unknown(shell);
 }
+
+int	builtin_cmd(t_shell *shell, t_cmd *cmd_list, t_pipe *pipe_data)
+{
+	if (pipe_data != NULL)
+	{
+		if (setup_pipe_builtin(pipe_data, cmd_list->type) == -1)
+			exit(EXIT_FAILURE);			//TODO
+	}
+	if (setup_redir(cmd_list->redirection) == -1)
+		exit(EXIT_FAILURE);		//TODO
+	exec_builtin(shell, cmd_list);
+	return (0);
+}
+
