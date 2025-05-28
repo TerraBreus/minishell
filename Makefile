@@ -4,7 +4,7 @@ CFLAGS			:= -Wall -Wextra -Werror -Iinc -Ilib/libft -g
 LDFLAGS			:= -Llib/libft -lft -lreadline -lncurses
 
 SRC_DIR			:= src
-OBJ_DIR			:= obj
+BIN_DIR			:= bin
 LIBFT_DIR		:= lib/libft
 LIBFT			:= $(LIBFT_DIR)/libft.a
 
@@ -23,18 +23,17 @@ PARSE_SRCS		:= \
 				loop.c \
 				token.c \
 				token_len.c \
-				token_operator.c \
 				token_quote.c \
-				cleanup_quotes.c \
+				rm_quotes.c \
 				env_expand.c \
 				cmd_struct.c \
 				cmd_redir.c \
 				cmd_print.c \
 				cmd_clean.c \
-				exec_single.c \
+				builtin.c \
 				signal.c \
+				free.c \
 				utils.c \
-				shell_cleanup.c \
 				utils_bool.c
 
 EXEC_SRCS		:= \
@@ -59,23 +58,23 @@ SRCS			:= main.c \
 				$(addprefix exec/,$(EXEC_SRCS)) \
 				$(addprefix builtin/,$(BUILTIN_SRCS))
 
-OBJS			:= $(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
+BIN				:= $(addprefix $(BIN_DIR)/,$(SRCS:.c=.o))
 
 all: $(LIBFT) $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME): $(BIN) $(LIBFT)
 	@$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 $(LIBFT):
 	$(MAKE) -s -C $(LIBFT_DIR) bonus
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(BIN_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo "cleaned obj folder"
-	@rm -rf $(OBJ_DIR)
+	@echo "cleaned bin folder"
+	@rm -rf $(BIN_DIR)
 	$(MAKE) -s -C $(LIBFT_DIR) clean
 
 fclean: clean

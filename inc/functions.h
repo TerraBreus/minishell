@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 15:18:10 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/28 11:43:04 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,12 @@ void	loop(t_shell *shell);
 void	tokenize_input(t_shell *shell, char *input);
 void	token_len(t_shell *shell, char *input, size_t *i);
 void	token_quote(t_shell *shell, char *input, size_t *i);
-void	token_operator(t_shell *shell, char *input, size_t *i);
 
 // once tokenized
 void	expand_tokens(t_shell *shell);
 
-// void	cleanup_quotes(t_shell *shell);
+// remove outside most quotes
 char	*cleanup_quotes(t_shell *shell, char *token);
-
-// env cmd_list
-char	*my_getenv(t_shell *shell, char *var_name);
 
 // pass tokens to parser
 void	token_to_struct(t_shell *shell, t_cmd **exec);
@@ -45,17 +41,18 @@ void	cleanup_struct(t_cmd **exec);
 void	print_exec(t_cmd *exec);
 
 // builtins
-int	my_echo(char **arg_array);
-int	my_env(t_shell *shell);
-int	my_cd(t_shell *shell, char **arg_list);
-int	my_export(t_shell *shell, char **arg_list);
-int	my_unset(t_shell *shell, char **arg_list);
-int	my_pwd(t_shell *shell);
+int		my_echo(char **arg_array);
+int		my_env(t_shell *shell);
+int		my_cd(t_shell *shell, char **arg_list);
+int		my_export(t_shell *shell, char **arg_list);
+int		my_unset(t_shell *shell, char **arg_list);
+int		my_pwd(t_shell *shell);
 
 // builtin helper
 void	remove_arg(char **env, size_t *delete_pos);
 void	add_to_env(t_shell *shell, char *str);
 int		find_index(char **env_array, char *str, size_t len);
+char	*my_getenv(t_shell *shell, char *var_name);
 
 // utils bools
 bool	has_path(char *str);
@@ -89,7 +86,7 @@ void	sigaction_fail(t_shell *shell, int error);
 void	subject_error(t_shell *shell, char c);
 
 // temp for checking builtins
-int	exec_single(t_shell *shell, t_cmd **exec);
+int		builtin(t_shell *shell, t_cmd **exec);
 
 // -------------------------------
 // EXECUTION (unsorted)
@@ -144,6 +141,7 @@ int		builtin_cmd(t_shell *shell, t_cmd *exec, t_pipe *pipe_data);
 //function for when prompt only asks for a single command (build in or out)
 int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 
-//function iterates through cmd_list and its corresponding redirection list, checks for heredoc types and calls setup_heredoc
+//function iterates through cmd_list and its corresponding redirection
+// list, checks for heredoc types and calls setup_heredoc
 int		check_4_heredoc(t_cmd *cmd_list);
 #endif

@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 15:38:15 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 15:38:18 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/28 11:17:33 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,14 @@ int	my_export(t_shell *shell, char **arg_list)
 	{
 		if (valid_filename(shell, arg_list[i]))
 		{
-		if (ft_strchr(arg_list[i], '='))
-		{
-			add_to_env(shell, arg_list[i]);
-			remove_from_export(shell, arg_list[i]);
-		}
-		else if (find_index(shell->env, arg_list[i],
-				ft_strlen(arg_list[i])) == -1)
-			add_to_export(shell, arg_list[i]);
+			if (ft_strchr(arg_list[i], '='))
+			{
+				add_to_env(shell, arg_list[i]);
+				remove_from_export(shell, arg_list[i]);
+			}
+			else if (find_index(shell->env, arg_list[i],
+					ft_strlen(arg_list[i])) == -1)
+				add_to_export(shell, arg_list[i]);
 		}
 		i++;
 	}

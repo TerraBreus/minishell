@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop_start.c                                       :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 13:15:19 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 15:20:14 by masmit           ###   ########.fr       */
+/*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/28 11:42:10 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	loop(t_shell *shell)
 		expand_tokens(shell);
 		shell->last_errno = 0;
 		token_to_struct(shell, &exec);
-		exec_single(shell, &exec);
+		execution(exec, shell);
 		cleanup_struct(&exec);
 	}
 	cleanup_shell(shell);

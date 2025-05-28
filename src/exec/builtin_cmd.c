@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 13:15:06 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/26 16:38:26 by masmit           ###   ########.fr       */
+/*   Updated: 2025/05/28 11:27:00 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	my_exit(t_shell *shell, t_cmd *exec)
 	exit(EXIT_SUCCESS);
 }
 
-// void	exec_single(t_shell *shell, char **arg_list, t_cmd **exec)
+// void	builtin(t_shell *shell, char **arg_list, t_cmd **exec)
 // {
 // 	if (!arg_list || !arg_list[0])
 // 		return ;
@@ -100,4 +100,3 @@ int	builtin_cmd(t_shell *shell, t_cmd *cmd_list, t_pipe *pipe_data)
 	exec_builtin(shell, cmd_list);
 	return (0);
 }
-

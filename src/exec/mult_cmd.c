@@ -11,17 +11,13 @@ int	mult_cmd(t_cmd *cmd_list, t_shell *shell_data)
 		if (cmd_list->next != NULL)
 		{
 			if (create_pipe(&pipe_data) == -1)
-				exit(EXIT_FAILURE);			//TODO Close pipe_struct and exit on malloc/pipe failure
+				exit(EXIT_FAILURE);								//TODO Close pipe_struct and exit on malloc/pipe failure
 		}
-		
-		if (is_built_in(cmd_list))
-			builtin_cmd(shell_data, cmd_list, &pipe_data);		//IN PROGRESS
-		else
+		if (builtin(shell_data, &cmd_list) == BUILTIN_NOT_FOUND)
 			builtout_cmd(cmd_list, shell_data, &pipe_data);		//IN PROGRESS
-
 		cmd_list = cmd_list->next;
 	}
-	while (wait(NULL) != -1)					//TODO
+	while (wait(NULL) != -1)									//TODO
 		;
 	return (0);
 }

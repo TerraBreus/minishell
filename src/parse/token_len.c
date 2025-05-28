@@ -1,16 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   And all the pieces matter...                       :+:      :+:    :+:   */
+/*   token_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Me                                         +#+  +:+       +#+        */
-/*       Shoutout to: Terry A. Davis              +#+#+#+#+#+   +#+           */
-/*   Created: / 66:77:88 by The Chosen One             #+#    #+#             */
-/*   Updated: / 66:77:88 by Me                        ###   ########.fr       */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/28 11:42:02 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	token_operator(t_shell *shell, char *input, size_t *i)
+{
+	if (is_operator(input[*i + 1]))
+	{
+		if (input[*i] == '|')
+			shell->found_error = true;
+		if (input[*i] != input[*i + 1])
+			shell->found_error = true;
+		else
+			*i += 2;
+	}
+	else
+		*i += 1;
+	if (shell->found_error == true)
+		syntax_error(shell, OPERATOR_ERROR);
+}
 
 static bool	is_meta_char(t_shell *shell, char c)
 {

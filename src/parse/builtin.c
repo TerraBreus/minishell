@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_single.c                                      :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 13:15:06 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 15:19:10 by masmit           ###   ########.fr       */
+/*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
+/*   Updated: 2025/05/28 11:42:34 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ static void	my_exit(t_shell *shell, t_cmd *exec)
 	exit(EXIT_SUCCESS);
 }
 
-// returns (builtin not found) if cmd is not builtin
-// can be used in slick if statement
-int	exec_single(t_shell *shell, t_cmd **exec)
+int	builtin(t_shell *shell, t_cmd **exec)
 {
 	t_cmd	*current;
 
