@@ -144,4 +144,6 @@ int		builtin_cmd(t_shell *shell, t_cmd *exec, t_pipe *pipe_data);
 //function for when prompt only asks for a single command (build in or out)
 int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 
+//function iterates through cmd_list and its corresponding redirection list, checks for heredoc types and calls setup_heredoc
+int		check_4_heredoc(t_cmd *cmd_list);
 #endif
