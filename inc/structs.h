@@ -37,6 +37,7 @@ typedef enum e_redir_type
 typedef struct s_redir
 {
 	int				heredoc_fd;
+	char			*heredoc_delimiter;
 	char			*filename_path;
 	t_redir_type	type;
 	struct s_redir	*next;
