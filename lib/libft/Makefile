@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -I. -I../gnl -I../ft_printf
+CFLAGS = -Wall -Werror -Wextra -g -I. -I../gnl -I../ft_printf
 
 LIBFT_SRCS = \
 	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
