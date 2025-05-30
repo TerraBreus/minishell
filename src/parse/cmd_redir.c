@@ -33,7 +33,7 @@ static t_redir	*create_redir(t_shell *shell, char *token, char *next_token)
 	if (!new_node)
 		return (malloc_fail(shell, "create redir"), NULL);
 	new_node->type = get_redir_type(token);
-	new_node->filename_path = cleanup_quotes(shell, ft_strdup(next_token));
+	new_node->filename_path = cleanup_quotes(shell, next_token);
 	new_node->heredoc_fd = -1;
 	new_node->next = NULL;
 	return (new_node);
@@ -98,7 +98,7 @@ void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i)
 	j = 0;
 	while (j < argc)
 	{
-		cmd->argv[j] = cleanup_quotes(shell, ft_strdup(tokens[start + j]));
+		cmd->argv[j] = cleanup_quotes(shell, tokens[start + j]);
 		if (!cmd->argv[j])
 			malloc_fail(shell, "add args");
 		j++;

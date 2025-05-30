@@ -61,11 +61,6 @@ void	tokenize_input(t_shell *shell, char *input)
 	{
 		start = i;
 		token_len(shell, input, &i);
-		if (shell->found_error == true || i == start)
-		{
-			tokenize_error(shell);
-			return ;
-		}
 		shell->tokens[shell->tc] = ft_substr(input, start, i - start);
 		shell->tc++;
 		skip_blank(input, &i);

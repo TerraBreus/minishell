@@ -66,7 +66,7 @@ void	update_bools(
 // signals
 int		signals_init(t_shell *shell);
 void	sigint(t_shell *shell);
-void	sigquit(char *input);
+void	sigquit(t_shell *shell, char *input);
 
 // utils else
 void	skip_litteral(char *str, size_t *i);

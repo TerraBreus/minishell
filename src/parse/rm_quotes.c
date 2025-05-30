@@ -12,68 +12,51 @@
 
 #include "minishell.h"
 
-static char	*clean_str(
-	t_shell *shell, char *str, size_t *i, char *result)
+static char	*clean_token(char *str)
 {
+	char	result[4096];
+	size_t	i;
+	size_t	len;
 	char	quote;
 
-	quote = str[*i];
-	*i += 1;
-	while (str[*i] && str[*i] != quote)
-	{
-		result = ft_strjoin_char(result, str[*i]);
-		if (!result)
-			return (malloc_fail(shell, "clean str"), NULL);
-		*i += 1;
-	}
-	if (str[*i] == quote)
-		*i += 1;
-	return (result);
-}
-
-static char	*join_char(
-	t_shell *shell, char *str, size_t *i, char *result)
-{
-	result = ft_strjoin_char(result, str[*i]);
-	if (!result)
-		return (malloc_fail(shell, "handle regular char"), NULL);
-	*i += 1;
-	return (result);
-}
-
-static char	*clean_token(t_shell *shell, char *str)
-{
-	char	*result;
-	size_t	i;
-
+	len = 0;
+	ft_memset(result, '\0', 4096);
 	i = 0;
-	result = ft_strdup("");
-	if (!result)
-		return (malloc_fail(shell, "remove all quotes"), NULL);
 	while (str[i])
 	{
 		if (is_quote(str[i]))
-			result = clean_str(shell, str, &i, result);
+		{
+			quote = str[i];
+			i++;
+			while (str[i] && str[i] != quote)
+				result[len++] = str[i++];
+			if (str[i] == quote)
+				i++;
+		}
 		else
-			result = join_char(shell, str, &i, result);
+			result[len++] = str[i++];
 	}
-	return (result);
+	return (ft_strdup(result));
 }
 
 char	*cleanup_quotes(t_shell *shell, char *token)
 {
 	char	*new_token;
 
+	(void)shell;
 	new_token = NULL;
 	if (!token)
 		return (NULL);
-	if (strchr(token, '"')
-		|| strchr(token, '\''))
+	if (!strchr(token, '"')
+		&& !strchr(token, '\''))
 	{
-		new_token = clean_token(shell, token);
-		free(token);
-		return (new_token);
-	}
-	else
+		token = ft_strdup(token);
+		if (!token)
+			return (malloc_fail(shell, "cleanup quotes"), NULL);
 		return (token);
+	}
+	new_token = clean_token(token);
+	if (!new_token)
+		return (malloc_fail(shell, "cleanup quotes"), NULL);
+	return (new_token);
 }
