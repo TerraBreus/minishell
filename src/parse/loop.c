@@ -51,7 +51,7 @@ void	loop(t_shell *shell)
 	exec = NULL;
 	shell_reset(shell);
 	input = readline("my_shell: ");
-	sigquit(input);
+	sigquit(shell, input);
 	sigint(shell);
 	tokenize_input(shell, input);
 	free(input);

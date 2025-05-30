@@ -54,6 +54,7 @@ void	cleanup_env(t_shell *shell)
 	shell->old_pwd = NULL;
 }
 
+// cleans up tokens, env and export
 void	quick_clean(t_shell *shell)
 {
 	cleanup_shell(shell);

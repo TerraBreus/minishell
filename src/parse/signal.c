@@ -22,11 +22,12 @@ void	sigint(t_shell *shell)
 	}
 }
 
-void	sigquit(char *input)
+void	sigquit(t_shell *shell, char *input)
 {
 	if (!input)
 	{
 		ft_putendl_fd("exit", STDOUT_FILENO);
+		quick_clean(shell);
 		exit(EXIT_SUCCESS);
 	}
 }

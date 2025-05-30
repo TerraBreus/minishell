@@ -25,8 +25,7 @@ static int	dir_unknown(t_shell *shell)
 
 static void	my_exit(t_shell *shell, t_cmd *exec)
 {
-	cleanup_env(shell);
-	cleanup_shell(shell);
+	quick_clean(shell);
 	cleanup_struct(&exec);
 	exit(EXIT_SUCCESS);
 }
