@@ -39,6 +39,7 @@ PARSE_SRCS		:= \
 EXEC_SRCS		:= \
 			   builtin_cmd.c \
 			   builtout_cmd.c \
+			   check_4_heredoc.c \
 			   count_commands.c \
 			   create_pipe.c \
 			   exec_cmd.c \
@@ -48,6 +49,7 @@ EXEC_SRCS		:= \
 			   parse_mult_cmd.c \
 			   redirection_handlers.c \
 			   save_close_restore_io.c \
+			   setup_heredoc.c \
 			   setup_pipe_builtout.c \
 			   setup_pipe_builtin.c \
 			   setup_redir.c \
