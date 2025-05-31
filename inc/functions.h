@@ -69,7 +69,7 @@ int		signals_init(t_shell *shell);
 void	sigint(t_shell *shell);
 void	sigquit(t_shell *shell, char *input);
 void	sig_child(void);
-bool	sigint_hd(int pfd[2], int status);
+bool	sigint_hd(int status);
 void	sigquit_hd(int pfd[2], char *delim);
 void	sigint_parent(t_shell *shell_data, pid_t pid);
 

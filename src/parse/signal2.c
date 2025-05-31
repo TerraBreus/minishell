@@ -21,12 +21,11 @@ void	sigquit_hd(int pfd[2], char *delim)
 	exit(0);
 }
 
-bool	sigint_hd(int pfd[2], int status)
+bool	sigint_hd(int status)
 {
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 	{
 		write(2, "^C\n", 4);
-		close(pfd[0]);
 		return (true);
 	}
 	return (false);

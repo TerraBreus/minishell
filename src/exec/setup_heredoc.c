@@ -53,8 +53,8 @@ int	setup_heredoc(t_redir *r)
 		run_heredoc(pfd, r);
 	close(pfd[1]);
     waitpid(pid, &status, 0);
-	if (sigint_hd(pfd, status) == true)
-		return (-1);
+	if (sigint_hd(status) == true)
+		return (close(pfd[0]), -1);
 	r->heredoc_fd = pfd[0];
 	return (0);
 }
