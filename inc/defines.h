@@ -40,6 +40,9 @@ minishell: cd: too many arguments\n"
 # define UNKNOWN_PWD "\
 PWD couldn't be determined\n"
 
+# define EOF_ERROR "\
+minishell: warning: here-document delimited by end-of-file wanted `"
+
 # define BUILTIN_NOT_FOUND 26
 
 # define SAVE		0

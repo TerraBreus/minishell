@@ -7,7 +7,29 @@ static void	write_and_free(char *str, int fd)
 	free(str);
 }
 
-int	setup_heredoc(t_redir *r) {
+static void	run_heredoc(int pfd[2], t_redir *r)
+{
+	char	*input;
+
+	sig_child();
+	while (true)
+	{
+		input = readline("HERE_DOC: ");
+		if (!input)
+			sigquit_hd(pfd, r->filename_path);
+		if (ft_strcmp(input, r->filename_path) == 0)
+		{
+			free(input);
+			break;
+		}
+		write_and_free(input, pfd[1]);
+	}
+	close(pfd[1]);
+	exit(0);
+}
+
+int	setup_heredoc(t_redir *r)
+{
 	/*
 	 * 1. Create a pipe
 	 * 2. readline input from user
@@ -19,23 +41,20 @@ int	setup_heredoc(t_redir *r) {
 	*/
 
 	int	pfd[2];
-	char	*input;
+	pid_t	pid;
+	int	status;
 
 	if (pipe(pfd) == -1)
 		exit(EXIT_FAILURE);		//TODO
-	
-	while (true)
-	{
-		input = readline("HERE_DOC: ");
-		if (input == NULL)
-			return (-1);		//TODO
-		if (ft_strncmp(input, r->filename_path, ft_strlen(input)) == 0)
-			break ;
-		else
-			write_and_free(input, pfd[1]);
-	}
-	free(input);
+	pid = fork();
+	if (pid == -1)
+		exit(EXIT_FAILURE);		//TODO Forking failure.
+	if (pid == 0)
+		run_heredoc(pfd, r);
 	close(pfd[1]);
+    waitpid(pid, &status, 0);
+	if (sigint_hd(pfd, status) == true)
+		return (-1);
 	r->heredoc_fd = pfd[0];
 	return (0);
 }

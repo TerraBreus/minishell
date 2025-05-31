@@ -16,12 +16,16 @@ int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 	if (setup_redir(cmd_list->redirection) == -1)
 		exit(EXIT_FAILURE);				//TODO dup2 failure
 	if (pid == 0)
-	{
+	{	
+		signal(SIGINT, SIG_DFL);
 		save_close_restore_io(CLOSE);
 		exec_cmd(cmd_list->argv, shell_data->env);
 		return (-1);
 	}
 	else
+	{
+		sigint_parent(shell_data, pid);
 		return (0);
+	}
 }
 

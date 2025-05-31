@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void	sig_child(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 void	sigint(t_shell *shell)
 {
 	if (g_signal == SIGINT)
