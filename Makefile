@@ -32,6 +32,7 @@ PARSE_SRCS		:= \
 				cmd_clean.c \
 				builtin.c \
 				signal.c \
+				signal2.c \
 				free.c \
 				utils.c \
 				utils_bool.c
