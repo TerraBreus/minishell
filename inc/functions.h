@@ -28,6 +28,9 @@ void	token_quote(t_shell *shell, char *input, size_t *i);
 // once tokenized
 void	expand_tokens(t_shell *shell);
 
+// also used by heredoc
+char	*check_expansion(t_shell *shell, char *str);
+
 // remove outside most quotes
 char	*cleanup_quotes(t_shell *shell, char *token);
 
@@ -70,7 +73,7 @@ void	sigint(t_shell *shell);
 void	sigquit(t_shell *shell, char *input);
 void	sig_child(void);
 bool	sigint_hd(int status);
-void	sigquit_hd(int pfd[2], char *delim);
+void	sigquit_hd(char *hd_string, int pfd[2], char *delim);
 void	sigint_parent(t_shell *shell_data, pid_t pid);
 
 // utils else
@@ -148,6 +151,6 @@ int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 
 //function iterates through cmd_list and its corresponding redirection
 // list, checks for heredoc types and calls setup_heredoc
-int		check_4_heredoc(t_cmd *cmd_list);
-int		setup_heredoc(t_redir *r);
+int		check_4_heredoc(t_shell *shell, t_cmd *cmd_list);
+int		setup_heredoc(t_shell *shell, t_redir *r);
 #endif

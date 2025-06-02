@@ -43,7 +43,7 @@ PWD couldn't be determined\n"
 # define EOF_ERROR "\
 minishell: warning: here-document delimited by end-of-file wanted `"
 
-# define BUILTIN_NOT_FOUND 26
+# define BUILTIN_NOT_FOUND -1
 
 # define SAVE		0
 # define RESTORE	1
