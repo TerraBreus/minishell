@@ -15,11 +15,9 @@
 static char	*expand_var(t_shell *shell, char *str, size_t *i)
 {
 	size_t	start;
-	size_t	index;
-	char	var_name[4096];
+	char	*var_name;
 	char	*value;
 
-	index = 0;
 	start = *i + 1;
 	if (str[start] == '?')
 	{
@@ -27,62 +25,81 @@ static char	*expand_var(t_shell *shell, char *str, size_t *i)
 		return (ft_itoa(shell->last_errno));
 	}
 	if (!is_filename_char(str[start]))
-		return (*i = start, "$");
+		return (*i = start, ft_strdup("$"));
 	while (is_filename_char(str[start]))
-		var_name[index++] = str[start++];
-	var_name[index] = '\0';
+		start++;
+	var_name = ft_substr(str, *i + 1, start - (*i + 1));
+	if (!var_name)
+		return (malloc_fail(shell, "expand var"), NULL);
 	value = my_getenv(shell, var_name);
+	free(var_name);
 	*i = start;
 	if (value)
 		return (value);
-	return ("");
+	return (ft_strdup(""));
 }
 
-void	check_expansion(t_shell *shell, char *str, char *result)
+static char	*handle_expansion(
+	t_shell *shell, char *str, size_t *i, char *result)
+{
+	char	*expanded_var;
+	char	*temp;
+
+	expanded_var = expand_var(shell, str, i);
+	temp = ft_strjoin(result, expanded_var);
+	if (!temp)
+		return (malloc_fail(shell, "handle expansion"), NULL);
+	free(result);
+	free(expanded_var);
+	return (temp);
+}
+
+static char	*check_expansion(t_shell *shell, char *str)
 {
 	size_t	i;
 	bool	in_singles;
 	bool	in_doubles;
-	char	*buffer;
+	char	*result;
 
 	i = 0;
 	in_singles = false;
 	in_doubles = false;
+	result = ft_strdup("");
+	if (!result)
+		return (malloc_fail(shell, "check expansion"), NULL);
 	while (str[i])
 	{
 		update_bools(str[i], &in_singles, &in_doubles);
 		if (str[i] == '$' && !in_singles)
-		{
-			buffer = expand_var(shell, str, &i);
-			ft_strlcat(result, buffer, 4096 - ft_strlen(result));
-			free(buffer);
-		}
+			result = handle_expansion(shell, str, &i, result);
 		else
 		{
-			ft_strlcat(result, &str[i], 4096 - ft_strlen(result));
+			result = ft_strjoin_char(result, str[i]);
+			if (!result)
+				return (malloc_fail(shell, "check expansion"), NULL);
 			i++;
 		}
 	}
+	return (result);
 }
 
 void	expand_tokens(t_shell *shell)
 {
 	size_t	i;
-	char	new_token[4096];
+	char	*new_token;
 
 	i = 0;
 	if (shell->found_error == true)
 		return ;
-	ft_memset(new_token, '\0', 4096);
 	while (shell->tokens[i])
 	{
 		if (has_path(shell->tokens[i]) == true)
 		{
-			check_expansion(shell, shell->tokens[i], new_token);
+			new_token = check_expansion(shell, shell->tokens[i]);
+			if (!new_token)
+				return ;
 			free(shell->tokens[i]);
-			shell->tokens[i] = ft_strdup(new_token);
-			if (!shell->tokens[i])
-				malloc_fail(shell, "expand tokens");
+			shell->tokens[i] = new_token;
 		}
 		i++;
 	}
