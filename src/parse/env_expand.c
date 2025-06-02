@@ -30,7 +30,7 @@ static char	*expand_var(t_shell *shell, char *str, size_t *i)
 		start++;
 	var_name = ft_substr(str, *i + 1, start - (*i + 1));
 	if (!var_name)
-		return (malloc_fail(shell, "expand var"), NULL);
+		malloc_fail(shell, "expand var");
 	value = my_getenv(shell, var_name);
 	free(var_name);
 	*i = start;
@@ -46,15 +46,17 @@ static char	*handle_expansion(
 	char	*temp;
 
 	expanded_var = expand_var(shell, str, i);
+	if (!expanded_var)
+		malloc_fail(shell, "expand var");
 	temp = ft_strjoin(result, expanded_var);
 	if (!temp)
-		return (malloc_fail(shell, "handle expansion"), NULL);
+		malloc_fail(shell, "handle expansion");
 	free(result);
 	free(expanded_var);
 	return (temp);
 }
 
-static char	*check_expansion(t_shell *shell, char *str)
+char	*check_expansion(t_shell *shell, char *str)
 {
 	size_t	i;
 	bool	in_singles;
@@ -66,7 +68,7 @@ static char	*check_expansion(t_shell *shell, char *str)
 	in_doubles = false;
 	result = ft_strdup("");
 	if (!result)
-		return (malloc_fail(shell, "check expansion"), NULL);
+		malloc_fail(shell, "check expansion");
 	while (str[i])
 	{
 		update_bools(str[i], &in_singles, &in_doubles);
@@ -76,7 +78,7 @@ static char	*check_expansion(t_shell *shell, char *str)
 		{
 			result = ft_strjoin_char(result, str[i]);
 			if (!result)
-				return (malloc_fail(shell, "check expansion"), NULL);
+				malloc_fail(shell, "check expansion");
 			i++;
 		}
 	}
