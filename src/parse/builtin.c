@@ -34,9 +34,9 @@ int	builtin(t_shell *shell, t_cmd **exec)
 {
 	t_cmd	*current;
 
-	if (shell->found_error == true)
-		return (1);
 	current = *exec;
+	if (shell->found_error == true || !current->argv[0])
+		return (-1);
 	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
 		return (my_echo(current->argv));
 	else if (ft_strncmp(current->argv[0], "cd", 3) == 0)
