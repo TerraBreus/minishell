@@ -22,6 +22,7 @@ static void	shell_reset(t_shell *shell)
 	shell->tokens = NULL;
 }
 
+// still need to let heredoc through as valid syntax but not rn
 static void	syntax_check(t_shell *shell)
 {
 	size_t	i;
