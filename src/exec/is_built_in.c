@@ -5,6 +5,8 @@ bool	is_built_in(t_cmd *cmd_list)
 	t_cmd	*current;
 
 	current = cmd_list;
+	if (!current->argv[0])
+		return (false);
 	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
 		return (true);
 	else if (ft_strncmp(current->argv[0], "cd", 3) == 0)
@@ -22,10 +24,8 @@ bool	is_built_in(t_cmd *cmd_list)
 	*/
 	else if (ft_strncmp(current->argv[0], "unset", 4) == 0)
 		return (true);
-	/*
 	else if (ft_strncmp(current->argv[0], "exit", 5) == 0)
-		my_exit(shell, *exec);
-	*/
+		return (true);
 	else
 		return (false);
 }

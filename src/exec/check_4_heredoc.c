@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	check_4_heredoc(t_cmd *cmd_list)
+int	check_4_heredoc(t_shell *shell, t_cmd *cmd_list)
 {
 	t_redir	*temp;
 
@@ -11,7 +11,7 @@ int	check_4_heredoc(t_cmd *cmd_list)
 		{
 			if (temp->type == HEREDOC)
 			{
-				if (setup_heredoc(temp) == -1)
+				if (setup_heredoc(shell, temp) == -1)
 					return (-1);					//TODO heredoc handler failed.
 			}
 			temp = temp->next; 
