@@ -18,7 +18,7 @@ static int	pwd_init(t_shell *shell)
 {
 	shell->old_pwd = malloc(PATH_MAX);
 	if (!shell->old_pwd)
-		return (malloc_fail(shell, "env init"), FAILURE);
+		malloc_fail(shell, "env init");
 	getcwd(shell->old_pwd, PATH_MAX);
 	return (SUCCESS);
 }
@@ -33,14 +33,14 @@ int	env_init(t_shell *shell)
 	shell->env = malloc(sizeof(char *) * (i + 1));
 	shell->export = malloc(sizeof(char *) * (i + 1));
 	if (!shell->env || !shell->export)
-		return (malloc_fail(shell, "env init"), FAILURE);
+		malloc_fail(shell, "env init");
 	i = 0;
 	while (environ[i])
 	{
 		shell->env[i] = ft_strdup(environ[i]);
 		shell->export[i] = ft_strdup(environ[i]);
 		if (!shell->env[i] || !shell->export[i])
-			return (malloc_fail(shell, "env[i]"), FAILURE);
+			malloc_fail(shell, "env[i]");
 		i++;
 	}
 	shell->env[i] = NULL;

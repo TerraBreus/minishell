@@ -52,11 +52,11 @@ char	*cleanup_quotes(t_shell *shell, char *token)
 	{
 		token = ft_strdup(token);
 		if (!token)
-			return (malloc_fail(shell, "cleanup quotes"), NULL);
+			malloc_fail(shell, "cleanup quotes");
 		return (token);
 	}
 	new_token = clean_token(token);
 	if (!new_token)
-		return (malloc_fail(shell, "cleanup quotes"), NULL);
+		malloc_fail(shell, "cleanup quotes");
 	return (new_token);
 }
