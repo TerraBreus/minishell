@@ -12,8 +12,9 @@
 
 #include "minishell.h"
 
-void	sigquit_hd(int pfd[2], char *delim)
+void	sigquit_hd(char *hd_string, int pfd[2], char *delim)
 {
+	free(hd_string);
 	write(2, EOF_ERROR, ft_strlen(EOF_ERROR));
 	write(2, delim, ft_strlen(delim));
 	write(2, "'\n", 2);
@@ -23,9 +24,11 @@ void	sigquit_hd(int pfd[2], char *delim)
 
 bool	sigint_hd(int status)
 {
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
+		return (true);
+	else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 	{
-		write(2, "^C\n", 4);
+		write(STDERR_FILENO, "^C\n", 3);
 		return (true);
 	}
 	return (false);
