@@ -33,6 +33,9 @@ static t_redir	*create_redir(t_shell *shell, char *token, char *next_token)
 	if (!new_node)
 		malloc_fail(shell, "create redir");
 	new_node->type = get_redir_type(token);
+	new_node->filename_quotes = false;
+	if (next_token[0] == '\'' || next_token[0] == '"')
+		new_node->filename_quotes = true;
 	new_node->filename_path = cleanup_quotes(shell, next_token);
 	new_node->heredoc_fd = -1;
 	new_node->next = NULL;

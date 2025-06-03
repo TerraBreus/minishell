@@ -39,6 +39,7 @@ typedef struct s_redir
 	int				heredoc_fd;
 	char			*heredoc_delimiter;
 	char			*filename_path;
+	bool			filename_quotes;
 	t_redir_type	type;
 	struct s_redir	*next;
 }					t_redir;
