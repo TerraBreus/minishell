@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/28 11:41:38 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/04 14:00:32 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sigquit_hd(char *hd_string, int pfd[2], char *delim)
+void	sigeof_hd(int pfd[2], char *delim)
 {
-	free(hd_string);
 	write(2, EOF_ERROR, ft_strlen(EOF_ERROR));
 	write(2, delim, ft_strlen(delim));
 	write(2, "'\n", 2);
 	close(pfd[1]);
-	exit(0);
 }
 
-bool	sigint_hd(int status)
+int	sigint_hd(int status)
 {
-	if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
-		return (true);
-	else if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 	{
 		write(STDERR_FILENO, "^C\n", 3);
-		return (true);
+		return (-1);
 	}
-	return (false);
+	return (0);
 }
 
 void	sigint_parent(t_shell *shell_data, pid_t pid)

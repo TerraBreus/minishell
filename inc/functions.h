@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/28 11:43:04 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/04 13:59:53 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int		signals_init(t_shell *shell);
 void	sigint(t_shell *shell);
 void	sigquit(t_shell *shell, char *input);
 void	sig_child(void);
-bool	sigint_hd(int status);
-void	sigquit_hd(char *hd_string, int pfd[2], char *delim);
+int		sigint_hd(int status);
+void	sigeof_hd(int pfd[2], char *delim);
 void	sigint_parent(t_shell *shell_data, pid_t pid);
 
 // utils else
