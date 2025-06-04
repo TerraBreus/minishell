@@ -1,5 +1,5 @@
 # minishell
-*In collaboration with [smallsigh](www.github.com/smallsigh)*
+*In collaboration with [smallsigh](https://www.github.com/smallsigh)*
 
 ## About this project
 
