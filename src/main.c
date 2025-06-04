@@ -12,9 +12,6 @@
 
 #include "minishell.h"
 
-// TODO: heredoc
-// signals, done on interactive mode, missing in exec
-
 int	main(void)
 {
 	t_shell	shell;

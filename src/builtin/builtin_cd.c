@@ -27,20 +27,20 @@ static int	update_pwd(t_shell *shell, const char *new_path)
 	old_pwd = malloc(PATH_MAX);
 	new_pwd = malloc(PATH_MAX);
 	if (!old_pwd || !new_pwd)
-		return (free(new_pwd), free(old_pwd), FAILURE);
+		return (free(new_pwd), free(old_pwd), DIR_N_UPDATED);
 	if (getcwd(old_pwd, PATH_MAX) == NULL)
 		cd_error(shell, CWD_ERROR);
 	if (chdir(new_path) != 0)
 	{
 		cd_error(shell, PWD_ERROR);
-		return (free(new_pwd), free(old_pwd), FAILURE);
+		return (free(new_pwd), free(old_pwd), DIR_N_UPDATED);
 	}
 	if (getcwd(new_pwd, PATH_MAX) == NULL)
 		cd_error(shell, PWD_ERROR);
 	free(shell->old_pwd);
 	shell->old_pwd = old_pwd;
 	free(new_pwd);
-	return (SUCCESS);
+	return (DIR_UPDATED);
 }
 
 // arg 0 is always cd
@@ -62,6 +62,6 @@ int	my_cd(t_shell *shell, char **arg_list)
 		my_pwd(shell);
 	}
 	else
-		update_pwd(shell, arg_list[1]);
+		return (update_pwd(shell, arg_list[1]));
 	return (0);
 }

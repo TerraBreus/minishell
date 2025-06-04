@@ -21,6 +21,8 @@
 # define SYNTAX_ERROR	2
 # define DIR_PROMPT		126
 # define DIR_NOT_FOUND	127
+# define DIR_UPDATED	0
+# define DIR_N_UPDATED	1
 
 # define EXPORT_ERROR	"\
 minishell: export: invalid identifier found in filename\n"
