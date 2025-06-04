@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/04 15:07:50 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:37:46 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	sigint(t_shell *shell)
 	{
 		shell->last_errno = 130;
 		g_signal = 0;
-		shell->found_error = true;
 	}
 }
 
