@@ -153,4 +153,7 @@ int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 // list, checks for heredoc types and calls setup_heredoc
 int		check_4_heredoc(t_shell *shell, t_cmd *cmd_list);
 int		setup_heredoc(t_shell *shell, t_redir *r);
+
+//Wait call to retrieve exit status of child.
+int	ft_wait(int last_pid, int *status);
 #endif
