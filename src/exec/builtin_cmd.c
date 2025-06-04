@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   builtin_cmd.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 13:15:06 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/28 11:27:00 by masmit           ###   ########.fr       */
+/*                                                         ::::::::           */
+/*   builtin_cmd.c                                       :+:    :+:           */
+/*                                                      +:+                   */
+/*   By: zivanov <marvin@42.fr>                        +#+                    */
+/*                                                    +#+                     */
+/*   Created: 2025/06/04 17:19:19 by zivanov        #+#    #+#                */
+/*   Updated: 2025/06/04 17:19:26 by zivanov        ########   odam.nl        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,6 @@ static void	my_exit(t_shell *shell, t_cmd *exec)
 	cleanup_struct(&exec);
 	exit(EXIT_SUCCESS);
 }
-
-// void	builtin(t_shell *shell, char **arg_list, t_cmd **exec)
-// {
-// 	if (!arg_list || !arg_list[0])
-// 		return ;
-// 	if (ft_strncmp(arg_list[0], "echo", 5) == 0)
-// 		my_echo(arg_list);
-// 	else if (ft_strncmp(arg_list[0], "cd", 3) == 0)
-// 		my_cd(shell, arg_list);
-// 	else if (ft_strncmp(arg_list[0], "pwd", 4) == 0)
-// 		my_pwd(shell);
-// 	else if (ft_strncmp(arg_list[0], "export", 7) == 0)
-// 		my_export(shell, arg_list);
-// 	else if (ft_strncmp(arg_list[0], "env", 4) == 0)
-// 		my_env(shell);
-// 	else if (arg_list[0][0] == '/')
-// 		dir_unknown(shell);
-// 	else if (ft_strncmp(arg_list[0], "unset", 4) == 0)
-// 		my_unset(shell, arg_list);
-// 	else if (ft_strncmp(arg_list[0], "exit", 5) == 0)
-// 		my_exit(shell, exec);
-// 	else
-// 		cmd_unknown(shell);
-// }
-
 
 void	exec_builtin(t_shell *shell, t_cmd *exec)
 {
@@ -97,5 +72,5 @@ int	builtin_cmd(t_shell *shell, t_cmd *cmd_list, t_pipe *pipe_data)
 	}
 	if (setup_redir(cmd_list->redirection) == -1)
 		exit(EXIT_FAILURE);		//TODO
-	return(builtin(shell, &cmd_list));
+	return (builtin(shell, &cmd_list));
 }

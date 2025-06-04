@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                         ::::::::           */
+/*   check_4_heredoc.c                                   :+:    :+:           */
+/*                                                      +:+                   */
+/*   By: zivanov <marvin@42.fr>                        +#+                    */
+/*                                                    +#+                     */
+/*   Created: 2025/06/04 17:19:55 by zivanov        #+#    #+#                */
+/*   Updated: 2025/06/04 17:19:58 by zivanov        ########   odam.nl        */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	check_4_heredoc(t_shell *shell, t_cmd *cmd_list)
@@ -12,12 +24,11 @@ int	check_4_heredoc(t_shell *shell, t_cmd *cmd_list)
 			if (temp->type == HEREDOC)
 			{
 				if (setup_heredoc(shell, temp) == -1)
-					return (-1);					//TODO heredoc handler failed.
+					return (-1);//TODO heredoc handler failed.
 			}
-			temp = temp->next; 
+			temp = temp->next;
 		}
 		cmd_list = cmd_list->next;
 	}
 	return (0);
 }
-

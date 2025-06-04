@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                         ::::::::           */
+/*   builtout_cmd.c                                      :+:    :+:           */
+/*                                                      +:+                   */
+/*   By: zivanov <marvin@42.fr>                        +#+                    */
+/*                                                    +#+                     */
+/*   Created: 2025/06/04 17:19:41 by zivanov        #+#    #+#                */
+/*   Updated: 2025/06/04 17:19:44 by zivanov        ########   odam.nl        */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 {
 	pid_t	pid;
-	
-	pid = fork();
 
+	pid = fork();
 	if (pid == -1)
 		exit(EXIT_FAILURE);				//TODO Forking failure.
 	if (pipe_data != NULL)
@@ -28,4 +39,3 @@ int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 		return (pid);
 	}
 }
-
