@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/28 11:41:38 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/04 15:07:50 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int	signals_init(t_shell *shell)
 	ft_memset(&sa_int, 0, sizeof(sa_int));
 	sa_int.sa_handler = sig_int_handler;
 	sigemptyset(&sa_int.sa_mask);
+	sa_int.sa_flags = SA_RESTART;
 	if (sigaction(SIGINT, &sa_int, NULL) != 0)
 	{
 		sigaction_fail(shell, errno);
 		return (FAILURE);
 	}
-	sa_int.sa_flags = SA_RESTART;
 	ft_memset(&sa_quit, 0, sizeof(sa_quit));
 	sa_quit.sa_handler = SIG_IGN;
 	if (sigaction(SIGQUIT, &sa_quit, NULL) != 0)
