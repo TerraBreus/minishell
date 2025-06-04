@@ -25,7 +25,7 @@ int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 	else
 	{
 		sigint_parent(shell_data, pid);
-		return (0);
+		return (pid);
 	}
 }
 

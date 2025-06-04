@@ -77,5 +77,4 @@ int	exec_cmd(char **cmd_and_flags, char **envp)
 	perror(path);
 	free(path);
 	exit(EXIT_FAILURE);
-	return (0);
 }

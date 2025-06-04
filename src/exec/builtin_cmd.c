@@ -97,6 +97,5 @@ int	builtin_cmd(t_shell *shell, t_cmd *cmd_list, t_pipe *pipe_data)
 	}
 	if (setup_redir(cmd_list->redirection) == -1)
 		exit(EXIT_FAILURE);		//TODO
-	exec_builtin(shell, cmd_list);
-	return (0);
+	return(builtin(shell, &cmd_list));
 }
