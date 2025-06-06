@@ -23,7 +23,6 @@ void	loop(t_shell *shell);
 // prompt to tokens
 void	tokenize_input(t_shell *shell, char *input);
 void	token_len(t_shell *shell, char *input, size_t *i);
-void	token_quote(t_shell *shell, char *input, size_t *i);
 
 // once tokenized
 void	expand_tokens(t_shell *shell);

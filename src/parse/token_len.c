@@ -41,7 +41,6 @@ static bool	is_meta_char(t_shell *shell, char c)
 		|| c == '['
 		|| c == ']'
 		|| c == '\\'
-		|| c == '+'
 		|| c == '#'
 		|| c == '^'
 		|| c == '('
@@ -54,19 +53,19 @@ static bool	is_meta_char(t_shell *shell, char c)
 		return (false);
 }
 
-static void	make_key(t_shell *shell, char *input, size_t *i)
+static void	quote_str(t_shell *shell, char *input, size_t *i)
 {
+	char quote;
+
+	quote = input[*i];
 	*i += 1;
 	while (input[*i]
-		&& !is_space(input[*i])
-		&& !is_operator(input[*i])
-		&& !is_meta_char(shell, input[*i]))
-	{
-		if (is_quote(input[*i]))
-			token_quote(shell, input, i);
-		else
-			*i += 1;
-	}
+		&& input[*i] != quote)
+		*i += 1;
+	if (input[*i] == quote)
+		*i += 1;
+	else
+		syntax_error(shell, "UNCLOSED QUOTE");
 }
 
 static void	token_word(t_shell *shell, char *input, size_t *i)
@@ -76,19 +75,18 @@ static void	token_word(t_shell *shell, char *input, size_t *i)
 		&& !is_operator(input[*i])
 		&& !is_meta_char(shell, input[*i]))
 	{
-		*i += 1;
-		if (input[*i] == '=')
-			make_key(shell, input, i);
+		if (input[*i] && is_quote(input[*i]))
+			quote_str(shell, input, i);
+		else
+			*i += 1;
 	}
 }
 
 void	token_len(t_shell *shell, char *input, size_t *i)
 {
-	if (is_quote(input[*i]))
-		token_quote(shell, input, i);
-	else if (is_meta_char(shell, input[*i]))
+	if (is_meta_char(shell, input[*i]))
 		return ;
-	else if (is_operator(input[*i]))
+	if (is_operator(input[*i]))
 		token_operator(shell, input, i);
 	else
 		token_word(shell, input, i);
