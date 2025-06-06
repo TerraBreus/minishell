@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   single_cmd.c                                        :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: zivanov <marvin@42.fr>                        +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2025/06/04 17:25:32 by zivanov        #+#    #+#                */
-/*   Updated: 2025/06/04 17:25:33 by zivanov        ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   single_cmd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 17:25:32 by zivanov           #+#    #+#             */
+/*   Updated: 2025/06/06 16:41:38 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// can the return value be shell->last_errno?
+// needed for siginterupt errno.
 int	single_cmd(t_cmd *cmd_list, t_shell *shell_data)
 {
 	int	pid;

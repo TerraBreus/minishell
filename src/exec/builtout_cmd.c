@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   builtout_cmd.c                                      :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: zivanov <marvin@42.fr>                        +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2025/06/04 17:19:41 by zivanov        #+#    #+#                */
-/*   Updated: 2025/06/04 17:19:44 by zivanov        ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   builtout_cmd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 17:19:41 by zivanov           #+#    #+#             */
+/*   Updated: 2025/06/06 16:41:27 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// can the return value be shell->last_errno?
+// needed for siginterupt errno.
 int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 {
 	pid_t	pid;
