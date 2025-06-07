@@ -155,4 +155,10 @@ int		setup_heredoc(t_shell *shell, t_redir *r);
 
 //Wait call to retrieve exit status of child.
 int	ft_wait(int last_pid, int *status);
+
+//Checks for file permissions based on the type of redirection. Returns -1 if insufficient permissions.
+//or if incorrect type is given (which means the function is called in a place
+//where it makes no sense to call it)
+int	check_file_permissions(char *filename, t_redir_type type);
+
 #endif

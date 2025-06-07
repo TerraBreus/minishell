@@ -54,7 +54,8 @@ EXEC_SRCS		:= \
 			   setup_pipe_builtin.c \
 			   setup_redir.c \
 			   single_cmd.c \
-			   ft_wait.c
+			   ft_wait.c \
+			   check_file_permissions.c
 
 SRCS			:= main.c \
 				$(addprefix parse/,$(PARSE_SRCS)) \
