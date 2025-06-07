@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 17:24:55 by zivanov           #+#    #+#             */
-/*   Updated: 2025/06/07 14:14:16 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/07 14:36:15 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	write_w_newline(char *str, int fd)
 	write(fd, "\n", 1);
 }
 
-static void	run_heredoc(t_shell *shell, int pfd[2], char *delim)
+static void	run_heredoc(t_shell *shell, int pfd[2], char *delim, bool *eof_quote)
 {
 	char	*input;
 	char	*hd_string;
@@ -33,7 +33,7 @@ static void	run_heredoc(t_shell *shell, int pfd[2], char *delim)
 		if (!input)
 		{
 			sigeof_hd(pfd, delim);
-			write_w_newline(hd_string, pfd[1]);
+			write_w_newline("", pfd[1]);
 			close(pfd[1]);
 			exit(1) ;
 		}
@@ -42,7 +42,10 @@ static void	run_heredoc(t_shell *shell, int pfd[2], char *delim)
 			free(input);
 			break ;
 		}
-		hd_string = check_expansion(shell, input);
+		if (*eof_quote == true)
+			hd_string = ft_strdup(input);
+		else
+			hd_string = check_expansion(shell, input);
 		if (!hd_string)
 			malloc_fail(shell, "process heredoc line");
 		write_w_newline(hd_string, pfd[1]);
@@ -75,7 +78,7 @@ int	setup_heredoc(t_shell *shell, t_redir *r)
 	if (pid == -1)
 		exit(EXIT_FAILURE);		//TODO Forking failure.
 	if (pid == 0)
-		run_heredoc(shell, pfd, r->filename_path);
+		run_heredoc(shell, pfd, r->filename_path, &r->filename_quotes);
 	close(pfd[1]);
 	waitpid(pid, &status, 0);
 	if (sigint_hd(status) == -1)

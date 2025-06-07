@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/28 11:42:10 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/07 14:23:42 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ static void	shell_reset(t_shell *shell)
 	shell->tokens = NULL;
 }
 
+bool	is_heredoc(char *str)
+{
+	if (!str)
+		return (false);
+	if (str[0] == '<' && str[1] == '<')
+		return (true);
+	else
+		return (false);
+}
+
 // still need to let heredoc through as valid syntax but not rn
 static void	syntax_check(t_shell *shell)
 {
@@ -32,6 +42,7 @@ static void	syntax_check(t_shell *shell)
 		&& shell->found_error == false)
 	{
 		if (is_operator(shell->tokens[i][0]) == true
+		&& !is_heredoc(shell->tokens[i])
 		&& (i == shell->tc - 1 || i == 0))
 		{
 			syntax_error(shell, &shell->tokens[i][0]);
