@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main.c                                              :+:    :+:           */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/06 18:46:26 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/07 13:18:32 by zivanov        ########   odam.nl        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // exit 188; echo $?; 188 --this number can overflow 9223372036854775807
 //my_shell: cat | cat | ls, cat: -: Bad file descriptor, cat: closing standard input: Bad file descriptor
 // cat shd stay open. -> wait for every child finish, not only last pipe
-// sleep 3 | ls, ours works left to right, bash works concurrent
+// sleep 3 | ls, ours works left to right, bash works concurrent --> FIXED(?)
 
 // dfdf | fdf Syscall param close(fd) contains uninitialised byte(s)
 // echo hi > permission (this permission has no right to do anything), program write hi into permission and quit program, exit code again
