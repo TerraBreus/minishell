@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/28 11:42:02 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/07 15:24:46 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static bool	is_meta_char(t_shell *shell, char c)
 
 static void	quote_str(t_shell *shell, char *input, size_t *i)
 {
-	char quote;
+	char	quote;
 
 	quote = input[*i];
 	*i += 1;
