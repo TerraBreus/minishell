@@ -16,8 +16,8 @@ int	setup_redir(t_redir *redir_data)
 {
 	static t_redir_handler handlers[] = { 
 		handle_in,
-		handle_out,
 		handle_append,
+		handle_out,
 		handle_heredoc
 	};
 
