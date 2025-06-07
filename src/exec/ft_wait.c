@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   ft_wait.c                                           :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: zivanov <marvin@42.fr>                        +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2025/06/04 17:23:23 by zivanov        #+#    #+#                */
-/*   Updated: 2025/06/04 17:23:27 by zivanov        ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   ft_wait.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 17:23:23 by zivanov           #+#    #+#             */
+/*   Updated: 2025/06/07 14:56:21 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	ft_wait(int last_pid, int *status)
 			perror("ft_wait: ");
 			exit(EXIT_FAILURE);
 		}
+		if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
+			ft_putchar_fd('\n', STDOUT_FILENO);
 		if (WIFEXITED(*status) != 0)
 			return (WEXITSTATUS(*status));
 	}
