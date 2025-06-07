@@ -6,13 +6,15 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/28 11:42:34 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/07 15:23:41 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // it took god 6 days to create the earth,
 //  and 7 to create holy bash
 #include "minishell.h"
+
+#define EXIT_ERR "minishell: exit: too many arguments\n"
 
 static int	dir_unknown(t_shell *shell)
 {
@@ -23,11 +25,32 @@ static int	dir_unknown(t_shell *shell)
 	return (1);
 }
 
-static void	my_exit(t_shell *shell, t_cmd *exec)
+static void	my_exit(t_shell *shell, t_cmd *exec, char **args)
 {
+	uint8_t	status;
+	int		i;
+
+	i = 0;
+	status = 0;
+	if (args[1] && args[2])
+		write(STDERR_FILENO, EXIT_ERR, ft_strlen(EXIT_ERR));
+	if (args[1])
+	{
+		if (args[1][i] == '+' || args[1][i] == '-')
+			i++;
+		while (ft_isdigit(args[1][i]))
+			i++;
+		if (args[1][i] != '\0')
+		{
+			printf("minishell: %s: numeric argument required\n", args[1]);
+			status = 2;
+		}
+		else
+			status = ft_atoi(args[1]) % 256;
+	}
 	quick_clean(shell);
 	cleanup_struct(&exec);
-	exit(EXIT_SUCCESS);
+	exit(status);
 }
 
 int	builtin(t_shell *shell, t_cmd **exec)
@@ -52,6 +75,6 @@ int	builtin(t_shell *shell, t_cmd **exec)
 	else if (ft_strncmp(current->argv[0], "unset", 4) == 0)
 		return (my_unset(shell, current->argv));
 	else if (ft_strncmp(current->argv[0], "exit", 5) == 0)
-		my_exit(shell, *exec);
+		my_exit(shell, *exec, current->argv);
 	return (BUILTIN_NOT_FOUND);
 }
