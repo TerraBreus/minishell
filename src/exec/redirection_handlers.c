@@ -19,6 +19,8 @@ int	handle_in(t_redir *r)
 {
 	int		fd_in;
 
+	if (check_file_permissions(r->filename_path, r->type) == -1)
+		return (0);
 	fd_in = open(r->filename_path, O_RDONLY);
 	if (fd_in == -1)
 		return (-1);	//Would be useful to print error message of strerrno;
@@ -32,6 +34,8 @@ int	handle_out(t_redir *r)
 {
 	int		fd_out;
 
+	if (check_file_permissions(r->filename_path, r->type) == -1)
+		return (0);
 	fd_out = open(r->filename_path, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd_out == -1)
 		return (-1);
@@ -45,7 +49,9 @@ int	handle_append(t_redir *r)
 {
 	int		fd_append;
 
-	fd_append = open(r->filename_path, O_WRONLY | O_CREAT, 0777);
+	if (check_file_permissions(r->filename_path, r->type) == -1)
+		return (0);
+	fd_append = open(r->filename_path, O_WRONLY | O_CREAT | O_APPEND, 0777);
 	if (fd_append == -1)
 		return (-1);
 	if (dup2(fd_append, STDOUT_FILENO) == -1)
