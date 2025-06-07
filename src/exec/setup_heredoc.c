@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   setup_heredoc.c                                     :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: zivanov <marvin@42.fr>                        +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2025/06/04 17:24:55 by zivanov        #+#    #+#                */
-/*   Updated: 2025/06/04 17:24:56 by zivanov        ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   setup_heredoc.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 17:24:55 by zivanov           #+#    #+#             */
+/*   Updated: 2025/06/07 14:14:16 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,12 @@ static void	run_heredoc(t_shell *shell, int pfd[2], char *delim)
 			free(input);
 			break ;
 		}
-		hd_string = ft_strdup("");
-		if (!hd_string)
-			malloc_fail(shell, "tokenize heredoc");
 		hd_string = check_expansion(shell, input);
-		free(input);
 		if (!hd_string)
 			malloc_fail(shell, "process heredoc line");
 		write_w_newline(hd_string, pfd[1]);
+		free(hd_string);
+		free(input);
 	}
 	close(pfd[1]);
 	exit(0);
