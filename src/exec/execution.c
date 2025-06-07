@@ -20,9 +20,11 @@ void	execution(t_cmd *cmd_list, t_shell *shell)
 	if (check_4_heredoc(shell, cmd_list) == -1)
 		exit(EXIT_FAILURE);		//TODO Just print an error message and make sure setup_redir does not segvault.
 	cmd_c = count_commands(cmd_list);
+	signal(SIGINT, SIG_IGN);
 	if (cmd_c == 1)
 		shell->last_errno = single_cmd(cmd_list, shell);	//IN PROGRESS
 	else
 		shell->last_errno = mult_cmd(cmd_list, shell);	//IN PROGRESS
+	signals_init(shell);
 	save_close_restore_io(RESTORE);
 }
