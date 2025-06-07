@@ -6,24 +6,13 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/07 15:23:41 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/07 16:13:37 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // it took god 6 days to create the earth,
 //  and 7 to create holy bash
 #include "minishell.h"
-
-#define EXIT_ERR "minishell: exit: too many arguments\n"
-
-static int	dir_unknown(t_shell *shell)
-{
-	write(STDERR_FILENO, shell->tokens[0], ft_strlen(shell->tokens[0]));
-	write(STDERR_FILENO, ": Is a directory\n", 18);
-	shell->last_errno = DIR_PROMPT;
-	shell->found_error = true;
-	return (1);
-}
 
 static void	my_exit(t_shell *shell, t_cmd *exec, char **args)
 {
@@ -70,8 +59,6 @@ int	builtin(t_shell *shell, t_cmd **exec)
 		return (my_export(shell, current->argv));
 	else if (ft_strncmp(current->argv[0], "env", 4) == 0)
 		return (my_env(shell));
-	else if (current->argv[0][0] == '/')
-		return (dir_unknown(shell));
 	else if (ft_strncmp(current->argv[0], "unset", 4) == 0)
 		return (my_unset(shell, current->argv));
 	else if (ft_strncmp(current->argv[0], "exit", 5) == 0)

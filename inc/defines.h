@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:00 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/16 18:36:45 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/07 16:13:54 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ PWD couldn't be determined\n"
 
 # define EOF_ERROR "\
 minishell: warning: here-document delimited by end-of-file wanted `"
+
+# define EXIT_ERR "\
+minishell: exit: too many arguments\n"
 
 # define BUILTIN_NOT_FOUND -1
 
