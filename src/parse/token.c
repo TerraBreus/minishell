@@ -12,15 +12,6 @@
 
 #include "minishell.h"
 
-void	tokenize_error(t_shell *shell)
-{
-	ft_putstr_fd("error: \
-minishell: input couldnt be tokenized: `", STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-	shell->found_error = true;
-	shell->last_errno = 1;
-}
-
 static int	token_malloc(t_shell *shell, char *input)
 {
 	size_t	i;
@@ -44,7 +35,7 @@ static int	token_malloc(t_shell *shell, char *input)
 }
 
 // tc = token count
-void	tokenize_input(t_shell *shell, char *input)
+void	tokenize(t_shell *shell, char *input)
 {
 	size_t	i;
 	size_t	start;
@@ -61,8 +52,9 @@ void	tokenize_input(t_shell *shell, char *input)
 	{
 		start = i;
 		token_len(shell, input, &i);
-		shell->tokens[shell->tc] = ft_substr(input, start, i - start);
-		shell->tc++;
+		shell->tokens[shell->tc++] = ft_substr(input, start, i - start);
+		if (!shell->tokens[shell->tc -1])
+			malloc_fail(shell, "tokenize");
 		skip_blank(input, &i);
 	}
 	shell->tokens[shell->tc] = NULL;
