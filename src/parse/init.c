@@ -49,12 +49,10 @@ int	env_init(t_shell *shell)
 	return (SUCCESS);
 }
 
+	// if (!isatty(1) || !isatty(0))
+	// 	return (FAILURE);
 int	shell_init(t_shell *shell)
 {
-	/*
-	if (!isatty(1) || !isatty(0))
-		return (FAILURE);
-	*/
 	if (env_init(shell) == FAILURE)
 		return (FAILURE);
 	if (pwd_init(shell) == FAILURE)
