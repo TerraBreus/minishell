@@ -26,7 +26,6 @@ PARSE_SRCS		:= \
 				rm_quotes.c \
 				env_expand.c \
 				cmd_struct.c \
-				cmd_redir.c \
 				cmd_print.c \
 				cmd_clean.c \
 				builtin.c \
@@ -34,6 +33,7 @@ PARSE_SRCS		:= \
 				signal2.c \
 				free.c \
 				utils.c \
+				utils2.c \
 				utils_bool.c
 
 EXEC_SRCS		:= \
