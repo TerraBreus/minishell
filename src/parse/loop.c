@@ -22,32 +22,22 @@ static void	shell_reset(t_shell *shell)
 	shell->tokens = NULL;
 }
 
-bool	is_heredoc(char *str)
-{
-	if (!str)
-		return (false);
-	if (str[0] == '<' && str[1] == '<')
-		return (true);
-	else
-		return (false);
-}
-
-// still need to let heredoc through as valid syntax but not rn
 static void	syntax_check(t_shell *shell)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < shell->tc
+	if (shell->found_error == true)
+		return ;
+	if (is_operator(shell->tokens[shell->tc -1][0])
+		|| shell->tokens[0][0] == '|')
+	{
+		syntax_error(shell, &shell->tokens[i][0]);
+		return ;
+	}
+	while (i < shell->tc -1
 		&& shell->found_error == false)
 	{
-		if (is_operator(shell->tokens[i][0]) == true
-		&& !is_heredoc(shell->tokens[i])
-		&& (i == shell->tc - 1 || i == 0))
-		{
-			syntax_error(shell, &shell->tokens[i][0]);
-			return ;
-		}
 		if (is_operator(shell->tokens[i][0])
 			&& is_operator(shell->tokens[i + 1][0]))
 			syntax_error(shell, &shell->tokens[i][0]);
@@ -65,7 +55,7 @@ void	loop(t_shell *shell)
 	input = readline("my_shell: ");
 	sigquit(shell, input);
 	sigint(shell);
-	tokenize_input(shell, input);
+	tokenize(shell, input);
 	free(input);
 	syntax_check(shell);
 	if (shell->found_error == false)
