@@ -21,7 +21,7 @@ int		shell_init(t_shell *shell);
 void	loop(t_shell *shell);
 
 // prompt to tokens
-void	tokenize_input(t_shell *shell, char *input);
+void	tokenize(t_shell *shell, char *input);
 void	token_len(t_shell *shell, char *input, size_t *i);
 
 // once tokenized
@@ -35,8 +35,7 @@ char	*cleanup_quotes(t_shell *shell, char *token);
 
 // pass tokens to parser
 void	token_to_struct(t_shell *shell, t_cmd **exec);
-void	add_redir(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i);
-void	add_args(t_shell *shell, t_cmd *cmd, char **tokens, size_t *i);
+void	add_cmd_back(t_cmd **exec, t_cmd *new_cmd);
 
 // and cleanup after
 void	cleanup_struct(t_cmd **exec);
@@ -154,11 +153,12 @@ int		check_4_heredoc(t_shell *shell, t_cmd *cmd_list);
 int		setup_heredoc(t_shell *shell, t_redir *r);
 
 //Wait call to retrieve exit status of child.
-int	ft_wait(int last_pid, int *status);
+int		ft_wait(int last_pid, int *status);
 
-//Checks for file permissions based on the type of redirection. Returns -1 if insufficient permissions.
+//Checks for file permissions based on the type of redirection.
+// Returns -1 if insufficient permissions.
 //or if incorrect type is given (which means the function is called in a place
 //where it makes no sense to call it)
-int	check_file_permissions(char *filename, t_redir_type type);
+int		check_file_permissions(char *filename, t_redir_type type);
 
 #endif
