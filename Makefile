@@ -27,7 +27,6 @@ PARSE_SRCS		:= \
 				env_expand.c \
 				cmd_struct.c \
 				cmd_print.c \
-				cmd_clean.c \
 				builtin.c \
 				signal.c \
 				signal2.c \
@@ -64,27 +63,27 @@ SRCS			:= main.c \
 
 BIN				:= $(addprefix $(BIN_DIR)/,$(SRCS:.c=.o))
 
-all: $(LIBFT) $(NAME)
+all:			$(LIBFT) $(NAME)
 
-$(NAME): $(BIN) $(LIBFT)
-	@$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+$(NAME):		$(BIN) $(LIBFT)
+					@$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 $(LIBFT):
-	$(MAKE) -s -C $(LIBFT_DIR) bonus
+				$(MAKE) -s -C $(LIBFT_DIR) bonus
 
-$(BIN_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
+$(BIN_DIR)/%.o:	$(SRC_DIR)/%.c
+					@mkdir -p $(dir $@)
+					@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo "cleaned bin folder"
-	@rm -rf $(BIN_DIR)
-	$(MAKE) -s -C $(LIBFT_DIR) clean
+				@echo "cleaned bin folder"
+				@rm -rf $(BIN_DIR)
+				$(MAKE) -s -C $(LIBFT_DIR) clean
 
-fclean: clean
-	@rm -f $(NAME)
-	$(MAKE) -s -C $(LIBFT_DIR) fclean
+fclean:			clean
+					@rm -f $(NAME)
+					$(MAKE) -s -C $(LIBFT_DIR) fclean
 
-re: fclean all
+re:				fclean all
 
-.PHONY: all clean fclean re
+.PHONY:			all clean fclean re
