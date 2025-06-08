@@ -79,6 +79,7 @@ void	skip_litteral(char *str, size_t *i);
 void	skip_blank(char *input, size_t *i);
 void	print_tokens(t_shell *shell);
 void	just_print(char **temp_arr);
+void	free_arr(char **arr);
 
 // no leaks
 void	cleanup_shell(t_shell *shell);
