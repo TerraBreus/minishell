@@ -98,8 +98,6 @@ void	expand_tokens(t_shell *shell)
 		if (has_path(shell->tokens[i]) == true)
 		{
 			new_token = check_expansion(shell, shell->tokens[i]);
-			if (!new_token)
-				return ;
 			free(shell->tokens[i]);
 			shell->tokens[i] = new_token;
 		}
