@@ -29,6 +29,8 @@ int	check_file_permissions(char *filename, t_redir_type type)
 		return (check_outfile_perm(filename));
 	else if (type == IN)
 		return (check_infile_perm(filename));
+	else if (type == HEREDOC)
+		return (0);
 	write(2, "check_file_permission\n", 23);
 	return (-1);
 }

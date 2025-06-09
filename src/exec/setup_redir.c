@@ -23,6 +23,8 @@ int	setup_redir(t_redir *redir_data)
 
 	while (redir_data != NULL)
 	{
+		if (check_file_permissions(redir_data->filename_path, redir_data->type) == -1)
+			return (-1);
 		if (redir_data->type < 0 || redir_data->type > 3)
 			return (-1);
 		if (handlers[redir_data->type](redir_data) == -1)
