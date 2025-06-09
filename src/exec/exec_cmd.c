@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+int	print_error(char *path)
+{
+	perror(path);
+	if (errno == ENOENT)
+		return (127);
+	if (errno == EACCES)
+		return (126);
+	if (errno == EISDIR)
+		return (126);
+	else
+		return (1);
+}
+
 static char	*find_full_path(char *paths[], char *cmd)
 {
 	char	*addendum;
@@ -73,6 +86,7 @@ int	exec_cmd(char **cmd_and_flags, char **envp)
 {
 	char	**possible_paths;
 	char	*path;
+	int	error_code;
 
 	possible_paths = create_possible_paths(envp);
 	if (possible_paths == NULL)
@@ -86,7 +100,7 @@ int	exec_cmd(char **cmd_and_flags, char **envp)
 	if (path == NULL)
 		return (-1);
 	execve(path, cmd_and_flags, envp);
-	perror(path);
+	error_code = print_error(path);
 	free(path);
-	exit(EXIT_FAILURE);
+	exit(error_code);
 }
