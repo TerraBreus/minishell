@@ -12,6 +12,30 @@
 
 #include "minishell.h"
 
+
+
+ int	mult_cmd(t_cmd *cmd_list, t_shell *shell_data)
+ {
+ 	t_pipe	pipe_data;
+	int	last_pid;
+	int	status;
+
+	parse_mult_cmd(cmd_list);
+	while (cmd_list != NULL)
+	{
+		if (cmd_list->next != NULL)
+		{
+			if (create_pipe(&pipe_data) == -1)
+				return (internal_error());
+		}
+		//Fork, setup_pipe. Child must also setup redir, execute command and exit with exitstatus, parent will return with pid.
+		last_pid = child_command(cmd_list, shell_data, &pipe_data);
+		cmd_list = cmd_list->next;
+	}
+	return (ft_wait(last_pid, &status));
+ }
+
+/*
 int	mult_cmd(t_cmd *cmd_list, t_shell *shell_data)
 {
 	t_pipe	pipe_data;
@@ -38,3 +62,4 @@ int	mult_cmd(t_cmd *cmd_list, t_shell *shell_data)
 	}
 	return (ft_wait(last_pid, &status));
 }
+*/
