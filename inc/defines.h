@@ -55,4 +55,5 @@ minishell: exit: too many arguments\n"
 # define CLOSE		2
 
 #define INTERNAL_ERROR -1337
+#define NEW_PROMPT	-14
 #endif
