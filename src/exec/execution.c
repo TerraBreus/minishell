@@ -18,7 +18,7 @@ void	execution(t_cmd *cmd_list, t_shell *shell)
 
 	save_close_restore_io(SAVE);
 	if (check_4_heredoc(shell, cmd_list) == -1)
-		exit(EXIT_FAILURE);
+		exit_on_fail(shell, cmd_list);
 	cmd_c = count_commands(cmd_list);
 	signal(SIGINT, SIG_IGN);
 	if (cmd_c == 1)

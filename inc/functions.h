@@ -165,4 +165,7 @@ int		internal_error(void);
 
 //new function for mult_cmd that will fork and execute
 int	child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
+
+// failure and clean up calls
+void	exit_on_fail(t_shell *shell, t_cmd *cmd_list);
 #endif
