@@ -20,6 +20,7 @@ void	sigeof_hd(int pfd[2], char *delim)
 	close(pfd[1]);
 }
 
+//Returns -1 if ctrl+c has been pressed (aka program received SIGINT)
 int	sigint_hd(int status)
 {
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
