@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+/*
+ * heredoc + CTRL-C currently exits instead of creating new prompt.
+ *
+*/
+
 // absolute paths arent absolute yet
 // ''""'' persmission denied
 // echo 'hi'" "'hello' error: syntax error near unexpected token `UNCLOSED QUOTE
