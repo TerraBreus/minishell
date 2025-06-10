@@ -14,7 +14,8 @@
 
 int	setup_redir(t_redir *redir_data)
 {
-	static t_redir_handler handlers[] = { 
+	char					*filepath;
+	static t_redir_handler	handlers[] = { 
 		handle_in,
 		handle_append,
 		handle_out,
@@ -23,7 +24,8 @@ int	setup_redir(t_redir *redir_data)
 
 	while (redir_data != NULL)
 	{
-		if (check_file_permissions(redir_data->filename_path, redir_data->type) == -1)
+		filepath = redir_data->filename_path;
+		if (check_file_permissions(filepath, redir_data->type) == -1)
 			return (-1);
 		if (redir_data->type < 0 || redir_data->type > 3)
 			return (-1);

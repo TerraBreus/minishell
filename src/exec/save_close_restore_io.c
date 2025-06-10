@@ -19,6 +19,17 @@ static int	close_and_return(int in, int out)
 	return (-1);
 }
 
+static int	restore(int in, int out)
+{
+	if (dup2(copy_in, STDIN_FILENO) == -1)
+		return (close_and_return(copy_in, copy_out));
+	if (dup2(copy_out, STDOUT_FILENO) == -1)
+		return (close_and_return(copy_in, copy_out));
+	close(copy_in);
+	close(copy_out);
+	return (0);
+}
+
 int	save_close_restore_io(int restore_or_save)
 {
 	static int	copy_in;
@@ -31,21 +42,13 @@ int	save_close_restore_io(int restore_or_save)
 		return (0);
 	}
 	else if (restore_or_save == RESTORE)
-	{
-		if (dup2(copy_in, STDIN_FILENO) == -1)
-			return (close_and_return(copy_in, copy_out));
-		if (dup2(copy_out, STDOUT_FILENO) == -1)
-			return (close_and_return(copy_in, copy_out));
-		close(copy_in);
-		close(copy_out);
-		return (0);
-	}
-	else if(restore_or_save == CLOSE)
+		return (restore(copy_in, copy_out));
+	else if (restore_or_save == CLOSE)
 	{
 		close(copy_in);
 		close(copy_out);
 		return (0);
 	}
-	else 
+	else
 		return (-1);
 }

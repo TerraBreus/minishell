@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h" 
+#include "minishell.h" 
 
 static void	write_w_newline(char *str, int fd)
 {
@@ -20,7 +20,17 @@ static void	write_w_newline(char *str, int fd)
 	write(fd, "\n", 1);
 }
 
-static void	run_heredoc(t_shell *shell, int pfd[2], char *delim, bool *eof_quote)
+static int	empty_hd_line(int pipe_write)
+{
+	sigeof_hd(pfd, delim);
+	write_w_newline("", pfd[1]);
+	close(pfd[1]);
+	return (1);
+}
+
+//the final boolean parameter states whether eof has quotes.
+//Truncated to 'e' for norminetti spaghetti
+static void	run_heredoc(t_shell *s, int pfd[2], char *delim, bool *e)
 {
 	char	*input;
 	char	*hd_string;
@@ -31,52 +41,35 @@ static void	run_heredoc(t_shell *shell, int pfd[2], char *delim, bool *eof_quote
 	{
 		input = readline("> ");
 		if (!input)
-		{
-			sigeof_hd(pfd, delim);
-			write_w_newline("", pfd[1]);
-			close(pfd[1]);
-			exit(1) ;
-		}
+			exit(empty_hd_line);
 		if (ft_strcmp(input, delim) == 0)
-		{
-			free(input);
 			break ;
-		}
-		if (*eof_quote == true)
+		if (*e == true)
 			hd_string = ft_strdup(input);
 		else
-			hd_string = check_expansion(shell, input);
+			hd_string = check_expansion(s, input);
 		if (!hd_string)
-			malloc_fail(shell, "process heredoc line");
+			malloc_fail(s, "process heredoc line");
 		write_w_newline(hd_string, pfd[1]);
 		free(hd_string);
 		free(input);
 	}
+	free(input);
 	close(pfd[1]);
 	exit(0);
 }
 
 int	setup_heredoc(t_shell *shell, t_redir *r)
 {
-	/*
-	 * 1. Create a pipe
-	 * 2. readline input from user
-	 * 3. check if delimiter from user is in readline
-	 * 	N: Write to pipe and repeat step 2. Also free input
-	 * 	Y: Write to pipe and continue. Also free input.
-	 * 4. Save pipe_read to the redirection structure.
-	 * 5. Close pipe_write side.
-	*/
-
-	int	pfd[2];
+	int		pfd[2];
 	pid_t	pid;
-	int	status;
+	int		status;
 
 	if (pipe(pfd) == -1)
-		exit(EXIT_FAILURE);		//TODO
+		exit(EXIT_FAILURE);
 	pid = fork();
 	if (pid == -1)
-		exit(EXIT_FAILURE);		//TODO Forking failure.
+		exit(EXIT_FAILURE);
 	if (pid == 0)
 		run_heredoc(shell, pfd, r->filename_path, &r->filename_quotes);
 	close(pfd[1]);
@@ -86,4 +79,3 @@ int	setup_heredoc(t_shell *shell, t_redir *r)
 	r->heredoc_fd = pfd[0];
 	return (0);
 }
-

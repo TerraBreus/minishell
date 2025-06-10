@@ -14,39 +14,30 @@
 
 static int	setup_pipe_for_child(t_pipe *pipe_data, t_cmd_type type)
 {
-	int	pipe_write;
-	int	pipe_read;
-	int	lre;
-
-	pipe_write = pipe_data->pfd[1];
-	pipe_read = pipe_data->pfd[0];
-	lre = pipe_data->lre;
-
 	if (type == FIRST)
 	{
-		if (dup2(pipe_write, STDOUT_FILENO) == -1)
-			exit(EXIT_FAILURE);		//TODO dup2 failure. Close pipes etc.
+		if (dup2(pipe_data->pfd[1], STDOUT_FILENO) == -1)
+			exit(EXIT_FAILURE);
 	}
 	else if (type == MIDDLE)
 	{
 		save_close_restore_io(RESTORE);
-		if (dup2(lre, STDIN_FILENO) == -1)
-			exit(EXIT_FAILURE);		//TODO
-		if (dup2(pipe_write, STDOUT_FILENO) == -1)
+		if (dup2(pipe_data->lre, STDIN_FILENO) == -1)
+			exit(EXIT_FAILURE);
+		if (dup2(pipe_data->pfd[1], STDOUT_FILENO) == -1)
 			exit(EXIT_FAILURE);
 	}
 	else if (type == LAST)
 	{
 		save_close_restore_io(RESTORE);
-		if (dup2(lre, STDIN_FILENO) == -1)
-			exit(EXIT_FAILURE);		//TODO
+		if (dup2(pipe_data->lre, STDIN_FILENO) == -1)
+			exit(EXIT_FAILURE);
 	}
 	else
 		return (-1);
-
-	close(lre);
-	close(pipe_write);
-	close(pipe_read);
+	close(pipe_data->lre);
+	close(pipe_data->pfd[1]);
+	close(pipe_data->pfd[0]);
 	return (0);
 }
 
