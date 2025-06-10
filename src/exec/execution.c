@@ -15,18 +15,10 @@
 void	execution(t_cmd *cmd_list, t_shell *shell)
 {
 	int	cmd_c;
-	int	error;
 
 	save_close_restore_io(SAVE);
-	error = check_4_heredoc(shell, cmd_list);
-	if (error == NEW_PROMPT)
-	{
-		signals_init(shell);
-		save_close_restore_io(RESTORE);
+	if (check_4_heredoc(shell, cmd_list) == -1)
 		return ;
-	}
-	if (error == -1)
-		exit_on_fail(shell, cmd_list);
 	cmd_c = count_commands(cmd_list);
 	signal(SIGINT, SIG_IGN);
 	if (cmd_c == 1)

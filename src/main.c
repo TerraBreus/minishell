@@ -17,7 +17,6 @@
  *
 */
 
-// absolute paths arent absolute yet
 // ''""'' persmission denied
 // echo 'hi'" "'hello' error: syntax error near unexpected token `UNCLOSED QUOTE
 // hello shd be Command 'hello' not found and exit code 127
