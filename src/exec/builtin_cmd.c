@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// it took god 6 days to create the earth,
-//  and 7 to create holy bash
 #include "minishell.h"
 
 static void	my_exit(t_shell *shell, t_cmd *exec)
@@ -43,13 +41,8 @@ void	exec_builtin(t_shell *shell, t_cmd *exec)
 		my_exit(shell, exec);
 }
 
-int	builtin_cmd(t_shell *shell, t_cmd *cmd_list, t_pipe *pipe_data)
+int	builtin_cmd(t_shell *shell, t_cmd *cmd_list)
 {
-	if (pipe_data != NULL)
-	{
-		if (setup_pipe_builtin(pipe_data, cmd_list->type) == -1)
-			exit(EXIT_FAILURE);
-	}
 	if (setup_redir(cmd_list->redirection) == -1)
 		exit(EXIT_FAILURE);
 	return (builtin(shell, &cmd_list));
