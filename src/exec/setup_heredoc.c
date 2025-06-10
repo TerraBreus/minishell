@@ -30,7 +30,8 @@ static int	empty_hd_line(int pfd[2], char *delim)
 
 //the final boolean parameter states whether eof has quotes.
 //Truncated to 'e' for norminetti spaghetti
-static void	run_heredoc(t_shell *s, int pfd[2], char *delim, bool *e)
+static void	run_heredoc(
+		t_shell *s, int pfd[2], char *delim, bool *in_quotes)
 {
 	char	*input;
 	char	*hd_string;
@@ -44,7 +45,7 @@ static void	run_heredoc(t_shell *s, int pfd[2], char *delim, bool *e)
 			exit(empty_hd_line(pfd, delim));
 		if (ft_strcmp(input, delim) == 0)
 			break ;
-		if (*e == true)
+		if (*in_quotes == true)
 			hd_string = ft_strdup(input);
 		else
 			hd_string = check_expansion(s, input);
