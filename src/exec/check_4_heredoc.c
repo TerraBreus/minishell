@@ -24,7 +24,7 @@ int	check_4_heredoc(t_shell *shell, t_cmd *cmd_list)
 			if (temp->type == HEREDOC)
 			{
 				if (setup_heredoc(shell, temp) == -1)
-					return (-1);//TODO heredoc handler failed.
+					return (-1);
 			}
 			temp = temp->next;
 		}

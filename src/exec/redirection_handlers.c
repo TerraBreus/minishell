@@ -12,9 +12,6 @@
 
 #include "minishell.h"
 
-//TODO: Check for file permissions when opening 
-//(and print error message when insufficient permissions)
-
 int	handle_in(t_redir *r)
 {
 	int		fd_in;
@@ -23,7 +20,7 @@ int	handle_in(t_redir *r)
 		return (0);
 	fd_in = open(r->filename_path, O_RDONLY);
 	if (fd_in == -1)
-		return (-1);	//Would be useful to print error message of strerrno;
+		return (-1);
 	if (dup2(fd_in, STDIN_FILENO) == -1)
 		return (-1);
 	close(fd_in);
@@ -60,7 +57,7 @@ int	handle_append(t_redir *r)
 	return (0);
 }
 
-int handle_heredoc(t_redir *r)
+int	handle_heredoc(t_redir *r)
 {
 	if (dup2(r->heredoc_fd, STDIN_FILENO) == -1)
 		return (-1);

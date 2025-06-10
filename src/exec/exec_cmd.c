@@ -86,7 +86,7 @@ int	exec_cmd(char **cmd_and_flags, char **envp)
 {
 	char	**possible_paths;
 	char	*path;
-	int	error_code;
+	int		error_code;
 
 	possible_paths = create_possible_paths(envp);
 	if (possible_paths == NULL)

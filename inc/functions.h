@@ -163,7 +163,7 @@ int		ft_wait(int last_pid, int *status);
 int		check_file_permissions(char *filename, t_redir_type type);
 
 //Function is for broken systemcalls it returns a certain exit code and print error message to screen.
-int		internal_error();
+int		internal_error(void);
 
 //new function for mult_cmd that will fork and execute
 int	child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);

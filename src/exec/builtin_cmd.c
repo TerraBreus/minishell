@@ -48,9 +48,9 @@ int	builtin_cmd(t_shell *shell, t_cmd *cmd_list, t_pipe *pipe_data)
 	if (pipe_data != NULL)
 	{
 		if (setup_pipe_builtin(pipe_data, cmd_list->type) == -1)
-			exit(EXIT_FAILURE);			//TODO
+			exit(EXIT_FAILURE);
 	}
 	if (setup_redir(cmd_list->redirection) == -1)
-		exit(EXIT_FAILURE);		//TODO
+		exit(EXIT_FAILURE);
 	return (builtin(shell, &cmd_list));
 }
