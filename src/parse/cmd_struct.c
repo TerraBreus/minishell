@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/28 11:42:23 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/10 14:12:26 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_cmd	*new_node(t_shell *shell)
 	return (new_cmd);
 }
 
-static t_redir_type	get_redir_type(char *token)
+t_redir_type	get_redir_type(char *token)
 {
 	if (ft_strncmp(token, "<", 2) == 0)
 		return (IN);

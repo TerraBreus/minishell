@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/04 13:59:53 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/10 14:12:55 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ void	loop(t_shell *shell);
 // prompt to tokens
 void	tokenize(t_shell *shell, char *input);
 void	token_len(t_shell *shell, char *input, size_t *i);
+
+// syntax check
+t_redir_type	get_redir_type(char *token);
 
 // once tokenized
 void	expand_tokens(t_shell *shell);
