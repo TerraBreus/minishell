@@ -29,7 +29,7 @@ static t_cmd	*new_node(t_shell *shell)
 	return (new_cmd);
 }
 
-t_redir_type	get_redir_type(char *token)
+t_type	get_redir_type(char *token)
 {
 	if (ft_strncmp(token, "<", 2) == 0)
 		return (IN);

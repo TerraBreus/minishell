@@ -25,14 +25,14 @@ typedef struct e_shell
 	bool			found_error;
 }					t_shell;
 
-typedef enum e_redir_type
+typedef enum e_type
 {
 	IN,
 	APPEND,
 	OUT,
 	HEREDOC,
 	NONE
-}	t_redir_type;
+}	t_type;
 
 typedef struct s_redir
 {
@@ -40,7 +40,7 @@ typedef struct s_redir
 	char			*heredoc_delimiter;
 	char			*filename_path;
 	bool			filename_quotes;
-	t_redir_type	type;
+	t_type			type;
 	struct s_redir	*next;
 }					t_redir;
 

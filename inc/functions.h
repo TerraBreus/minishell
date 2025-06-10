@@ -25,7 +25,7 @@ void	tokenize(t_shell *shell, char *input);
 void	token_len(t_shell *shell, char *input, size_t *i);
 
 // syntax check
-t_redir_type	get_redir_type(char *token);
+t_type	get_redir_type(char *token);
 
 // once tokenized
 void	expand_tokens(t_shell *shell);
@@ -161,13 +161,14 @@ int		ft_wait(int last_pid, int *status);
 // Returns -1 if insufficient permissions.
 //or if incorrect type is given (which means the function is called in a place
 //where it makes no sense to call it)
-int		check_file_permissions(char *filename, t_redir_type type);
+int		check_file_permissions(char *filename, t_type type);
 
-//Function is for broken systemcalls it returns a certain exit code and print error message to screen.
+//Function is for broken systemcalls it
+// returns a certain exit code and print error message to screen.
 int		internal_error(void);
 
 //new function for mult_cmd that will fork and execute
-int	child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
+int		child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
 
 // failure and clean up calls
 void	exit_on_fail(t_shell *shell, t_cmd *cmd_list);

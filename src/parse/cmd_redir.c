@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static t_redir_type	get_redir_type(char *token)
+static t_type	get_redir_type(char *token)
 {
 	if (ft_strncmp(token, "<", 2) == 0)
 		return (IN);

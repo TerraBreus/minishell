@@ -37,7 +37,7 @@ static int	check_outfile_perm(char *filename)
 	return (0);
 }
 
-int	check_file_permissions(char *filename, t_redir_type type)
+int	check_file_permissions(char *filename, t_type type)
 {
 	if (type == APPEND || type == OUT)
 		return (check_outfile_perm(filename));
