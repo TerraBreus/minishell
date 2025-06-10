@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                         ::::::::           */
-/*   exec_cmd.c                                          :+:    :+:           */
-/*                                                      +:+                   */
-/*   By: zivanov <marvin@42.fr>                        +#+                    */
-/*                                                    +#+                     */
-/*   Created: 2025/06/04 17:22:47 by zivanov        #+#    #+#                */
-/*   Updated: 2025/06/04 17:22:50 by zivanov        ########   odam.nl        */
+/*                                                        :::      ::::::::   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/04 17:22:47 by zivanov           #+#    #+#             */
+/*   Updated: 2025/06/10 14:02:50 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	exec_cmd(char **cmd_and_flags, char **envp)
 	char	*path;
 	int		error_code;
 
+	if (cmd_and_flags[0][0] == '\0')
+		exit(0);
 	possible_paths = create_possible_paths(envp);
 	if (possible_paths == NULL)
 		return (-1);
