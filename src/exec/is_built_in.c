@@ -29,8 +29,6 @@ bool	is_built_in(t_cmd *cmd_list)
 		return (true);
 	else if (ft_strncmp(current->argv[0], "env", 4) == 0)
 		return (true);
-	else if (current->argv[0][0] == '/')
-		return (true);
 	else if (ft_strncmp(current->argv[0], "unset", 4) == 0)
 		return (true);
 	else if (ft_strncmp(current->argv[0], "exit", 5) == 0)
