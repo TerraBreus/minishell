@@ -75,7 +75,7 @@ int	setup_heredoc(t_shell *shell, t_redir *r)
 	close(pfd[1]);
 	waitpid(pid, &status, 0);
 	if (sigint_hd(status) == -1)
-		return (close(pfd[0]), NEW_PROMPT);
+		return (close(pfd[0]), -1);
 	r->heredoc_fd = pfd[0];
 	return (0);
 }
