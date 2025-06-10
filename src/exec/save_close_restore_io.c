@@ -19,7 +19,7 @@ static int	close_and_return(int in, int out)
 	return (-1);
 }
 
-static int	restore(int in, int out)
+static int	restore(int copy_in, int copy_out)
 {
 	if (dup2(copy_in, STDIN_FILENO) == -1)
 		return (close_and_return(copy_in, copy_out));

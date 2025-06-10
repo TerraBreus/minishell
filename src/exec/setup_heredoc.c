@@ -20,7 +20,7 @@ static void	write_w_newline(char *str, int fd)
 	write(fd, "\n", 1);
 }
 
-static int	empty_hd_line(int pipe_write)
+static int	empty_hd_line(int pfd[2], char *delim)
 {
 	sigeof_hd(pfd, delim);
 	write_w_newline("", pfd[1]);
@@ -41,7 +41,7 @@ static void	run_heredoc(t_shell *s, int pfd[2], char *delim, bool *e)
 	{
 		input = readline("> ");
 		if (!input)
-			exit(empty_hd_line);
+			exit(empty_hd_line(pfd, delim));
 		if (ft_strcmp(input, delim) == 0)
 			break ;
 		if (*e == true)

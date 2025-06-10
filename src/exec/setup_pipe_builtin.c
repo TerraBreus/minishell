@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void	first(t_pipe *pipe_data, t_cmd_type type)
+static void	first(t_pipe *pipe_data)
 {
 	if (dup2(pipe_data->pfd[1], STDOUT_FILENO) == -1)
 		exit(EXIT_FAILURE);
@@ -20,7 +20,7 @@ static void	first(t_pipe *pipe_data, t_cmd_type type)
 	pipe_data->lre = pipe_data->pfd[0];
 }
 
-static void	middle(t_pipe *pipe_data, t_cmd_type type)
+static void	middle(t_pipe *pipe_data)
 {
 	if (dup2(pipe_data->lre, STDIN_FILENO) == -1)
 		exit(EXIT_FAILURE);
@@ -34,9 +34,9 @@ static void	middle(t_pipe *pipe_data, t_cmd_type type)
 int	setup_pipe_builtin(t_pipe *pipe_data, t_cmd_type type)
 {
 	if (type == FIRST)
-		first(pipe_data, type);
+		first(pipe_data);
 	else if (type == MIDDLE)
-		middle(pipe_data, type);
+		middle(pipe_data);
 	else if (type == LAST)
 	{
 		if (dup2(pipe_data->lre, STDIN_FILENO) == -1)
