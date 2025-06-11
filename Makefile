@@ -46,13 +46,13 @@ EXEC_SRCS		:= \
 			   exec_cmd.c \
 			   execution.c \
 			   ft_wait.c \
+			   close_pipe.c \
 			   is_built_in.c \
 			   mult_cmd.c \
 			   parse_mult_cmd.c \
 			   redirection_handlers.c \
 			   save_close_restore_io.c \
 			   setup_heredoc.c \
-			   setup_pipe_builtin.c \
 			   setup_pipe_builtout.c \
 			   setup_redir.c \
 			   single_cmd.c \
