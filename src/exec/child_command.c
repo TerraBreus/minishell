@@ -18,7 +18,7 @@ int	child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 
 	pid = fork();
 	if (pid == -1)
-		return (internal_error());
+		exit_on_fail(shell_data, cmd_list, true);
 	if (setup_pipe_builtout(pipe_data, pid, cmd_list->type) == -1)
 		return (-1);
 	if (pid == 0)
@@ -26,7 +26,7 @@ int	child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 		signal(SIGINT, SIG_DFL);
 		save_close_restore_io(CLOSE);
 		if (setup_redir(cmd_list->redirection) == -1)
-			exit (EXIT_FAILURE);
+			exit_on_fail(shell_data, cmd_list, true);
 		if (is_built_in(cmd_list) == true)
 			exit(builtin(shell_data, &cmd_list));
 		else
