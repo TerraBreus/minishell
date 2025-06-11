@@ -46,7 +46,6 @@ EXEC_SRCS		:= \
 			   exec_cmd.c \
 			   execution.c \
 			   ft_wait.c \
-			   internal_error.c \
 			   is_built_in.c \
 			   mult_cmd.c \
 			   parse_mult_cmd.c \
