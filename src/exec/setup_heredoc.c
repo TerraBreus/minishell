@@ -60,17 +60,17 @@ static void	run_heredoc(
 	exit(0);
 }
 
-int	setup_heredoc(t_shell *shell, t_redir *r)
+int	setup_heredoc(t_shell *shell, t_redir *r, t_cmd *cmd_list)
 {
 	int		pfd[2];
 	pid_t	pid;
 	int		status;
 
 	if (pipe(pfd) == -1)
-		exit(EXIT_FAILURE);
+		exit_on_fail(shell, cmd_list, NULL, true);
 	pid = fork();
 	if (pid == -1)
-		exit(EXIT_FAILURE);
+		exit_on_fail(shell, cmd_list, NULL, true);
 	if (pid == 0)
 		run_heredoc(shell, pfd, r->filename_path, &r->filename_quotes);
 	close(pfd[1]);

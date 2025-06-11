@@ -24,7 +24,7 @@ int	mult_cmd(t_cmd *cmd_list, t_shell *shell_data)
 		if (cmd_list->next != NULL)
 		{
 			if (create_pipe(&pipe_data) == -1)
-				exit_on_fail(shell_data, cmd_list, true);
+				exit_on_fail(shell_data, cmd_list, &pipe_data, true);
 		}
 		last_pid = child_command(cmd_list, shell_data, &pipe_data);
 		cmd_list = cmd_list->next;
