@@ -14,31 +14,29 @@
 
 static int	setup_pipe_for_child(t_pipe *pipe_data, t_cmd_type type)
 {
+	int	result;
+
+	result = 0;
 	if (type == FIRST)
 	{
-		if (dup2(pipe_data->pfd[1], STDOUT_FILENO) == -1)
-			exit(EXIT_FAILURE);
+		result = dup2(pipe_data->pfd[1], STDOUT_FILENO);
 	}
 	else if (type == MIDDLE)
 	{
 		save_close_restore_io(RESTORE);
-		if (dup2(pipe_data->lre, STDIN_FILENO) == -1)
-			exit(EXIT_FAILURE);
-		if (dup2(pipe_data->pfd[1], STDOUT_FILENO) == -1)
-			exit(EXIT_FAILURE);
+		result = dup2(pipe_data->lre, STDIN_FILENO);
+		if (result != -1)
+			result = dup2(pipe_data->pfd[1], STDOUT_FILENO);
 	}
 	else if (type == LAST)
 	{
 		save_close_restore_io(RESTORE);
-		if (dup2(pipe_data->lre, STDIN_FILENO) == -1)
-			exit(EXIT_FAILURE);
+		result = dup2(pipe_data->lre, STDIN_FILENO);
 	}
 	else
 		return (-1);
-	close(pipe_data->lre);
-	close(pipe_data->pfd[1]);
-	close(pipe_data->pfd[0]);
-	return (0);
+	close_pipe(pipe_data);
+	return (result);
 }
 
 int	setup_pipe_builtout(t_pipe *pipe_data, pid_t pid, t_cmd_type type)

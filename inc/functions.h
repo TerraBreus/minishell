@@ -121,7 +121,7 @@ int		mult_cmd(t_cmd *cmd_list, t_shell *shell_data);
 void	parse_mult_cmd(t_cmd *cmd_list);
 
 // pipe pointer can be set to NULL if no pipe is needed (aka single_command)
-int		builtout_cmd(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
+int		builtout_cmd(t_cmd *cmd_list, t_shell *shell_data);
 
 //simple pipe call but in a struct.
 int		create_pipe(t_pipe *pipe_data);
@@ -152,7 +152,7 @@ int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 //function iterates through cmd_list and its corresponding redirection
 // list, checks for heredoc types and calls setup_heredoc
 int		check_4_heredoc(t_shell *shell, t_cmd *cmd_list);
-int		setup_heredoc(t_shell *shell, t_redir *r);
+int		setup_heredoc(t_shell *shell, t_redir *r, t_cmd *cmd_list);
 
 //Wait call to retrieve exit status of child.
 int		ft_wait(int last_pid, int *status);
@@ -167,5 +167,8 @@ int		check_file_permissions(char *filename, t_type type);
 int		child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
 
 // failure and clean up calls
-void	exit_on_fail(t_shell *shell, t_cmd *cmd_list, bool print_error);
+void	exit_on_fail(t_shell *shell, t_cmd *cmd_list,
+			t_pipe *pipe_data, bool p_error);
+void	close_pipe(t_pipe *pipe_data);
+
 #endif

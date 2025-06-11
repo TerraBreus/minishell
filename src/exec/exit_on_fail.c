@@ -12,11 +12,12 @@
 
 #include "minishell.h"
 
-void	exit_on_fail(t_shell *shell, t_cmd *cmd_list, bool print_error)
+void	exit_on_fail(
+		t_shell *shell, t_cmd *cmd_list,
+		t_pipe *pipe_data, bool p_error)
 {
-	if (print_error == true)
+	if (p_error == true)
 		perror("minishell");
-	ft_putstr_fd("Cleaning up on systemcall failure\n", 2);
 	if (shell != NULL)
 	{
 		cleanup_env(shell);
@@ -24,5 +25,7 @@ void	exit_on_fail(t_shell *shell, t_cmd *cmd_list, bool print_error)
 	}
 	if (cmd_list != NULL)
 		cleanup_struct(&cmd_list);
+	if (pipe_data != NULL)
+		close_pipe(pipe_data);
 	exit(EXIT_FAILURE);
 }
