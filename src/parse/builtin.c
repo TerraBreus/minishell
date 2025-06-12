@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/07 16:13:37 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/12 14:31:56 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	my_exit(t_shell *shell, t_cmd *exec, char **args)
 			i++;
 		if (args[1][i] != '\0')
 		{
-			printf("minishell: %s: numeric argument required\n", args[1]);
+			perror("minishell: numeric argument required\n");
 			status = 2;
 		}
 		else
