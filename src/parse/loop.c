@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/10 14:19:11 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/12 14:29:45 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ static void	syntax_check(t_shell *shell)
 	size_t	i;
 
 	i = 0;
-	if (shell->found_error == true)
+	if (shell->found_error == true
+		|| !shell->tokens[0]
+		|| shell->tokens[0][0] == '\0')
 		return ;
 	if (is_operator(shell->tokens[shell->tc -1][0])
 		|| shell->tokens[0][0] == '|')
