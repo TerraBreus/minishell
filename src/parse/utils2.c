@@ -12,6 +12,19 @@
 
 #include "minishell.h"
 
+t_type	get_redir_type(char *token)
+{
+	if (ft_strncmp(token, "<", 2) == 0)
+		return (IN);
+	if (ft_strncmp(token, ">>", 3) == 0)
+		return (APPEND);
+	if (ft_strncmp(token, ">", 2) == 0)
+		return (OUT);
+	// if (ft_strncmp(token, "<<", 3) == 0)
+	// 	return (HEREDOC);
+	return (NONE);
+}
+
 void	add_cmd_back(t_cmd **exec, t_cmd *new_cmd)
 {
 	t_cmd	*temp;
