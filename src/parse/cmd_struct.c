@@ -29,19 +29,6 @@ static t_cmd	*new_node(t_shell *shell)
 	return (new_cmd);
 }
 
-t_type	get_redir_type(char *token)
-{
-	if (ft_strncmp(token, "<", 2) == 0)
-		return (IN);
-	if (ft_strncmp(token, ">>", 3) == 0)
-		return (APPEND);
-	if (ft_strncmp(token, ">", 2) == 0)
-		return (OUT);
-	if (ft_strncmp(token, "<<", 3) == 0)
-		return (HEREDOC);
-	return (NONE);
-}
-
 static void	create_redir(
 	t_shell *shell, t_cmd *cmd, char *token, char *next_token)
 {
@@ -98,7 +85,14 @@ void	add_arg_to_cmd(t_shell *shell, t_cmd *cmd, char *token)
 	cmd->argv = new_argv;
 }
 
-void	token_to_struct(t_shell *shell, t_cmd **exec)
+static void	ambiguous(t_shell *shell)
+{
+	write(2, "minishell: ambiguous operator usage\n", 37);
+	shell->found_error = 1;
+	shell->last_errno = 1;
+}
+
+int	token_to_struct(t_shell *shell, t_cmd **exec)
 {
 	size_t	i;
 	t_cmd	*cmd;
@@ -112,7 +106,7 @@ void	token_to_struct(t_shell *shell, t_cmd **exec)
 			if (get_redir_type(shell->tokens[i]) != NONE)
 			{
 				if (!shell->tokens[i + 1])
-					break ;
+					return (ambiguous(shell), 1);
 				create_redir(
 					shell, cmd, shell->tokens[i], shell->tokens[i + 1]);
 				i += 2;
@@ -124,4 +118,5 @@ void	token_to_struct(t_shell *shell, t_cmd **exec)
 		if (shell->tokens[i] && *shell->tokens[i] == '|')
 			i++;
 	}
+	return (0);
 }
