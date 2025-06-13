@@ -43,8 +43,8 @@ static void	syntax_check(t_shell *shell)
 		if (shell->tokens[i][0] == '|'
 			&& shell->tokens[i + 1][0] == '|')
 			syntax_error(shell, &shell->tokens[i][0]);
-		if (get_redir_type(shell->tokens[i]) != NONE
-			&& (get_redir_type(shell->tokens[i + 1]) != NONE
+		if (redir_type(shell->tokens[i]) != NONE
+			&& (redir_type(shell->tokens[i + 1]) != NONE
 				|| shell->tokens[i + 1][0] == '|'))
 			syntax_error(shell, &shell->tokens[i][0]);
 		i++;
