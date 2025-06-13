@@ -78,7 +78,7 @@ static void	run_heredoc(t_shell *shell, int pfd[2], char *delim)
 // 	return (0);
 // }
 
-int	setup_heredoc(t_shell *shell, char *delim)
+static int	setup_heredoc(t_shell *shell, char *delim)
 {
 	int		pfd[2];
 	pid_t	pid;
@@ -96,5 +96,22 @@ int	setup_heredoc(t_shell *shell, char *delim)
 	if (sigint_hd(status) == -1)
 		return (close(pfd[0]), -1);
 	// r->heredoc_fd = pfd[0];
+	return (0);
+}
+
+int	heredoc(t_shell *shell, char **arr)
+{
+	size_t	i;
+
+	i = 0;
+	while (arr[i])
+	{
+		if (ft_strncmp(arr[i], "<<", 3) == 0)
+		{
+			if (setup_heredoc(shell, arr[i + 1]) == -1)
+				return (-1);
+		}
+		i++;
+	}
 	return (0);
 }
