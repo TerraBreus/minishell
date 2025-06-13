@@ -15,10 +15,12 @@
 static void	arg_check(t_shell *shell, t_cmd *exec, char **args)
 {
 	if (args[1] && args[2])
+	{
 		write(STDERR_FILENO, EXIT_ERR, ft_strlen(EXIT_ERR));
-	quick_clean(shell);
-	cleanup_struct(&exec);
-	exit(1);
+		quick_clean(shell);
+		cleanup_struct(&exec);
+		exit(1);
+	}
 }
 
 static void	my_exit(t_shell *shell, t_cmd *exec, char **args)
