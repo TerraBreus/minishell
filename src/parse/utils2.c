@@ -12,7 +12,14 @@
 
 #include "minishell.h"
 
-t_type	get_redir_type(char *token)
+void	ambiguous(t_shell *shell)
+{
+	write(2, "minishell: ambiguous redirect\n", 31);
+	shell->found_error = true;
+	shell->last_errno = 1;
+}
+
+t_type	redir_type(char *token)
 {
 	if (ft_strncmp(token, "<", 2) == 0)
 		return (IN);

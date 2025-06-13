@@ -38,7 +38,7 @@ static void	create_redir(
 	new_node = malloc(sizeof(t_redir));
 	if (!new_node)
 		malloc_fail(shell, "create redir");
-	new_node->type = get_redir_type(token);
+	new_node->type = redir_type(token);
 	new_node->filename_quotes = false;
 	if (next_token[0] == '\'' || next_token[0] == '"')
 		new_node->filename_quotes = true;
@@ -85,16 +85,10 @@ void	add_arg_to_cmd(t_shell *shell, t_cmd *cmd, char *token)
 	cmd->argv = new_argv;
 }
 
-static void	ambiguous(t_shell *shell)
+static void	add_redir(
+	t_shell *shell, t_cmd *cmd, char **arr, size_t *i)
 {
-	write(2, "minishell: ambiguous redirect\n", 31);
-	shell->found_error = true;
-	shell->last_errno = 1;
-}
-
-void	process_redirection(t_shell *shell, t_cmd *cmd, char **arr, size_t *i)
-{
-	if (get_redir_type(arr[*i]) != HEREDOC)
+	if (redir_type(arr[*i]) != HEREDOC)
 	{
 		if (!arr[*i + 1] || *arr[*i + 1] == '|')
 		{
@@ -117,8 +111,8 @@ void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec)
 		cmd = new_node(shell);
 		while (arr[i] && arr[i][0] != '|')
 		{
-			if (get_redir_type(arr[i]) != NONE)
-				process_redirection(shell, cmd, arr, &i);
+			if (redir_type(arr[i]) != NONE)
+				add_redir(shell, cmd, arr, &i);
 			else
 				add_arg_to_cmd(shell, cmd, arr[i++]);
 			if (shell->found_error)
