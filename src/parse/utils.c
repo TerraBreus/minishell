@@ -36,9 +36,9 @@ void	print_tokens(t_shell *shell)
 	size_t	i;
 
 	i = 0;
-	while (i < shell->tc)
+	while (shell->tokens[i])
 	{
-		printf("%s\n", shell->tokens[i]);
+		printf("token %li = [%s]\n", i, shell->tokens[i]);
 		i++;
 	}
 }
