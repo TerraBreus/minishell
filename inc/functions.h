@@ -37,7 +37,7 @@ char	*check_expansion(t_shell *shell, char *str);
 char	*cleanup_quotes(t_shell *shell, char *token);
 
 // pass tokens to parser
-int		token_to_struct(t_shell *shell, t_cmd **exec);
+void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec);
 void	add_cmd_back(t_cmd **exec, t_cmd *new_cmd);
 
 // and cleanup after
@@ -151,9 +151,10 @@ int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 
 //function iterates through cmd_list and its corresponding redirection
 // list, checks for heredoc types and calls setup_heredoc
-int		check_4_heredoc(t_shell *shell, t_cmd *cmd_list);
+// int		check_4_heredoc(t_shell *shell, t_cmd *cmd_list); // now redundent!
 // int		setup_heredoc(t_shell *shell, t_redir *r, t_cmd *cmd_list);
-int		setup_heredoc(t_shell *shell, char *delim);
+// int		setup_heredoc(t_shell *shell, char *delim); // now redundent!
+int		heredoc(t_shell *shell, char **arr);
 //Wait call to retrieve exit status of child.
 int		ft_wait(int last_pid, int *status);
 

@@ -87,36 +87,45 @@ void	add_arg_to_cmd(t_shell *shell, t_cmd *cmd, char *token)
 
 static void	ambiguous(t_shell *shell)
 {
-	write(2, "minishell: ambiguous operator usage\n", 37);
-	shell->found_error = 1;
+	write(2, "minishell: ambiguous redirect\n", 31);
+	shell->found_error = true;
 	shell->last_errno = 1;
 }
 
-int	token_to_struct(t_shell *shell, t_cmd **exec)
+void	process_redirection(t_shell *shell, t_cmd *cmd, char **arr, size_t *i)
+{
+	if (get_redir_type(arr[*i]) != HEREDOC)
+	{
+		if (!arr[*i + 1] || *arr[*i + 1] == '|')
+		{
+			ambiguous(shell);
+			return ;
+		}
+		create_redir(shell, cmd, arr[*i], arr[*i + 1]);
+	}
+	*i += 2;
+}
+
+void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec)
 {
 	size_t	i;
 	t_cmd	*cmd;
 
 	i = 0;
-	while (shell->tokens[i])
+	while (arr[i])
 	{
 		cmd = new_node(shell);
-		while (shell->tokens[i] && *shell->tokens[i] != '|')
+		while (arr[i] && arr[i][0] != '|')
 		{
-			if (get_redir_type(shell->tokens[i]) != NONE)
-			{
-				if (!shell->tokens[i + 1])
-					return (ambiguous(shell), 1);
-				create_redir(
-					shell, cmd, shell->tokens[i], shell->tokens[i + 1]);
-				i += 2;
-			}
+			if (get_redir_type(arr[i]) != NONE)
+				process_redirection(shell, cmd, arr, &i);
 			else
-				add_arg_to_cmd(shell, cmd, shell->tokens[i++]);
+				add_arg_to_cmd(shell, cmd, arr[i++]);
+			if (shell->found_error)
+				return ;
 		}
 		add_cmd_back(exec, cmd);
-		if (shell->tokens[i] && *shell->tokens[i] == '|')
+		if (arr[i] && arr[i][0] == '|')
 			i++;
 	}
-	return (0);
 }

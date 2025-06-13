@@ -51,23 +51,6 @@ static void	syntax_check(t_shell *shell)
 	}
 }
 
-int	heredoc(t_shell *shell)
-{
-	size_t	i;
-
-	i = 0;
-	while (shell->tokens[i])
-	{
-		if (ft_strncmp(shell->tokens[i], "<<", 3) == 0)
-		{
-			if (setup_heredoc(shell, shell->tokens[i + 1]) == -1)
-				return (-1);
-		}
-		i++;
-	}
-	return (0);
-}
-
 void	loop(t_shell *shell)
 {
 	char	*input;
@@ -82,11 +65,11 @@ void	loop(t_shell *shell)
 	free(input);
 	syntax_check(shell);
 	if (shell->found_error == false
-		&& heredoc(shell) != -1)
+		&& heredoc(shell, shell->tokens) != -1)
 	{
 		expand_tokens(shell);
 		shell->last_errno = 0;
-		token_to_struct(shell, &exec);
+		token_to_struct(shell, shell->tokens, &exec);
 		execution(exec, shell);
 		cleanup_struct(&exec);
 	}
