@@ -22,8 +22,9 @@ static void	write_w_newline(char *str, int fd)
 
 static int	empty_hd_line(int pfd[2], char *delim)
 {
-	sigeof_hd(pfd, delim);
-	write_w_newline("", pfd[1]);
+	write(2, EOF_ERROR, ft_strlen(EOF_ERROR));
+	write(2, delim, ft_strlen(delim));
+	write(2, "'\n", 2);
 	close(pfd[1]);
 	return (1);
 }
@@ -34,7 +35,7 @@ static void	run_heredoc(t_shell *shell, int pfd[2], char *delim)
 	char	*hd_string;
 
 	rl_clear_history();
-	sig_child();
+	signal(SIGINT, SIG_DFL);
 	while (true)
 	{
 		input = readline("> ");
@@ -57,43 +58,26 @@ static void	run_heredoc(t_shell *shell, int pfd[2], char *delim)
 	exit(0);
 }
 
-// int	setup_heredoc(t_shell *shell, t_redir *r, t_cmd *cmd_list)
-// {
-// 	int		pfd[2];
-// 	pid_t	pid;
-// 	int		status;
-
-// 	if (pipe(pfd) == -1)
-// 		exit_on_fail(shell, cmd_list, NULL, true);
-// 	pid = fork();
-// 	if (pid == -1)
-// 		exit_on_fail(shell, cmd_list, NULL, true);
-// 	if (pid == 0)
-// 		run_heredoc(shell, pfd, r->filename_path, &r->filename_quotes);
-// 	close(pfd[1]);
-// 	waitpid(pid, &status, 0);
-// 	if (sigint_hd(status) == -1)
-// 		return (close(pfd[0]), -1);
-// 	r->heredoc_fd = pfd[0];
-// 	return (0);
-// }
-
 static int	setup_heredoc(t_shell *shell, char *delim)
 {
 	int		pfd[2];
 	pid_t	pid;
 	int		status;
 
+
 	if (pipe(pfd) == -1)
 		exit(1);
+	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == -1)
 		exit(1);
 	if (pid == 0)
 		run_heredoc(shell, pfd, delim);
 	close(pfd[1]);
-	waitpid(pid, &status, 0);
-	if (sigint_hd(status) == -1)
+	ft_wait(pid, &status);
+	signals_init(shell);
+	if (WIFSIGNALED(status)
+	&& WTERMSIG(status) == SIGINT)
 		return (close(pfd[0]), -1);
 	return (0);
 }
