@@ -60,7 +60,8 @@ void	print_exec(t_cmd *exec)
 	while (exec)
 	{
 		printf("Command #%d:\n", cmd_count++);
-		print_command_argv(exec->argv);
+		if (exec->argv)
+			print_command_argv(exec->argv);
 		print_redirections(exec->redirection);
 		if (exec->pid != -1)
 			printf("  PID: %d\n", exec->pid);
