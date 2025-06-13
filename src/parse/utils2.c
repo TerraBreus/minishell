@@ -20,8 +20,8 @@ t_type	get_redir_type(char *token)
 		return (APPEND);
 	if (ft_strncmp(token, ">", 2) == 0)
 		return (OUT);
-	// if (ft_strncmp(token, "<<", 3) == 0)
-	// 	return (HEREDOC);
+	if (ft_strncmp(token, "<<", 3) == 0)
+		return (HEREDOC);
 	return (NONE);
 }
 
