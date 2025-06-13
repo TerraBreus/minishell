@@ -14,14 +14,11 @@
 
 void	execution(t_cmd *cmd_list, t_shell *shell)
 {
-	int	cmd_c;
-
 	save_close_restore_io(SAVE);
-	// if (check_4_heredoc(shell, cmd_list) == -1)
-	// 	return ;
-	cmd_c = count_commands(cmd_list);
+	if (shell->found_error == true)
+		return ;
 	signal(SIGINT, SIG_IGN);
-	if (cmd_c == 1)
+	if (count_commands(cmd_list) == 1)
 		shell->last_errno = single_cmd(cmd_list, shell);
 	else
 		shell->last_errno = mult_cmd(cmd_list, shell);
