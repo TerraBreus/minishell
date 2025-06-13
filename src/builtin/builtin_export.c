@@ -32,10 +32,17 @@ static bool	valid_filename(t_shell *shell, char *str)
 	size_t	i;
 
 	i = 0;
-	while (is_filename_char(str[i]))
+	if (ft_isalpha(str[i]))
+	{
 		i++;
+		while (is_filename_char(str[i]))
+			i++;
+	}
 	if ((str[i] == '\0' || str[i] == '=') && i != 0)
+	{
+		shell->last_errno = 0;
 		return (true);
+	}
 	else
 	{
 		ft_putstr_fd("minishell: export: `", STDERR_FILENO);
@@ -115,5 +122,5 @@ int	my_export(t_shell *shell, char **arg_list)
 		}
 		i++;
 	}
-	return (0);
+	return (shell->last_errno);
 }
