@@ -85,6 +85,17 @@ char	*check_expansion(t_shell *shell, char *str)
 	return (result);
 }
 
+static void	remove_from_arr(t_shell *shell, size_t i)
+{
+	free(shell->tokens[i]);
+	while (shell->tokens[i + 1])
+	{
+		shell->tokens[i] = shell->tokens[i + 1];
+		i++;
+	}
+	shell->tokens[i] = NULL;
+}
+
 void	expand_tokens(t_shell *shell)
 {
 	size_t	i;
@@ -98,6 +109,11 @@ void	expand_tokens(t_shell *shell)
 		if (has_path(shell->tokens[i]) == true)
 		{
 			new_token = check_expansion(shell, shell->tokens[i]);
+			if (new_token[0] == '\0')
+			{
+				remove_from_arr(shell, i);
+				break ;
+			}
 			free(shell->tokens[i]);
 			shell->tokens[i] = new_token;
 		}
