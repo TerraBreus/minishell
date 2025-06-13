@@ -17,8 +17,8 @@ void	execution(t_cmd *cmd_list, t_shell *shell)
 	int	cmd_c;
 
 	save_close_restore_io(SAVE);
-	if (check_4_heredoc(shell, cmd_list) == -1)
-		return ;
+	// if (check_4_heredoc(shell, cmd_list) == -1)
+	// 	return ;
 	cmd_c = count_commands(cmd_list);
 	signal(SIGINT, SIG_IGN);
 	if (cmd_c == 1)
