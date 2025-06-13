@@ -9,6 +9,7 @@ LIBFT_DIR		:= lib/libft
 LIBFT			:= $(LIBFT_DIR)/libft.a
 
 BUILTIN_SRCS	:= \
+				builtin.c \
 				builtin_env.c \
 				builtin_export.c \
 				builtin_export_helper.c \
@@ -27,7 +28,6 @@ PARSE_SRCS		:= \
 				env_expand.c \
 				cmd_struct.c \
 				cmd_print.c \
-				builtin.c \
 				signal.c \
 				signal2.c \
 				free.c \
