@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	setup_redir(t_redir *redir_data)
+int	setup_redir(t_redir *redir_data, t_shell *shell)
 {
 	char					*filepath;
 	static t_redir_handler	handlers[] = { 
@@ -25,6 +25,8 @@ int	setup_redir(t_redir *redir_data)
 	while (redir_data != NULL)
 	{
 		filepath = redir_data->filename_path;
+		if (filepath == NULL || *filepath == '\0')
+			return (ambiguous(shell), -1);
 		if (check_file_permissions(filepath, redir_data->type) == -1)
 			return (-1);
 		if (redir_data->type < 0 || redir_data->type > 3)
