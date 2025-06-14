@@ -120,7 +120,8 @@ int		save_close_restore_io(int save_close_restore);
 int		mult_cmd(t_cmd *cmd_list, t_shell *shell_data);
 void	parse_mult_cmd(t_cmd *cmd_list);
 
-// pipe pointer can be set to NULL if no pipe is needed (aka single_command)
+//function forks from parent and sets up signals 
+//and redirection for the child process to be executed.
 int		builtout_cmd(t_cmd *cmd_list, t_shell *shell_data);
 
 //simple pipe call but in a struct.
@@ -130,7 +131,10 @@ int		create_pipe(t_pipe *pipe_data);
 int		setup_pipe_builtout(t_pipe *pipe_data, pid_t pid, t_cmd_type type);
 
 //setup_redirections
-int		setup_redir(t_redir *redir_data);
+int		setup_redir(t_redir *redir_data, t_shell *shell);
+
+//Retrieve redirection type by string comparison
+t_type		redir_type(char *token);
 
 //redirection_handlers.c
 int		handle_in(t_redir *r);
@@ -139,12 +143,14 @@ int		handle_append(t_redir *r);
 int		handle_heredoc(t_redir *r);
 
 // Executing a single (built out) command using execve.
+// functions also parses for filepath of executable
 int		exec_cmd(char **cmd_and_flags, char **envp);
 
 //simple strncmp to check if command is built_in or not.
 bool	is_built_in(t_cmd *cmd_list);
 
-// overal flow for builtin_command
+// overal flow for builtin_command; sets up redirection
+// and then calls builtin(); 
 int		builtin_cmd(t_shell *shell, t_cmd *exec);
 //function for when prompt only asks for a single command (build in or out)
 int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
@@ -172,4 +178,6 @@ void	exit_on_fail(t_shell *shell, t_cmd *cmd_list,
 			t_pipe *pipe_data, bool p_error);
 void	close_pipe(t_pipe *pipe_data);
 
+//prints message to user when filename is empty ("")
+void	ambiguous(t_shell *shell);
 #endif
