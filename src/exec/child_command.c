@@ -25,7 +25,7 @@ int	child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 	{
 		signal(SIGINT, SIG_DFL);
 		save_close_restore_io(CLOSE);
-		if (setup_redir(cmd_list->redirection) == -1)
+		if (setup_redir(cmd_list->redirection, shell_data) == -1)
 			exit_on_fail(shell_data, cmd_list, pipe_data, false);
 		if (is_built_in(cmd_list) == true)
 			exit(builtin(shell_data, &cmd_list));

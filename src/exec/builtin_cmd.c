@@ -14,7 +14,7 @@
 
 int	builtin_cmd(t_shell *shell, t_cmd *cmd_list)
 {
-	if (setup_redir(cmd_list->redirection) == -1)
+	if (setup_redir(cmd_list->redirection, shell) == -1)
 		return (1);
 	return (builtin(shell, &cmd_list));
 }
