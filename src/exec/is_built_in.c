@@ -17,7 +17,8 @@ bool	is_built_in(t_cmd *cmd_list)
 	t_cmd	*current;
 
 	current = cmd_list;
-	if (!current->argv[0])
+	if (current->argv == NULL
+			|| !current->argv[0])
 		return (false);
 	if (ft_strncmp(current->argv[0], "echo", 5) == 0)
 		return (true);
