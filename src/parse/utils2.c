@@ -14,7 +14,7 @@
 
 void	ambiguous(t_shell *shell)
 {
-	write(2, "minishell: ambiguous redirect\n", 31);
+	ft_putstr_fd("minishell: ambiguous redirect\n", STDERR_FILENO);
 	shell->found_error = true;
 	shell->last_errno = 1;
 }
