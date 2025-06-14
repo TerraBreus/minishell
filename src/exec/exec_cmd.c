@@ -82,25 +82,43 @@ static void	free_paths(char **possible_paths)
 	}
 }
 
+bool	relative_path(char *path)
+{
+	if (*path == '.')
+		return (true);
+	return (false);
+}
+
 int	exec_cmd(char **cmd_and_flags, char **envp)
 {
 	char	**possible_paths;
 	char	*path;
 	int		error_code;
 
-	if (cmd_and_flags[0][0] == '\0')
+	if (cmd_and_flags == NULL 
+			|| cmd_and_flags[0] == NULL
+			|| cmd_and_flags[0][0] == '\0')
 		exit(0);
-	possible_paths = create_possible_paths(envp);
-	if (possible_paths == NULL)
-		return (-1);
-	if (possible_paths == envp)
-		possible_paths = NULL;
-	if (cmd_and_flags == NULL)
-		return (free_paths(possible_paths), -1);
-	path = find_full_path(possible_paths, cmd_and_flags[0]);
-	free_paths(possible_paths);
-	if (path == NULL)
-		return (-1);
+	if (relative_path(cmd_and_flags[0]) == true)
+		path = cmd_and_flags[0];
+	else
+	{
+		//Should probably put this in a function called (find_path) or smth
+		possible_paths = create_possible_paths(envp);
+		if (possible_paths == NULL)
+			return (-1);
+		if (possible_paths == envp)
+			possible_paths = NULL;
+		if (cmd_and_flags == NULL)
+			return (free_paths(possible_paths), -1);
+		path = find_full_path(possible_paths, cmd_and_flags[0]);
+		free_paths(possible_paths);
+		if (path == NULL)
+			return (-1);
+	}
+	//Just for finesse. A small command checking whether the path is simply a directory
+	//If yes, print an error message and exit with status 126. 
+	//(zsh treats this the same as EACESS but bash doesn't...)
 	execve(path, cmd_and_flags, envp);
 	error_code = print_error(path);
 	free(path);
