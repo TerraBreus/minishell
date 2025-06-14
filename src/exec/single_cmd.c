@@ -17,8 +17,6 @@ int	single_cmd(t_cmd *cmd_list, t_shell *shell_data)
 	int	pid;
 	int	status;
 
-	if (!cmd_list->argv)
-		return (0);
 	if (is_built_in(cmd_list) == true)
 		return (builtin_cmd(shell_data, cmd_list));
 	else
