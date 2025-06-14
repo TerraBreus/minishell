@@ -29,7 +29,6 @@ PARSE_SRCS		:= \
 				cmd_struct.c \
 				cmd_print.c \
 				signal.c \
-				signal2.c \
 				free.c \
 				utils.c \
 				utils2.c \
