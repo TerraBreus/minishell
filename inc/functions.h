@@ -129,7 +129,7 @@ int		create_pipe(t_pipe *pipe_data);
 int		setup_pipe_builtout(t_pipe *pipe_data, pid_t pid, t_cmd_type type);
 
 //setup_redirections
-int		setup_redir(t_redir *redir_data, t_shell *shell);
+int		setup_redir(t_redir *redir_data);
 
 //redirection_handlers.c
 int		handle_in(t_redir *r);
