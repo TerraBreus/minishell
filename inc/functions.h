@@ -25,7 +25,9 @@ void	tokenize(t_shell *shell, char *input);
 void	token_len(t_shell *shell, char *input, size_t *i);
 
 // syntax check
-t_type	get_redir_type(char *token);
+void	syntax_check(t_shell *shell);
+t_type	redir_type(char *token);
+void	ambiguous_check(t_shell *shell, char **arr);
 
 // once tokenized
 void	expand_tokens(t_shell *shell);
@@ -72,10 +74,6 @@ void	update_bools(
 int		signals_init(t_shell *shell);
 void	sigint(t_shell *shell);
 void	sigquit(t_shell *shell, char *input);
-void	sig_child(void);
-int		sigint_hd(int status);
-void	sigeof_hd(int pfd[2], char *delim);
-void	sigint_parent(t_shell *shell_data, pid_t pid);
 
 // utils else
 void	skip_litteral(char *str, size_t *i);
@@ -132,9 +130,6 @@ int		setup_pipe_builtout(t_pipe *pipe_data, pid_t pid, t_cmd_type type);
 
 //setup_redirections
 int		setup_redir(t_redir *redir_data, t_shell *shell);
-
-//Retrieve redirection type by string comparison
-t_type		redir_type(char *token);
 
 //redirection_handlers.c
 int		handle_in(t_redir *r);
