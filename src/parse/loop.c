@@ -22,35 +22,6 @@ static void	shell_reset(t_shell *shell)
 	shell->tokens = NULL;
 }
 
-static void	syntax_check(t_shell *shell)
-{
-	size_t	i;
-
-	i = 0;
-	if (shell->found_error == true
-		|| !shell->tokens[0]
-		|| shell->tokens[0][0] == '\0')
-		return ;
-	if (is_operator(shell->tokens[shell->tc -1][0])
-		|| shell->tokens[0][0] == '|')
-	{
-		syntax_error(shell, &shell->tokens[i][0]);
-		return ;
-	}
-	while (i < shell->tc -1
-		&& shell->found_error == false)
-	{
-		if (shell->tokens[i][0] == '|'
-			&& shell->tokens[i + 1][0] == '|')
-			syntax_error(shell, &shell->tokens[i][0]);
-		if (redir_type(shell->tokens[i]) != NONE
-			&& (redir_type(shell->tokens[i + 1]) != NONE
-				|| shell->tokens[i + 1][0] == '|'))
-			syntax_error(shell, &shell->tokens[i][0]);
-		i++;
-	}
-}
-
 void	loop(t_shell *shell)
 {
 	char	*input;
@@ -67,8 +38,10 @@ void	loop(t_shell *shell)
 	if (shell->found_error == false
 		&& heredoc(shell, shell->tokens) != -1)
 	{
+		ambiguous_check(shell, shell->tokens);
 		expand_tokens(shell);
-		shell->last_errno = 0;
+		if (shell->found_error == false)
+			shell->last_errno = 0;
 		token_to_struct(shell, shell->tokens, &exec);
 		execution(exec, shell);
 		cleanup_struct(&exec);
