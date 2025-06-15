@@ -70,3 +70,15 @@ void	print_exec(t_cmd *exec)
 			printf("|\n|\nV\n");
 	}
 }
+
+void	print_tokens(t_shell *shell)
+{
+	size_t	i;
+
+	i = 0;
+	while (shell->tokens[i])
+	{
+		printf("token %li = [%s]\n", i, shell->tokens[i]);
+		i++;
+	}
+}
