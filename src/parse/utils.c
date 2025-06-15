@@ -31,18 +31,6 @@ void	skip_litteral(char *str, size_t *i)
 	}
 }
 
-void	print_tokens(t_shell *shell)
-{
-	size_t	i;
-
-	i = 0;
-	while (shell->tokens[i])
-	{
-		printf("token %li = [%s]\n", i, shell->tokens[i]);
-		i++;
-	}
-}
-
 bool	is_quote(char c)
 {
 	if (!c)
@@ -62,4 +50,17 @@ void	just_print(char **arr)
 		printf("declare -x %s\n", arr[i]);
 		i++;
 	}
+}
+
+t_type	redir_type(char *token)
+{
+	if (ft_strncmp(token, "<", 2) == 0)
+		return (IN);
+	if (ft_strncmp(token, ">>", 3) == 0)
+		return (APPEND);
+	if (ft_strncmp(token, ">", 2) == 0)
+		return (OUT);
+	if (ft_strncmp(token, "<<", 3) == 0)
+		return (HEREDOC);
+	return (NONE);
 }
