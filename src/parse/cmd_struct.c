@@ -89,14 +89,7 @@ static void	add_redir(
 	t_shell *shell, t_cmd *cmd, char **arr, size_t *i)
 {
 	if (redir_type(arr[*i]) != HEREDOC)
-	{
-		if (!arr[*i + 1] || *arr[*i + 1] == '|')
-		{
-			ambiguous(shell);
-			return ;
-		}
 		create_redir(shell, cmd, arr[*i], arr[*i + 1]);
-	}
 	*i += 2;
 }
 
@@ -106,7 +99,7 @@ void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec)
 	t_cmd	*cmd;
 
 	i = 0;
-	while (arr[i])
+	while (arr[i] && shell->found_error == false)
 	{
 		cmd = new_node(shell);
 		while (arr[i] && arr[i][0] != '|')
@@ -115,8 +108,6 @@ void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec)
 				add_redir(shell, cmd, arr, &i);
 			else
 				add_arg_to_cmd(shell, cmd, arr[i++]);
-			if (shell->found_error)
-				return ;
 		}
 		add_cmd_back(exec, cmd);
 		if (arr[i] && arr[i][0] == '|')
