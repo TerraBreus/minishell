@@ -78,7 +78,7 @@ static int	setup_heredoc(t_shell *shell, char *delim)
 	signals_init(shell);
 	if (WIFSIGNALED(status)
 	&& WTERMSIG(status) == SIGINT)
-		return (close(pfd[0]), -1);
+		return (shell->last_errno = 130, close(pfd[0]), -1);
 	return (0);
 }
 
