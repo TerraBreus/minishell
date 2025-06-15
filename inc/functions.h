@@ -26,8 +26,8 @@ void	token_len(t_shell *shell, char *input, size_t *i);
 
 // syntax check
 void	syntax_check(t_shell *shell);
-t_type	redir_type(char *token);
 void	ambiguous_check(t_shell *shell, char **arr);
+t_type	redir_type(char *token);
 
 // once tokenized
 void	expand_tokens(t_shell *shell);
@@ -40,7 +40,6 @@ char	*cleanup_quotes(t_shell *shell, char *token);
 
 // pass tokens to parser
 void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec);
-void	add_cmd_back(t_cmd **exec, t_cmd *new_cmd);
 
 // and cleanup after
 void	cleanup_struct(t_cmd **exec);
@@ -85,6 +84,7 @@ void	free_arr(char **arr);
 // no leaks
 void	cleanup_shell(t_shell *shell);
 void	cleanup_env(t_shell *shell);
+void	cleanup_struct(t_cmd **exec);
 
 // in case of errors
 void	quick_clean(t_shell *shell);
@@ -173,6 +173,4 @@ void	exit_on_fail(t_shell *shell, t_cmd *cmd_list,
 			t_pipe *pipe_data, bool p_error);
 void	close_pipe(t_pipe *pipe_data);
 
-//prints message to user when filename is empty ("")
-void	ambiguous(t_shell *shell);
 #endif
