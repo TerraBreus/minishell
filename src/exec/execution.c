@@ -14,11 +14,17 @@
 
 void	execution(t_cmd *cmd_list, t_shell *shell)
 {
+	int	cmd_count;
+
+	cmd_count = 0;
 	save_close_restore_io(SAVE);
 	if (shell->found_error == true)
 		return ;
 	signal(SIGINT, SIG_IGN);
-	if (count_commands(cmd_list) == 1)
+	cmd_count = count_commands(cmd_list);
+	if (cmd_count == 0)
+		return ;
+	if (cmd_count == 1)
 		shell->last_errno = single_cmd(cmd_list, shell);
 	else
 		shell->last_errno = mult_cmd(cmd_list, shell);
