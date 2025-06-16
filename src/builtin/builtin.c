@@ -39,7 +39,7 @@ static void	my_exit(t_shell *shell, t_cmd *exec, char **args)
 			i++;
 		if (args[1][i] != '\0')
 		{
-			write(2, "minishell: numeric argument required\n", 38);
+			ft_putstr_fd("minishell: numeric argument required\n", STDERR_FILENO);;
 			status = 2;
 		}
 		else
