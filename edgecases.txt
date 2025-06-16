@@ -1,0 +1,26 @@
+TODO
+- exec_cmd should check whether the given binary program has execution rights, if it doesn't then it should continue searching.
+    What about if the only executable it finds, has no execution rights but there is no other program with that name? Do we then pass the absolute path or do we pass the path we have found (that does not have any rights).
+- What happens in bash if you do echo > $EMPTY with $EMPTY being empty?
+- exec_cmd does not check for NULL pointer?
+- Signals in child processes should return different exit stati (130 for SIGINT, in heredoc and in other child programs).
+- < non_existing_file -> echo $? (do we have the same bash configuration?
+- Redirection without commands don't work?
+- `<<eof` -> ctrl+d resulted in segavaults.
+- `echo < infile | echo`
+    Prints echo???
+
+Edgecases
+- `export empty=""` -> `echo hi > $EMPTY`
+- `<<eof` -> ctrl+D -> `echo $?`
+- `>ls` -> `ls` -> `./ls`
+- `>haha | ls`
+- `export empty=" "` -> `echo hi > $EMPTY` -> `$EMPTY echo hi`
+
+
+DONE
+- my_exit should print error on STDERR.
+    Would also be cleaner if the function has its own file instead of being in builtin.c.
+- Build a roadmap for philosophers with the help of GPT. With roadmap I mean a realistic schedule for the upcoming two weeks (in which you also will need minishell evaluated and do evaluations yourself to gather points). Set out time for research (be specific, research on what kind of things? Systemcalls, overall structure etc.), start coding (again, be specific, are there functions you know you will already need (initialization)), review code. Try to keep some time for unforseen problems and remember evaluations also will take time.
+- Make our minishell non_interactive by returning the exit status of the last command if `isatty(STDIN_FILENO) == 1`
+- exec_cmd should parse and implement the '.' as current directory and '..' as previous directory.
