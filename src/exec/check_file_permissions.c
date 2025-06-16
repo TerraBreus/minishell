@@ -47,6 +47,8 @@ int	check_file_permissions(char *filename, t_type type)
 		return (check_infile_perm(filename));
 	else if (type == HEREDOC)
 		return (0);
+	else if (type == AMBIGUOUS)
+		return (-1);
 	write(2, "check_file_permission\n", 23);
 	return (-1);
 }
