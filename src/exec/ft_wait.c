@@ -26,7 +26,7 @@ int	ft_wait(t_shell *shell, int last_pid, int *status)
 		}
 		if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
 		{	
-			ft_putchar_fd('\n', STDOUT_FILENO);
+			ft_putchar_fd('\n', STDERR_FILENO);
 			shell->last_errno = 130;
 		}
 		else if (WIFEXITED(*status) != 0)
