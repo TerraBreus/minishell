@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_wait(int last_pid, int *status)
+int	ft_wait(t_shell *shell, int last_pid, int *status)
 {
 	if (last_pid > 0)
 	{
@@ -25,9 +25,12 @@ int	ft_wait(int last_pid, int *status)
 			exit(EXIT_FAILURE);
 		}
 		if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
+		{	
 			ft_putchar_fd('\n', STDOUT_FILENO);
-		if (WIFEXITED(*status) != 0)
-			return (WEXITSTATUS(*status));
+			shell->last_errno = 130;
+		}
+		else if (WIFEXITED(*status) != 0)
+			shell->last_errno = WEXITSTATUS(*status);
 	}
 	while (wait(NULL) != -1)
 		;
