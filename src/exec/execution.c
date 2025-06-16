@@ -25,9 +25,9 @@ void	execution(t_cmd *cmd_list, t_shell *shell)
 	if (cmd_count == 0)
 		return ;
 	if (cmd_count == 1)
-		shell->last_errno = single_cmd(cmd_list, shell);
+		single_cmd(cmd_list, shell);
 	else
-		shell->last_errno = mult_cmd(cmd_list, shell);
+		mult_cmd(cmd_list, shell);
 	signals_init(shell);
 	save_close_restore_io(RESTORE);
 }
