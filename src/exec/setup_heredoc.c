@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_heredoc.c                                    :+:      :+:    :+:   */
+/*   setup_heredoc.c                                     :+:    :+:           */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 17:24:55 by zivanov           #+#    #+#             */
-/*   Updated: 2025/06/07 14:36:15 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/16 13:49:04 by zivanov        ########   odam.nl        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	setup_heredoc(t_shell *shell, char *delim)
 	if (pid == 0)
 		run_heredoc(shell, pfd, delim);
 	close(pfd[1]);
-	ft_wait(pid, &status);
+	ft_wait(shell, pid, &status);
 	signals_init(shell);
 	if (WIFSIGNALED(status)
 	&& WTERMSIG(status) == SIGINT)
