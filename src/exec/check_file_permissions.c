@@ -6,7 +6,7 @@
 /*   By: zivanov <marvin@42.fr>                        +#+                    */
 /*                                                    +#+                     */
 /*   Created: 2025/06/10 09:45:24 by zivanov        #+#    #+#                */
-/*   Updated: 2025/06/10 09:45:28 by zivanov        ########   odam.nl        */
+/*   Updated: 2025/06/16 13:54:21 by zivanov        ########   odam.nl        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	check_infile_perm(char *filename)
 		perror("Insufficient permissions:");
 		return (-1);
 	}
-	perror("Infile not found");
+	ft_putstr_fd(filename, STDERR_FILENO);
+	perror(": Infile not found");
 	return (-1);
 }
 
@@ -31,7 +32,8 @@ static int	check_outfile_perm(char *filename)
 	{
 		if (access(filename, W_OK) == 0)
 			return (0);
-		perror("Insufficient permissions:");
+		ft_putstr_fd(filename, STDERR_FILENO);
+		perror(": Insufficient permissions");
 		return (-1);
 	}
 	return (0);
