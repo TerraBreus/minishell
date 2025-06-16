@@ -42,7 +42,7 @@ static char	*find_full_path(char *paths[], char *cmd)
 		path = ft_strjoin(paths[i], addendum);
 		if (path == NULL)
 			return (free(addendum), NULL);
-		if (access(path, F_OK) == 0)
+		if (access(path, F_OK | X_OK) == 0)
 			return (free(addendum), path);
 		free(path);
 	}
