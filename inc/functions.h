@@ -159,7 +159,7 @@ int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 // int		setup_heredoc(t_shell *shell, char *delim); // now redundent!
 int		heredoc(t_shell *shell, char **arr);
 //Wait call to retrieve exit status of child.
-int		ft_wait(int last_pid, int *status);
+int		ft_wait(t_shell *shell, int last_pid, int *status);
 
 //Checks for file permissions based on the type of redirection.
 // Returns -1 if insufficient permissions.

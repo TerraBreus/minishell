@@ -24,6 +24,6 @@ int	single_cmd(t_cmd *cmd_list, t_shell *shell_data)
 		pid = builtout_cmd(cmd_list, shell_data);
 		if (pid == -1)
 			exit_on_fail(shell_data, cmd_list, NULL, false);
-		return (ft_wait(pid, &status));
+		return (ft_wait(shell_data, pid, &status));
 	}
 }

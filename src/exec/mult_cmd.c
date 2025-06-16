@@ -29,5 +29,5 @@ int	mult_cmd(t_cmd *cmd_list, t_shell *shell_data)
 		last_pid = child_command(cmd_list, shell_data, &pipe_data);
 		cmd_list = cmd_list->next;
 	}
-	return (ft_wait(last_pid, &status));
+	return (ft_wait(shell_data, last_pid, &status));
 }
