@@ -111,6 +111,7 @@ void	expand_tokens(t_shell *shell)
 			new_token = check_expansion(shell, shell->tokens[i]);
 			if (new_token[0] == '\0')
 			{
+				free(new_token);
 				remove_from_arr(shell, i);
 				break ;
 			}

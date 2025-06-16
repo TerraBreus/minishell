@@ -55,8 +55,11 @@ static void	create_redir(
 		malloc_fail(shell, "create redir");
 	new_node->type = redir_type(token);
 	new_node->filename_quotes = false;
-	if (next_token[0] == '\'' || next_token[0] == '"')
-		new_node->filename_quotes = true;
+	if (next_token != NULL)
+	{
+		if (next_token[0] == '\'' || next_token[0] == '"')
+			new_node->filename_quotes = true;
+	}
 	new_node->filename_path = cleanup_quotes(shell, next_token);
 	new_node->heredoc_fd = -1;
 	new_node->next = NULL;
@@ -113,6 +116,12 @@ void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec)
 		{
 			if (redir_type(arr[i]) != NONE)
 			{
+				if (redir_type(arr[i]) == AMBIGUOUS)
+				{
+					create_redir(shell, cmd, arr[i], NULL);
+					i +=1;
+					break ;
+				}
 				if (redir_type(arr[i]) != HEREDOC)
 					create_redir(shell, cmd, arr[i], arr[i + 1]);
 				i += 2;

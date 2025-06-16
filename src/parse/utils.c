@@ -62,5 +62,7 @@ t_type	redir_type(char *token)
 		return (OUT);
 	if (ft_strncmp(token, "<<", 3) == 0)
 		return (HEREDOC);
+	if (ft_strncmp(token, "<>", 3) == 0)
+		return (AMBIGUOUS);
 	return (NONE);
 }

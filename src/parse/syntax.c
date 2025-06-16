@@ -41,13 +41,11 @@ void	syntax_check(t_shell *shell)
 	}
 }
 
-static void	ambiguous_error(t_shell *shell, char *bad_filename)
+static void	ambiguous_error(char *bad_filename)
 {
 	write(STDERR_FILENO, "minishell: ", 12);
 	write (STDERR_FILENO, bad_filename, ft_strlen(bad_filename));
 	write(STDERR_FILENO, ": ambiguous redirect\n", 22);
-	shell->found_error = true;
-	shell->last_errno = 1;
 }
 
 void	ambiguous_check(t_shell *shell, char **arr)
@@ -64,7 +62,14 @@ void	ambiguous_check(t_shell *shell, char **arr)
 			{
 				temp = check_expansion(shell, arr[i + 1]);
 				if (temp[0] == '\0')
-					ambiguous_error(shell, arr[i + 1]);
+				{
+					ambiguous_error(arr[i + 1]);
+					free(arr[i]);
+					arr[i] = ft_strdup("<>");
+					if (!arr[i])
+						malloc_fail(shell, "ambiguous check\n");
+				}
+				free(temp);
 			}
 		}
 		i++;

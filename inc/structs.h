@@ -31,6 +31,7 @@ typedef enum e_type
 	APPEND,
 	OUT,
 	HEREDOC,
+	AMBIGUOUS,
 	NONE
 }	t_type;
 

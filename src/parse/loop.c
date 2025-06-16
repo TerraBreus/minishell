@@ -43,6 +43,7 @@ void	loop(t_shell *shell)
 		if (shell->found_error == false)
 			shell->last_errno = 0;
 		token_to_struct(shell, shell->tokens, &exec);
+		print_exec(exec);
 		execution(exec, shell);
 		cleanup_struct(&exec);
 	}
