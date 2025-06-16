@@ -6,43 +6,11 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/10 14:12:26 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/16 12:57:57 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	add_cmd_back(t_cmd **exec, t_cmd *new_cmd)
-{
-	t_cmd	*temp;
-
-	if (!*exec)
-	{
-		*exec = new_cmd;
-		return ;
-	}
-	temp = *exec;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = new_cmd;
-}
-
-static t_cmd	*new_node(t_shell *shell)
-{
-	t_cmd	*new_cmd;
-
-	new_cmd = malloc(sizeof(t_cmd));
-	if (!new_cmd)
-	{
-		malloc_fail(shell, "new command");
-		return (NULL);
-	}
-	new_cmd->argv = NULL;
-	new_cmd->pid = -1;
-	new_cmd->redirection = NULL;
-	new_cmd->next = NULL;
-	return (new_cmd);
-}
 
 static void	create_redir(
 	t_shell *shell, t_cmd *cmd, char *token, char *next_token)
@@ -103,6 +71,27 @@ static void	add_arg_to_cmd(t_shell *shell, t_cmd *cmd, char *token)
 	cmd->argv = new_argv;
 }
 
+static void	redir_or_arg(t_shell *shell, t_cmd *cmd, char **arr, size_t *i)
+{
+	while (arr[*i] && arr[*i][0] != '|')
+	{
+		if (redir_type(arr[*i]) != NONE)
+		{
+			if (redir_type(arr[*i]) == AMBIGUOUS)
+			{
+				create_redir(shell, cmd, arr[*i], NULL);
+				*i += 1;
+				break ;
+			}
+			if (redir_type(arr[*i]) != HEREDOC)
+				create_redir(shell, cmd, arr[*i], arr[*i + 1]);
+			*i += 2;
+		}
+		else
+			add_arg_to_cmd(shell, cmd, arr[(*i)++]);
+	}
+}
+
 void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec)
 {
 	size_t	i;
@@ -112,23 +101,7 @@ void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec)
 	while (arr[i] && shell->found_error == false)
 	{
 		cmd = new_node(shell);
-		while (arr[i] && arr[i][0] != '|')
-		{
-			if (redir_type(arr[i]) != NONE)
-			{
-				if (redir_type(arr[i]) == AMBIGUOUS)
-				{
-					create_redir(shell, cmd, arr[i], NULL);
-					i +=1;
-					break ;
-				}
-				if (redir_type(arr[i]) != HEREDOC)
-					create_redir(shell, cmd, arr[i], arr[i + 1]);
-				i += 2;
-			}
-			else
-				add_arg_to_cmd(shell, cmd, arr[i++]);
-		}
+		redir_or_arg(shell, cmd, arr, &i);
 		add_cmd_back(exec, cmd);
 		if (arr[i] && arr[i][0] == '|')
 			i++;

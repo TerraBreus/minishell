@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/10 14:12:55 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/16 12:58:42 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*cleanup_quotes(t_shell *shell, char *token);
 
 // pass tokens to parser
 void	token_to_struct(t_shell *shell, char **arr, t_cmd **exec);
+void	add_cmd_back(t_cmd **exec, t_cmd *new_cmd);
+t_cmd	*new_node(t_shell *shell);
 
 // and cleanup after
 void	cleanup_struct(t_cmd **exec);

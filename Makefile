@@ -28,6 +28,7 @@ PARSE_SRCS		:= \
 				rm_quotes.c \
 				env_expand.c \
 				cmd_struct.c \
+				cmd_node.c \
 				cmd_clean.c \
 				cmd_print.c \
 				signal.c \
