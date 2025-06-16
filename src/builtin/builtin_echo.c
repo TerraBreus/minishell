@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by n One             #+#    #+#             */
-/*   Updated: 2025/06/16 12:22:24 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/16 12:36:21 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ size_t	handle_newline(char **arg_array, bool *newline_flag)
 
 	i = 1;
 	*newline_flag = false;
-	if (!arg_array || !arg_array[i])
-		return (write(STDOUT_FILENO, "\n", 1), 0);
+	if (!arg_array[i])
+		return (1);
 	while (arg_array[i] && arg_array[i][0] == '-' && arg_array[i][1] == 'n')
 	{
 		j = 2;
