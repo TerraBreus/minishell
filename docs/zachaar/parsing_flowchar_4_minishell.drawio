@@ -1,0 +1,54 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.6">
+  <diagram name="Page-1" id="hO6vSu1Z3hUD656wWNqP">
+    <mxGraphModel dx="2031" dy="1739" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="F442T5LtiyDrGyklfUke-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=none;fontColor=default;strokeColor=#FFFFFF;" edge="1" parent="1" source="F442T5LtiyDrGyklfUke-1" target="F442T5LtiyDrGyklfUke-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-1" value="START&lt;div&gt;input = readline();&lt;/div&gt;&lt;div&gt;`$EMPTY cat &amp;lt;&amp;lt;$EMPTY &amp;gt;2 &amp;gt;&amp;nbsp; &amp;nbsp; $EMPTY`&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#EEEEEE;strokeColor=#FFFFFF;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="-15" y="-144" width="248" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;entryX=0.16;entryY=0.55;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="F442T5LtiyDrGyklfUke-7" target="F442T5LtiyDrGyklfUke-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="529" y="29" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#FFFFFF;fontColor=#FFFFFF;" edge="1" parent="1" source="F442T5LtiyDrGyklfUke-7" target="F442T5LtiyDrGyklfUke-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-7" value="Split on whitespace unless in quotes.&lt;div&gt;argv = ft_split(input, &#39; &#39;)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#EEEEEE;strokeColor=#FFFFFF;fontColor=#1A1A1A;" vertex="1" parent="1">
+          <mxGeometry x="314" y="4" width="137" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;" edge="1" parent="1" source="F442T5LtiyDrGyklfUke-13" target="F442T5LtiyDrGyklfUke-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-13" value="TOKENIZE" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#FFFFFF;fontColor=#1A1A1A;rounded=1;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="353" y="119" width="80" height="37" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-22" value="&lt;u&gt;ARGV.&lt;/u&gt;&lt;br&gt;[$EMPTY]&lt;div&gt;[cat]&lt;/div&gt;&lt;div&gt;[&amp;lt;&amp;lt;$EMPTY]&lt;/div&gt;&lt;div&gt;[&amp;gt;2]&lt;/div&gt;&lt;div&gt;[&amp;gt;]&lt;/div&gt;&lt;div&gt;[$EMPTY]&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;strokeColor=#FFFFFF;fontColor=#1A1A1A;fillColor=#EEEEEE;" vertex="1" parent="1">
+          <mxGeometry x="505" y="-124" width="185" height="166" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-35" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;" edge="1" parent="1" source="F442T5LtiyDrGyklfUke-23" target="F442T5LtiyDrGyklfUke-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FFFFFF;fontColor=#FFFFFF;" edge="1" parent="1" source="F442T5LtiyDrGyklfUke-23" target="F442T5LtiyDrGyklfUke-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-23" value="REDIRECTION: starts with&lt;div&gt;[&amp;gt;, &amp;gt;&amp;gt;, &amp;lt;, &amp;lt;&amp;lt;, |]&lt;/div&gt;&lt;div&gt;&lt;b&gt;NB: can still have other characters after!&lt;/b&gt;&lt;br&gt;&lt;div&gt;EXPANSION: Starts with $&lt;/div&gt;&lt;/div&gt;&lt;div&gt;WORD: (later gets tokenized into command, filename/hd, quotes or argument).&lt;/div&gt;" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#EEEEEE;strokeColor=#FFFFFF;fontColor=#1A1A1A;rounded=1;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="333" y="224.5" width="224" height="158.5" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-25" value="&lt;b&gt;&lt;u&gt;REDIRECTION:&lt;/u&gt;&lt;/b&gt; starts with &amp;gt;, &amp;gt;&amp;gt;, &amp;lt; or &amp;lt;&amp;lt;. Can be succeeded by the filename but filename can also be in argv[i++]. Cannot have another redirection operator in the string. (&amp;gt;file1&amp;gt;file2 is invalid).&lt;div&gt;&lt;b&gt;&lt;u&gt;PIPE:&lt;/u&gt;&lt;/b&gt; ONLY if argv[i] = &#39;|&#39; (and no more).&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;u&gt;EXPANSION:&lt;/u&gt;&lt;/b&gt; Starts with $. Cannot end with $ (unless $$). fe $ARGV$ is not allowed but $ARGV and $$ is.&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;u&gt;COMMAND:&lt;/u&gt;&lt;/b&gt; the first word that is not anything from the above.&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;u&gt;ARGUMENT:&lt;/u&gt;&lt;/b&gt; Any word that is none of the above and command has already been claimed (gets reset by the pipe operator).&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#FFFFFF;fontColor=#1A1A1A;fillColor=#EEEEEE;" vertex="1" parent="1">
+          <mxGeometry x="-364" y="19" width="293.5" height="293.5" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-34" value="&lt;u&gt;ARGV&lt;/u&gt;&lt;div&gt;[$EMPTY] --&amp;gt; expansion&lt;/div&gt;&lt;div&gt;[cat] --&amp;gt; word&lt;/div&gt;&lt;div&gt;[&amp;lt;&amp;lt;$EMPTY] --&amp;gt; redirection&lt;/div&gt;&lt;div&gt;[&amp;gt;2] --&amp;gt; redirection&lt;/div&gt;&lt;div&gt;[&amp;gt;] --&amp;gt; redirection&lt;/div&gt;&lt;div&gt;[$EMPTY] --&amp;gt; word&lt;/div&gt;&lt;div&gt;&lt;u&gt;&lt;br&gt;&lt;/u&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#FFFFFF;fontColor=#1A1A1A;rounded=1;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="640" y="234.69" width="184" height="138.13" as="geometry" />
+        </mxCell>
+        <mxCell id="F442T5LtiyDrGyklfUke-36" value="Split redirection" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#EEEEEE;strokeColor=#FFFFFF;fontColor=#1A1A1A;rounded=1;labelBackgroundColor=none;" vertex="1" parent="1">
+          <mxGeometry x="385" y="427" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
