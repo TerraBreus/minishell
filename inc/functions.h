@@ -174,5 +174,7 @@ int		child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
 void	exit_on_fail(t_shell *shell, t_cmd *cmd_list,
 			t_pipe *pipe_data, bool p_error);
 void	close_pipe(t_pipe *pipe_data);
+int	store_heredoc(int pipe_read);	
+void	close_heredoc_parent(t_redir *r);
 
 #endif

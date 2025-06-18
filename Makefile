@@ -39,6 +39,7 @@ PARSE_SRCS		:= \
 EXEC_SRCS		:= \
 			   builtin_cmd.c \
 			   builtout_cmd.c \
+			   store_heredoc.c \
 			   check_4_heredoc.c \
 			   check_file_permissions.c \
 			   child_command.c \
