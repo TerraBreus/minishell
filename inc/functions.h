@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:05 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/16 12:58:42 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/18 17:54:18 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ambiguous_check(t_shell *shell, char **arr);
 t_type	redir_type(char *token);
 
 // once tokenized
-void	expand_tokens(t_shell *shell);
+void	rm_empty(t_shell *shell);
 
 // also used by heredoc
 char	*check_expansion(t_shell *shell, char *str);
@@ -174,7 +174,7 @@ int		child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data);
 void	exit_on_fail(t_shell *shell, t_cmd *cmd_list,
 			t_pipe *pipe_data, bool p_error);
 void	close_pipe(t_pipe *pipe_data);
-int	store_heredoc(int pipe_read);	
+int		store_heredoc(int pipe_read);	
 void	close_heredoc_parent(t_redir *r);
 
 #endif
