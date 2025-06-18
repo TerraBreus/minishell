@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 15:48:18 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/21 15:31:41 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/18 16:52:29 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_redir
 	int				heredoc_fd;
 	char			*heredoc_delimiter;
 	char			*filename_path;
-	bool			filename_quotes;
 	t_type			type;
 	struct s_redir	*next;
 }					t_redir;
