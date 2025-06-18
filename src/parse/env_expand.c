@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/18 17:55:47 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/18 18:11:23 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,16 @@ static char	*handle_expansion(
 char	*add_char(t_shell *shell, char *str, size_t *i, char *result)
 {
 	char	buffer[2];
+	char	*temp;
 
 	buffer[0] = str[*i];
 	buffer[1] = '\0';
-	result = ft_strjoin(result, buffer);
+	temp = ft_strjoin(result, buffer);
 	if (!result)
 		malloc_fail(shell, "add char\n");
 	*i += 1;
-	return (result);
+	free(result);
+	return (temp);
 }
 
 char	*check_expansion(t_shell *shell, char *str)
