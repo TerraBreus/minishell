@@ -83,8 +83,8 @@ static void	redir_or_arg(t_shell *shell, t_cmd *cmd, char **arr, size_t *i)
 				*i += 1;
 				break ;
 			}
-			if (redir_type(arr[*i]) != HEREDOC)
-				create_redir(shell, cmd, arr[*i], arr[*i + 1]);
+			//if (redir_type(arr[*i]) != HEREDOC)
+			create_redir(shell, cmd, arr[*i], arr[*i + 1]);
 			*i += 2;
 		}
 		else
