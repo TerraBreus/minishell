@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_heredoc.c                                     :+:    :+:           */
+/*   setup_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 17:24:55 by zivanov           #+#    #+#             */
-/*   Updated: 2025/06/16 13:49:04 by zivanov        ########   odam.nl        */
+/*   Updated: 2025/06/18 17:25:39 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ static void	run_heredoc(t_shell *shell, int pfd[2], char *delim)
 		free(hd_string);
 		free(input);
 	}
-	free(input);
-	close(pfd[0]);
-	close(pfd[1]);
+	(free(input), close(pfd[0]), close(pfd[1]));
 	exit(0);
 }
 
@@ -64,7 +62,6 @@ static int	setup_heredoc(t_shell *shell, char *delim)
 	int		pfd[2];
 	pid_t	pid;
 	int		status;
-
 
 	if (pipe(pfd) == -1)
 		exit(1);
@@ -79,7 +76,7 @@ static int	setup_heredoc(t_shell *shell, char *delim)
 	store_heredoc(pfd[0]);
 	signals_init(shell);
 	if (WIFSIGNALED(status)
-	&& WTERMSIG(status) == SIGINT)
+		&& WTERMSIG(status) == SIGINT)
 		return (shell->last_errno = 130, -1);
 	return (0);
 }
