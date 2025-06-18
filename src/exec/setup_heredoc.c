@@ -54,6 +54,7 @@ static void	run_heredoc(t_shell *shell, int pfd[2], char *delim)
 		free(input);
 	}
 	free(input);
+	close(pfd[0]);
 	close(pfd[1]);
 	exit(0);
 }
@@ -75,10 +76,11 @@ static int	setup_heredoc(t_shell *shell, char *delim)
 		run_heredoc(shell, pfd, delim);
 	close(pfd[1]);
 	ft_wait(shell, pid, &status);
+	store_heredoc(pfd[0]);
 	signals_init(shell);
 	if (WIFSIGNALED(status)
 	&& WTERMSIG(status) == SIGINT)
-		return (shell->last_errno = 130, close(pfd[0]), -1);
+		return (shell->last_errno = 130, -1);
 	return (0);
 }
 

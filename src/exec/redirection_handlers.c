@@ -59,6 +59,7 @@ int	handle_append(t_redir *r)
 
 int	handle_heredoc(t_redir *r)
 {
+	r->heredoc_fd = store_heredoc(-1);
 	if (dup2(r->heredoc_fd, STDIN_FILENO) == -1)
 		return (-1);
 	close(r->heredoc_fd);
