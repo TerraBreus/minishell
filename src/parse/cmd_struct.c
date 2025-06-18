@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/16 12:57:57 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/18 17:48:47 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,15 @@ static void	create_redir(
 {
 	t_redir	*new_node;
 	t_redir	*temp;
+	char	*temp_char;
 
 	new_node = malloc(sizeof(t_redir));
 	if (!new_node)
 		malloc_fail(shell, "create redir");
 	new_node->type = redir_type(token);
-	new_node->filename_quotes = false;
-	if (next_token != NULL)
-	{
-		if (next_token[0] == '\'' || next_token[0] == '"')
-			new_node->filename_quotes = true;
-	}
-	new_node->filename_path = cleanup_quotes(shell, next_token);
+	temp_char = check_expansion(shell, next_token);
+	new_node->filename_path = cleanup_quotes(shell, temp_char);
+	free(temp_char);
 	new_node->heredoc_fd = -1;
 	new_node->next = NULL;
 	if (!cmd->redirection)
@@ -42,16 +39,14 @@ static void	create_redir(
 	temp->next = new_node;
 }
 
-static void	add_arg_to_cmd(t_shell *shell, t_cmd *cmd, char *token)
+static char	**create_new_argv(t_shell *shell, t_cmd *cmd, char *arg)
 {
-	char	*arg;
 	char	**new_argv;
 	size_t	count;
 	size_t	j;
 
-	j = 0;
 	count = 0;
-	arg = cleanup_quotes(shell, token);
+	j = 0;
 	if (cmd->argv)
 	{
 		while (cmd->argv[count])
@@ -59,7 +54,7 @@ static void	add_arg_to_cmd(t_shell *shell, t_cmd *cmd, char *token)
 	}
 	new_argv = malloc(sizeof(char *) * (count + 2));
 	if (!new_argv)
-		malloc_fail(shell, "add_arg_to_cmd");
+		malloc_fail(shell, "add arg to command");
 	while (j < count)
 	{
 		new_argv[j] = cmd->argv[j];
@@ -67,6 +62,19 @@ static void	add_arg_to_cmd(t_shell *shell, t_cmd *cmd, char *token)
 	}
 	new_argv[count] = arg;
 	new_argv[count + 1] = NULL;
+	return (new_argv);
+}
+
+static void	add_arg_to_cmd(t_shell *shell, t_cmd *cmd, char *token)
+{
+	char	*arg;
+	char	*temp_arg;
+	char	**new_argv;
+
+	temp_arg = check_expansion(shell, token);
+	arg = cleanup_quotes(shell, temp_arg);
+	free(temp_arg);
+	new_argv = create_new_argv(shell, cmd, arg);
 	free(cmd->argv);
 	cmd->argv = new_argv;
 }
@@ -83,7 +91,6 @@ static void	redir_or_arg(t_shell *shell, t_cmd *cmd, char **arr, size_t *i)
 				*i += 1;
 				break ;
 			}
-			//if (redir_type(arr[*i]) != HEREDOC)
 			create_redir(shell, cmd, arr[*i], arr[*i + 1]);
 			*i += 2;
 		}

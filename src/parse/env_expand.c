@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/05/28 11:42:21 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/18 17:55:47 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,19 @@ static char	*handle_expansion(
 	return (temp);
 }
 
+char	*add_char(t_shell *shell, char *str, size_t *i, char *result)
+{
+	char	buffer[2];
+
+	buffer[0] = str[*i];
+	buffer[1] = '\0';
+	result = ft_strjoin(result, buffer);
+	if (!result)
+		malloc_fail(shell, "add char\n");
+	*i += 1;
+	return (result);
+}
+
 char	*check_expansion(t_shell *shell, char *str)
 {
 	size_t	i;
@@ -67,6 +80,8 @@ char	*check_expansion(t_shell *shell, char *str)
 	in_singles = false;
 	in_doubles = false;
 	result = ft_strdup("");
+	if (!str)
+		return (NULL);
 	if (!result)
 		malloc_fail(shell, "check expansion");
 	while (str[i])
@@ -75,49 +90,7 @@ char	*check_expansion(t_shell *shell, char *str)
 		if (str[i] == '$' && !in_singles)
 			result = handle_expansion(shell, str, &i, result);
 		else
-		{
-			result = ft_strjoin_char(result, str[i]);
-			if (!result)
-				malloc_fail(shell, "check expansion");
-			i++;
-		}
+			result = add_char(shell, str, &i, result);
 	}
 	return (result);
-}
-
-static void	remove_from_arr(t_shell *shell, size_t i)
-{
-	free(shell->tokens[i]);
-	while (shell->tokens[i + 1])
-	{
-		shell->tokens[i] = shell->tokens[i + 1];
-		i++;
-	}
-	shell->tokens[i] = NULL;
-}
-
-void	expand_tokens(t_shell *shell)
-{
-	size_t	i;
-	char	*new_token;
-
-	i = 0;
-	if (shell->found_error == true)
-		return ;
-	while (shell->tokens[i])
-	{
-		if (has_path(shell->tokens[i]) == true)
-		{
-			new_token = check_expansion(shell, shell->tokens[i]);
-			if (new_token[0] == '\0')
-			{
-				free(new_token);
-				remove_from_arr(shell, i);
-				break ;
-			}
-			free(shell->tokens[i]);
-			shell->tokens[i] = new_token;
-		}
-		i++;
-	}
 }

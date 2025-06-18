@@ -25,6 +25,7 @@ PARSE_SRCS		:= \
 				token.c \
 				token_len.c \
 				syntax.c \
+				rm_empty.c \
 				rm_quotes.c \
 				env_expand.c \
 				cmd_struct.c \
