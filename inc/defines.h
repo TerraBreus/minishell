@@ -52,7 +52,7 @@ minishell: exit: too many arguments\n"
 
 # define SAVE		0
 # define RESTORE	1
-# define CLOSE		2
+# define CLOSE		-12
 
 # define INTERNAL_ERROR -1337
 # define NEW_PROMPT	-14
