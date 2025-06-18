@@ -29,5 +29,10 @@ int	builtout_cmd(t_cmd *cmd_list, t_shell *shell_data)
 		return (-1);
 	}
 	else
+	{
+		close_heredoc_parent(cmd_list->redirection);
+		//Check if we used a heredoc in this command and close it
+		//by calling store_heredoc(-1) and closing it.
 		return (pid);
+	}
 }

@@ -34,5 +34,8 @@ int	child_command(t_cmd *cmd_list, t_shell *shell_data, t_pipe *pipe_data)
 		exit(EXIT_FAILURE);
 	}
 	else
+	{
+		close_heredoc_parent(cmd_list->redirection);
 		return (pid);
+	}
 }
