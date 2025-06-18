@@ -158,6 +158,8 @@ int		single_cmd(t_cmd *cmd_list, t_shell *shell_data);
 // int		setup_heredoc(t_shell *shell, t_redir *r, t_cmd *cmd_list);
 // int		setup_heredoc(t_shell *shell, char *delim); // now redundent!
 int		heredoc(t_shell *shell, char **arr);
+void	run_heredoc(t_shell *shell, int pfd[2], char *delim);
+
 //Wait call to retrieve exit status of child.
 int		ft_wait(t_shell *shell, int last_pid, int *status);
 

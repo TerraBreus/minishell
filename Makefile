@@ -10,13 +10,13 @@ LIBFT			:= $(LIBFT_DIR)/libft.a
 
 BUILTIN_SRCS	:= \
 				builtin.c \
-				builtin_env.c \
-				builtin_export.c \
-				builtin_export_helper.c \
-				builtin_echo.c \
 				builtin_cd.c \
+				builtin_pwd.c \
+				builtin_env.c \
+				builtin_echo.c \
 				builtin_unset.c \
-				builtin_pwd.c
+				builtin_export.c \
+				builtin_export_helper.c
 
 PARSE_SRCS		:= \
 				init.c \
@@ -38,28 +38,29 @@ PARSE_SRCS		:= \
 				utils_bool.c
 
 EXEC_SRCS		:= \
-			   builtin_cmd.c \
-			   builtout_cmd.c \
-			   store_heredoc.c \
-			   check_4_heredoc.c \
-			   check_file_permissions.c \
-			   child_command.c \
-			   count_commands.c \
-			   create_pipe.c \
-			   exec_cmd.c \
-			   execution.c \
-			   ft_wait.c \
-			   close_pipe.c \
-			   is_built_in.c \
-			   mult_cmd.c \
-			   parse_mult_cmd.c \
-			   redirection_handlers.c \
-			   save_close_restore_io.c \
-			   setup_heredoc.c \
-			   setup_pipe_builtout.c \
-			   setup_redir.c \
-			   single_cmd.c \
-			   exit_on_fail.c
+				builtin_cmd.c \
+				builtout_cmd.c \
+				store_heredoc.c \
+				check_4_heredoc.c \
+				check_file_permissions.c \
+				child_command.c \
+				count_commands.c \
+				create_pipe.c \
+				exec_cmd.c \
+				execution.c \
+				ft_wait.c \
+				close_pipe.c \
+				is_built_in.c \
+				mult_cmd.c \
+				parse_mult_cmd.c \
+				redirection_handlers.c \
+				save_close_restore_io.c \
+				setup_heredoc.c \
+				run_heredoc.c \
+				setup_pipe_builtout.c \
+				setup_redir.c \
+				single_cmd.c \
+				exit_on_fail.c
 
 SRCS			:= main.c \
 				$(addprefix parse/,$(PARSE_SRCS)) \
