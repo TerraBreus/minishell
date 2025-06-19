@@ -6,7 +6,7 @@
 /*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/18 17:54:18 by masmit           ###   ########.fr       */
+/*   Updated: 2025/06/19 15:58:31 by masmit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	loop(t_shell *shell)
 	{
 		ambiguous_check(shell, shell->tokens);
 		rm_empty(shell);
+		token_to_struct(shell, shell->tokens, &exec);
 		if (shell->found_error == false)
 			shell->last_errno = 0;
-		token_to_struct(shell, shell->tokens, &exec);
 		execution(exec, shell);
 		cleanup_struct(&exec);
 		store_heredoc(CLOSE);
