@@ -44,6 +44,7 @@ EXEC_SRCS		:= \
 				check_4_heredoc.c \
 				check_file_permissions.c \
 				child_command.c \
+				paths_for_execve.c \
 				count_commands.c \
 				create_pipe.c \
 				exec_cmd.c \
