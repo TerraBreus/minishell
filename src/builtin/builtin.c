@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: masmit <masmit@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/28 11:41:36 by masmit            #+#    #+#             */
-/*   Updated: 2025/06/12 14:31:56 by masmit           ###   ########.fr       */
+/*                                                         ::::::::           */
+/*   builtin.c                                           :+:    :+:           */
+/*                                                      +:+                   */
+/*   By: zivanov <marvin@42.fr>                        +#+                    */
+/*                                                    +#+                     */
+/*   Created: 2025/06/19 16:17:25 by zivanov        #+#    #+#                */
+/*   Updated: 2025/06/19 16:17:27 by zivanov        ########   odam.nl        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	my_exit(t_shell *shell, t_cmd *exec, char **args)
 			i++;
 		if (args[1][i] != '\0')
 		{
-			ft_putstr_fd("minishell: numeric argument required\n", STDERR_FILENO);;
+			ft_putstr_fd("minishell: numeric argument required\n",
+				STDERR_FILENO);
 			status = 2;
 		}
 		else

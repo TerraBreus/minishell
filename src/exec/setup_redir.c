@@ -28,7 +28,7 @@ int	setup_redir(t_redir *redir_data)
 		if (filepath == NULL)
 			return (-1);
 		if (*filepath == '\0')
-			return (ft_putstr_fd("error: No such file\n", STDERR_FILENO),-1);
+			return (ft_putstr_fd("error: No such file\n", STDERR_FILENO), -1);
 		if (check_file_permissions(filepath, redir_data->type) == -1)
 			return (-1);
 		if (redir_data->type < 0 || redir_data->type > 3)
