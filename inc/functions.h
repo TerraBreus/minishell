@@ -127,6 +127,13 @@ int		builtout_cmd(t_cmd *cmd_list, t_shell *shell_data);
 //simple pipe call but in a struct.
 int		create_pipe(t_pipe *pipe_data);
 
+//Functions that help find the path for a command
+//from the different paths directions in the environment variable
+char	*find_full_path(char *paths[], char *cmd);
+char	**create_possible_paths(char *envp[]);
+void	free_paths(char **possible_paths);
+bool	relative_path(char *path);
+
 //Function dup2's to stdin/out and closes pipes for both child as the parent
 int		setup_pipe_builtout(t_pipe *pipe_data, pid_t pid, t_cmd_type type);
 
